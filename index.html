@@ -1424,64 +1424,166 @@
             color: var(--gray-800);
         }
 
-        /* Timeline Section */
+        /* Timeline Section - Gantt Chart */
         .timeline-section {
             background: var(--white);
         }
 
-        .timeline {
-            display: flex;
-            justify-content: space-between;
-            position: relative;
-            padding: 2rem 0;
+        .gantt-container {
+            overflow-x: auto;
+            padding-bottom: 1rem;
         }
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gray-200);
-            transform: translateY(-50%);
+        .gantt-chart {
+            min-width: 900px;
+            position: relative;
         }
 
-        .timeline-item {
-            position: relative;
+        .gantt-header {
+            display: grid;
+            grid-template-columns: 220px repeat(6, 1fr);
+            gap: 2px;
+            margin-bottom: 8px;
+            padding-left: 0;
+        }
+
+        .gantt-month {
             text-align: center;
-            z-index: 1;
-        }
-
-        .timeline-dot {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--white);
-            border: 4px solid var(--gray-300);
-            margin: 0 auto 1rem;
-        }
-
-        .timeline-item.active .timeline-dot {
-            border-color: var(--orange);
-            background: var(--orange);
-        }
-
-        .timeline-item.completed .timeline-dot {
-            border-color: var(--success);
-            background: var(--success);
-        }
-
-        .timeline-label {
             font-weight: 600;
-            color: var(--gray-800);
-            margin-bottom: 0.25rem;
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            padding: 8px 4px;
+            background: var(--gray-100);
+            border-radius: 4px;
         }
 
-        .timeline-date {
-            font-size: 0.85rem;
-            color: var(--gray-500);
+        .gantt-month.gate {
+            background: var(--orange-light);
+            color: var(--orange-dark);
+            font-weight: 700;
         }
+
+        .gantt-month.mvp {
+            background: var(--success);
+            color: white;
+            font-weight: 700;
+        }
+
+        .gantt-row {
+            display: grid;
+            grid-template-columns: 220px repeat(6, 1fr);
+            gap: 2px;
+            margin-bottom: 4px;
+            align-items: center;
+        }
+
+        .gantt-project {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            padding: 8px 12px;
+            background: var(--gray-50);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gantt-level {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .gantt-level.l3 { background: #FEF3C7; color: #92400E; }
+        .gantt-level.l2 { background: #DBEAFE; color: #1E40AF; }
+        .gantt-level.l1 { background: #D1FAE5; color: #065F46; }
+        .gantt-level.l0 { background: #E5E7EB; color: #374151; }
+
+        .gantt-bar-container {
+            position: relative;
+            height: 28px;
+            background: var(--gray-100);
+            border-radius: 4px;
+        }
+
+        .gantt-bar {
+            position: absolute;
+            height: 100%;
+            border-radius: 4px;
+            opacity: 0.9;
+        }
+
+        .gantt-bar.l3 { background: linear-gradient(90deg, #F59E0B, #FBBF24); }
+        .gantt-bar.l2 { background: linear-gradient(90deg, #3B82F6, #60A5FA); }
+        .gantt-bar.l1 { background: linear-gradient(90deg, #10B981, #34D399); }
+        .gantt-bar.l0 { background: linear-gradient(90deg, #6B7280, #9CA3AF); }
+
+        .gantt-gates {
+            display: grid;
+            grid-template-columns: 220px repeat(6, 1fr);
+            gap: 2px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 2px dashed var(--gray-200);
+        }
+
+        .gantt-gate-label {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            padding: 4px 8px;
+        }
+
+        .gantt-gate-marker {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .gate-badge {
+            background: var(--orange);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .mvp-badge {
+            background: var(--success);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .gantt-legend {
+            display: flex;
+            gap: 24px;
+            margin-top: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+
+        .legend-color.l3 { background: #F59E0B; }
+        .legend-color.l2 { background: #3B82F6; }
+        .legend-color.l1 { background: #10B981; }
+        .legend-color.l0 { background: #6B7280; }
 
         /* ROI Section */
         .roi-section {
@@ -1883,6 +1985,7 @@
                 <div class="hero-stat">
                     <div class="hero-stat-value">17 mio</div>
                     <div class="hero-stat-label">nabrat lidi</div>
+                    <div style="font-size: 0.7rem; opacity: 0.7; margin-top: 4px;">~15 lidí × 1,1 mio/rok</div>
                 </div>
                 <div class="hero-stat" style="display: flex; align-items: center; justify-content: center;">
                     <div class="hero-stat-value" style="font-size: 1.5rem;">vs</div>
@@ -1911,7 +2014,7 @@
                 <div class="problem-card">
                     <div class="problem-icon"></div>
                     <div class="problem-value">3 oblasti</div>
-                    <div class="problem-label">automatizace dat, katastr, pricing</div>
+                    <div class="problem-label">monitoring katastru, predikce cash flow, interní efektivita</div>
                 </div>
                 <div class="problem-card">
                     <div class="problem-icon"></div>
@@ -1941,15 +2044,15 @@
             
             <div class="pyramid-container">
                 <div class="pyramid-visual">
-                    <div class="pyramid-level pyramid-l1" data-level="l1" onclick="showLevel('l1')">Strategická úroveň</div>
+                    <div class="pyramid-level pyramid-l1 active" data-level="l1" onclick="showLevel('l1')">Strategická úroveň</div>
                     <div class="pyramid-level pyramid-l2" data-level="l2" onclick="showLevel('l2')">Týmová úroveň</div>
-                    <div class="pyramid-level pyramid-l3 active" data-level="l3" onclick="showLevel('l3')">Osobní úroveň</div>
+                    <div class="pyramid-level pyramid-l3" data-level="l3" onclick="showLevel('l3')">Osobní úroveň</div>
                     <div class="pyramid-level pyramid-l0" data-level="l0" onclick="showLevel('l0')">Datová základna</div>
                 </div>
                 
                 <div class="pyramid-details">
-                    <div class="pyramid-detail active" id="detail-l3">
-                        <h3>Osobní produktivita</h3>
+                    <div class="pyramid-detail" id="detail-l3">
+                        <h3>Osobní úroveň</h3>
                         <p>Ušetří hodiny denně. Copilot už máme, stačí zapnout. Lze začít okamžitě.</p>
                         <div class="pyramid-projects">
                             <div class="pyramid-project">
@@ -1980,7 +2083,7 @@
                     </div>
                     
                     <div class="pyramid-detail" id="detail-l2">
-                        <h3>Pro celý tým</h3>
+                        <h3>Týmová úroveň</h3>
                         <p>Méně přepisování z Raynetu do Excelu a zpátky. Automatizace datových toků.</p>
                         <div class="pyramid-projects">
                             <div class="pyramid-project">
@@ -1994,8 +2097,8 @@
                         </div>
                     </div>
                     
-                    <div class="pyramid-detail" id="detail-l1">
-                        <h3>Velké věci</h3>
+                    <div class="pyramid-detail active" id="detail-l1">
+                        <h3>Strategická úroveň</h3>
                         <p>AI hlídá katastr 24/7. Dřívější „cink", lepší ceny. Tohle nás odliší od konkurence.</p>
                         <div class="pyramid-projects">
                             <div class="pyramid-project">
@@ -2003,15 +2106,15 @@
                                 <span class="pyramid-project-roi">500 tis./rok</span>
                             </div>
                             <div class="pyramid-project">
-                                <span class="pyramid-project-name">AI monitoring cen pronájmů</span>
+                                <span class="pyramid-project-name">Predikce Cash Flow</span>
                                 <span class="pyramid-project-roi">500 tis./rok</span>
                             </div>
                         </div>
                     </div>
                     
                     <div class="pyramid-detail" id="detail-l0">
-                        <h3>Pořádek v datech</h3>
-                        <p>Jeden zdroj pravdy dat – jeden SharePoint, jasná struktura. Aby AI měla s čím pracovat.</p>
+                        <h3>Datová základna</h3>
+                        <p>TNS jako základ pro strukturovaná data, SharePoint pro dokumenty. Dotahujeme, co už máme.</p>
                         <div class="pyramid-projects">
                             <div class="pyramid-project">
                                 <span class="pyramid-project-name">Jeden zdroj pravdy dat</span>
@@ -2025,6 +2128,9 @@
                     </div>
                 </div>
             </div>
+            <p style="text-align: center; font-size: 0.85rem; color: var(--neutral-300); margin-top: 24px; font-style: italic;">
+                Odhady vycházejí z interních rozhovorů. Kalkulace: hodinovka 500 Kč.
+            </p>
         </div>
     </section>
 
@@ -2043,18 +2149,18 @@
                     <p class="focus-subtitle">Méně ruční práce, více času na to důležité</p>
                     <div class="focus-stats">
                         <div class="focus-stat">
-                            <div class="focus-stat-value">10</div>
+                            <div class="focus-stat-value">11</div>
                             <div class="focus-stat-label">projektů</div>
                         </div>
                         <div class="focus-stat">
-                            <div class="focus-stat-value">~1,6 mio</div>
+                            <div class="focus-stat-value">~2 mio</div>
                             <div class="focus-stat-label">úspora/rok</div>
                         </div>
                     </div>
                     <ul class="focus-benefits">
                         <li>Méně času v emailech</li>
                         <li>Méně manuálního přepisování</li>
-                        <li>Méně chyb, méně předělávek</li>
+                        <li>Lepší přehled o cash flow</li>
                         <li>Pořádek v datech a složkách</li>
                     </ul>
                 </div>
@@ -2065,17 +2171,16 @@
                     <p class="focus-subtitle">Rychlejší a přesnější služby pro klienty</p>
                     <div class="focus-stats">
                         <div class="focus-stat">
-                            <div class="focus-stat-value">4</div>
+                            <div class="focus-stat-value">3</div>
                             <div class="focus-stat-label">projekty</div>
                         </div>
                         <div class="focus-stat">
-                            <div class="focus-stat-value">~1,1 mio</div>
+                            <div class="focus-stat-value">~600 tis.</div>
                             <div class="focus-stat-label">hodnota/rok</div>
                         </div>
                     </div>
                     <ul class="focus-benefits">
                         <li>Rychlejší „cink" – klient ví o vkladu dřív</li>
-                        <li>Lepší ceny díky AI monitoringu trhu</li>
                         <li>Dříve na trhu s novou nabídkou</li>
                         <li>Z akvizice do prodeje rychleji</li>
                     </ul>
@@ -2273,7 +2378,7 @@
                         <span class="project-status planned"></span>
                     </div>
                     <h3 class="project-title">Méně manuálního přepisování</h3>
-                    <p class="project-desc"><strong>Problém:</strong> „Chobotnice" – data o obchodech se přepisují mezi Raynetem, Excelem a TNS. Chyby, duplicity, ztracené hodiny. <strong>Řešení:</strong> Automatická synchronizace dat mezi systémy + jeden dashboard. <strong>Kdo:</strong> Obchod (Jurča, Šiška, Varga, Sekanina).</p>
+                    <p class="project-desc"><strong>Problém:</strong> Data o obchodech se přepisují mezi Raynetem, Excelem a TNS. Chyby, duplicity, ztracené hodiny. <strong>Řešení:</strong> Automatická synchronizace dat mezi systémy + jeden dashboard. <strong>Kdo:</strong> Obchod (Jurča, Šiška, Varga, Sekanina).</p>
                     <div class="project-metrics">
                         <div class="project-metric">
                             <div class="project-metric-value">200 tis.</div>
@@ -2349,30 +2454,30 @@
                     </div>
                 </div>
 
-                <!-- L1 #2: Revenue Optimizer -->
-                <div class="project-card" data-level="l1" data-focus="external" onclick="openModal('modal-project-revenue')">
+                <!-- L1 #2: Predikce Cash Flow -->
+                <div class="project-card" data-level="l1" data-focus="internal" onclick="openModal('modal-project-cashflow')">
                     <div class="project-header">
                         <span class="project-level l1">Strategická úroveň</span>
                         <span class="project-status planned"></span>
                     </div>
-                    <h3 class="project-title">AI monitoring cen pronájmů</h3>
-                    <p class="project-desc"><strong>Problém:</strong> Revenue manažeři tráví 10+ hodin týdně sledováním konkurence na Bookingu a Sreality pro nastavení cen. <strong>Řešení:</strong> AI scrapuje data, analyzuje trendy a navrhuje optimální ceny. <strong>Kdo:</strong> Správa nájmů (Němeček, Homolová).</p>
+                    <h3 class="project-title">Predikce Cash Flow</h3>
+                    <p class="project-desc"><strong>Problém:</strong> Řízení likvidity je manuální – Excel, odhady, nejistota. Finance nemají přehled o očekávaných příjmech z CRM. <strong>Řešení:</strong> AI propojí bankovní data s CRM (termíny „cinku") a simuluje scénáře likvidity. <strong>Kdo:</strong> Finance (Kosová, Šamalíková).</p>
                     <div class="project-metrics">
                         <div class="project-metric">
-                            <div class="project-metric-value">1 mio</div>
+                            <div class="project-metric-value">500 tis.</div>
                             <div class="project-metric-label">Investice</div>
                         </div>
                         <div class="project-metric">
-                            <div class="project-metric-value">500 tis.</div>
+                            <div class="project-metric-value">350 tis.</div>
                             <div class="project-metric-label">Benefit/rok</div>
                         </div>
                         <div class="project-metric">
-                            <div class="project-metric-value">~24 měsíců</div>
+                            <div class="project-metric-value">~17 měsíců</div>
                             <div class="project-metric-label">Návratnost</div>
                         </div>
                     </div>
                     <div class="project-focus-tags">
-                        <span class="focus-tag external">Ven</span>
+                        <span class="focus-tag internal">Dovnitř</span>
                     </div>
                 </div>
 
@@ -2383,7 +2488,7 @@
                         <span class="project-status planned"></span>
                     </div>
                     <h3 class="project-title">Jeden zdroj pravdy dat</h3>
-                    <p class="project-desc"><strong>Problém:</strong> Data roztříštěná mezi TNS, SharePoint, OneDrive, Raynet, Domsys, Pohoda – nikdo neví, kde je „pravda". <strong>Řešení:</strong> Jeden strukturovaný SharePoint jako single source of truth + jasná pravidla kam co patří. <strong>Kdo:</strong> IT (Langer, Hovorka) + všichni.</p>
+                    <p class="project-desc"><strong>Problém:</strong> Dokumenty roztříštěné mezi starý SharePoint, nový SharePoint a OneDrive – nikdo neví, kde je aktuální verze. <strong>Řešení:</strong> TNS zůstává zdrojem pravdy pro data, dokumenty sjednotíme na jeden SharePoint. <strong>Kdo:</strong> IT (Langer, Hovorka) + všichni.</p>
                     <div class="project-metrics">
                         <div class="project-metric">
                             <div class="project-metric-value">200 tis.</div>
@@ -2443,133 +2548,245 @@
         <div class="section-container">
             <div class="section-header">
                 <h2 class="section-title">Jak to budeme řídit</h2>
-                <p class="section-subtitle">Jasné rozhodovací body, odpovědnosti a ochrana proti selhání</p>
+                <p class="section-subtitle">Kdo rozhoduje, jak poznáme, že to funguje, a kdy stopneme</p>
             </div>
             
             <div class="governance-grid">
-                <!-- Rozhodovací brány -->
+                <!-- Rozhodovací body -->
                 <div class="governance-card">
-                    <h3>Rozhodovací brány (Gates)</h3>
+                    <h3>Rozhodovací body</h3>
                     <div class="governance-row">
-                        <span class="governance-label">Duben 2026:</span>
-                        <span class="governance-value">Go/No-go na základě pilotu (kritéria: >70% accuracy katastr, >50% času méně hledání, user satisfaction >4/5)</span>
+                        <span class="governance-label">Po pilotu (60 dní):</span>
+                        <span class="governance-value">Funguje to? Ušetřilo to čas? Jsou kolegové spokojení? Pokud ano, pokračujeme. Pokud ne, stopneme.</span>
                     </div>
                     <div class="governance-row">
-                        <span class="governance-label">Červenec 2026:</span>
-                        <span class="governance-value">Go/No-go na scale (kritéria: ROI confirmed, no major incidents, adoption >80%)</span>
+                        <span class="governance-label">Po 6 měsících:</span>
+                        <span class="governance-value">Vrací se investice podle plánu? Používají to lidé? Rozšiřujeme, nebo upravujeme směr.</span>
                     </div>
                 </div>
 
                 <!-- Odpovědnosti -->
                 <div class="governance-card">
-                    <h3>Odpovědnosti</h3>
+                    <h3>Kdo za co odpovídá</h3>
                     <div class="governance-row">
                         <span class="governance-label">Rozhodnutí:</span>
-                        <span class="governance-value"><strong>Pan Ton</strong> (final decision maker)</span>
+                        <span class="governance-value"><strong>Pan Ton</strong> – dává zelenou / červenou</span>
                     </div>
                     <div class="governance-row">
-                        <span class="governance-label">Dodání:</span>
-                        <span class="governance-value"><strong>AI tým</strong> (program lead, koordinace)</span>
+                        <span class="governance-label">Koordinace:</span>
+                        <span class="governance-value"><strong>AI tým</strong> – vedení projektu, prioritizace</span>
                     </div>
                     <div class="governance-row">
                         <span class="governance-label">Infrastruktura:</span>
-                        <span class="governance-value"><strong>IT oddělení</strong> (Azure, Microsoft stack)</span>
+                        <span class="governance-value"><strong>IT oddělení</strong> – přístupy, Azure, Microsoft</span>
                     </div>
                     <div class="governance-row">
-                        <span class="governance-label">Build:</span>
-                        <span class="governance-value"><strong>External vendor</strong> (rychlejší dodání)</span>
+                        <span class="governance-label">Realizace:</span>
+                        <span class="governance-value"><strong>Primárně interně</strong>, externí dodavatel, pokud nestihneme</span>
                     </div>
                 </div>
 
                 <!-- Ochrana proti riziku -->
                 <div class="governance-card">
-                    <h3>Jak se chráníme proti riziku</h3>
+                    <h3>Jak se chráníme</h3>
                     <div class="governance-row">
-                        <span class="governance-label">Pilot first:</span>
-                        <span class="governance-value">Začínáme malým rozsahem (60 dní, max burn 300 tis.)</span>
+                        <span class="governance-label">Začínáme pilotem:</span>
+                        <span class="governance-value">60 dní, max 300 tis. – otestujeme, jestli to funguje</span>
                     </div>
                     <div class="governance-row">
-                        <span class="governance-label">Kill kritéria:</span>
-                        <span class="governance-value">Pokud benefit <30% plánu po 6 měsících → stop</span>
+                        <span class="governance-label">Pojistka:</span>
+                        <span class="governance-value">Pokud po pilotu nevidíme přínos, stopneme, než utratíme víc</span>
                     </div>
                     <div class="governance-row">
-                        <span class="governance-label">Žádný vendor lock-in:</span>
-                        <span class="governance-value">Stavíme na Microsoft stack (už máme licence)</span>
+                        <span class="governance-label">Stavíme na tom, co máme:</span>
+                        <span class="governance-value">Microsoft stack, TNS – nebudujeme od nuly</span>
                     </div>
                     <div class="governance-row">
-                        <span class="governance-label">Human-in-the-loop:</span>
-                        <span class="governance-value">AI navrhuje, člověk schvaluje (katastr, smlouvy)</span>
+                        <span class="governance-label">Člověk vždy rozhoduje:</span>
+                        <span class="governance-value">AI navrhuje, člověk schvaluje</span>
                     </div>
                 </div>
 
                 <!-- KPIs -->
                 <div class="governance-card">
-                    <h3>Jak měříme úspěch (KPIs)</h3>
+                    <h3>Jak poznáme, že to funguje</h3>
                     <div class="governance-row">
                         <span class="governance-label">Katastr:</span>
-                        <span class="governance-value">% změn detekovaných <24h (cíl 95%)</span>
+                        <span class="governance-value">Změny vidíme okamžitě (v momentě provedení vkladu)</span>
                     </div>
                     <div class="governance-row">
-                        <span class="governance-label">Data:</span>
-                        <span class="governance-value">Čas ušetřený hledáním/týden (cíl −80%)</span>
+                        <span class="governance-label">Dokumenty:</span>
+                        <span class="governance-value">Najdeme, co potřebujeme, pod 5 minut</span>
                     </div>
                     <div class="governance-row">
-                        <span class="governance-label">Revenue:</span>
-                        <span class="governance-value">Pricing accuracy improvement (cíl +2%)</span>
+                        <span class="governance-label">Cash Flow:</span>
+                        <span class="governance-value">Predikce sedí na 85 %+</span>
                     </div>
                     <div class="governance-row">
-                        <span class="governance-label">Business:</span>
-                        <span class="governance-value">Cashflow saved/earned (cíl 6–8 mio/rok)</span>
+                        <span class="governance-label">Celkově:</span>
+                        <span class="governance-value">Očekávaná úspora 2,5–3 mio/rok</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Timeline Section -->
+    <!-- Timeline Section - Gantt Chart -->
     <section class="section timeline-section" id="timeline">
         <div class="section-container">
             <div class="section-header">
                 <h2 class="section-title">Kdy co spustíme</h2>
-                <p class="section-subtitle">Nejdřív rychlé výhry, pak větší věci. Krok za krokem.</p>
+                <p class="section-subtitle">Všech 12 projektů v čase. Nejdřív rychlé výhry, pak větší věci.</p>
             </div>
             
-            <div class="timeline">
-                <div class="timeline-item active">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-label">Vlna 0</div>
-                    <div class="timeline-date">Únor</div>
+            <div class="gantt-container">
+                <div class="gantt-chart">
+                    <!-- Header s měsíci -->
+                    <div class="gantt-header">
+                        <div class="gantt-month"></div>
+                        <div class="gantt-month">Únor</div>
+                        <div class="gantt-month">Březen</div>
+                        <div class="gantt-month gate">Duben (Gate 1)</div>
+                        <div class="gantt-month">Květen</div>
+                        <div class="gantt-month">Červen</div>
+                        <div class="gantt-month mvp">Červenec (MVP)</div>
+                    </div>
+
+                    <!-- L3 projekty - Osobní úroveň -->
+                    <div class="gantt-row">
+                        <div class="gantt-project"><span class="gantt-level l3">L3</span> Rychlejší práce s emaily</div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                    </div>
+                    <div class="gantt-row">
+                        <div class="gantt-project"><span class="gantt-level l3">L3</span> Přehled z Teams skupin</div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                    </div>
+                    <div class="gantt-row">
+                        <div class="gantt-project"><span class="gantt-level l3">L3</span> Zadávej úkoly hlasem</div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 50%;"></div></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                    </div>
+                    <div class="gantt-row">
+                        <div class="gantt-project"><span class="gantt-level l3">L3</span> Z porady rovnou úkoly</div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                    </div>
+                    <div class="gantt-row">
+                        <div class="gantt-project"><span class="gantt-level l3">L3</span> Rychlejší analýza smluv</div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                    </div>
+                    <div class="gantt-row">
+                        <div class="gantt-project"><span class="gantt-level l3">L3</span> Chytřejší práce s tabulkami</div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 30%;"></div></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                    </div>
+
+                    <!-- L2 projekty - Týmová úroveň -->
+                    <div class="gantt-row" style="margin-top: 12px;">
+                        <div class="gantt-project"><span class="gantt-level l2">L2</span> Méně manuálního přepisování</div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 50%;"></div></div>
+                    </div>
+                    <div class="gantt-row">
+                        <div class="gantt-project"><span class="gantt-level l2">L2</span> Z nákupu do prodeje rychleji</div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 50%;"></div></div>
+                    </div>
+
+                    <!-- L0 projekty - Datová základna -->
+                    <div class="gantt-row" style="margin-top: 12px;">
+                        <div class="gantt-project"><span class="gantt-level l0">L0</span> Jeden zdroj pravdy dat</div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 50%;"></div></div>
+                    </div>
+                    <div class="gantt-row">
+                        <div class="gantt-project"><span class="gantt-level l0">L0</span> Jeden report místo čtyř</div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"></div>
+                    </div>
+
+                    <!-- L1 projekty - Strategická úroveň -->
+                    <div class="gantt-row" style="margin-top: 12px;">
+                        <div class="gantt-project"><span class="gantt-level l1">L1</span> Upozornění na změny v katastru</div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                    </div>
+                    <div class="gantt-row">
+                        <div class="gantt-project"><span class="gantt-level l1">L1</span> Predikce Cash Flow</div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                        <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                    </div>
+
+                    <!-- Gates -->
+                    <div class="gantt-gates">
+                        <div class="gantt-gate-label">Rozhodovací body:</div>
+                        <div class="gantt-gate-marker"></div>
+                        <div class="gantt-gate-marker"></div>
+                        <div class="gantt-gate-marker"><span class="gate-badge">Gate 1: Pilot OK?</span></div>
+                        <div class="gantt-gate-marker"></div>
+                        <div class="gantt-gate-marker"></div>
+                        <div class="gantt-gate-marker"><span class="mvp-badge">MVP + Gate 2</span></div>
+                    </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-label">Vlna 1</div>
-                    <div class="timeline-date">Březen</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-label">Kontrola 1</div>
-                    <div class="timeline-date">Duben</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-label">Vlna 2</div>
-                    <div class="timeline-date">Květen</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-label">Vlna 3</div>
-                    <div class="timeline-date">Červen</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-label">Kontrola 2</div>
-                    <div class="timeline-date">Červenec</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-label">Rozšíření</div>
-                    <div class="timeline-date">3.–4. kvartál</div>
-                </div>
+            </div>
+
+            <!-- Legenda -->
+            <div class="gantt-legend">
+                <div class="legend-item"><div class="legend-color l3"></div> Osobní úroveň (L3)</div>
+                <div class="legend-item"><div class="legend-color l2"></div> Týmová úroveň (L2)</div>
+                <div class="legend-item"><div class="legend-color l0"></div> Datová základna (L0)</div>
+                <div class="legend-item"><div class="legend-color l1"></div> Strategická úroveň (L1)</div>
             </div>
         </div>
     </section>
@@ -2583,12 +2800,12 @@
             
             <div class="roi-grid">
                 <div class="roi-card">
-                    <div class="roi-value">2,3 mio</div>
+                    <div class="roi-value">~1,8 mio</div>
                     <div class="roi-label">Celková investice</div>
                 </div>
                 <div class="roi-card">
                     <div class="roi-value orange">2,5–3 mio</div>
-                    <div class="roi-label">Realistický odhad/rok</div>
+                    <div class="roi-label">Očekávaná úspora/rok</div>
                 </div>
                 <div class="roi-card">
                     <div class="roi-value">10–12</div>
@@ -2641,18 +2858,6 @@
                     <div class="resource-title">Prioritizační matice</div>
                     <div class="resource-desc">Scoring a výběr projektů</div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="section cta-section">
-        <div class="section-container">
-            <h2 class="cta-title">Jdeme do toho?</h2>
-            <p class="cta-subtitle">Návrh: Začneme s L3 (230 tis.), změříme reálný přínos, pak rozhodneme o další fázi.</p>
-            <div class="cta-buttons">
-                <a href="#" class="btn btn-primary">Ano, spusťme pilotní fázi</a>
-                <a href="#" class="btn btn-outline">Chci vidět detailní rozpad</a>
             </div>
         </div>
     </section>
@@ -3069,7 +3274,7 @@ Nic nepřehlédnete
                     <div class="system-tags">
                         <span class="system-tag primary">Copilot Voice</span>
                         <span class="system-tag teams">Teams</span>
-                        <span class="system-tag tns">TNS</span>
+                        <span class="system-tag freelo" style="background: linear-gradient(135deg, #2dd4bf, #14b8a6); color: white;">Freelo</span>
                     </div>
                 </div>
 
@@ -3079,7 +3284,6 @@ Nic nepřehlédnete
                         <span class="stakeholder-badge">Petřek <span class="dept">Reality Morava</span></span>
                         <span class="stakeholder-badge">Vondráček <span class="dept">Reality Čechy</span></span>
                         <span class="stakeholder-badge">Smyčka <span class="dept">Reality</span></span>
-                        <span class="stakeholder-badge">Brož <span class="dept">Reality Čechy</span></span>
                     </div>
                 </div>
 
@@ -3142,7 +3346,7 @@ AI přepisuje
                             <span class="process-arrow">→</span>
                             <div class="process-step">
                                 <div class="process-box solution">
-Úkoly v TNS
+Úkoly ve Freelu
                                     <span class="ai-badge">automaticky</span>
                                 </div>
                             </div>
@@ -3214,7 +3418,7 @@ AI přepisuje
                     <h3>Pain Point</h3>
                     <div class="pain-quote">
                         „Po každé poradě 30 minut píšu zápis. A stejně se pak lidi hádají, co kdo řekl. Úkoly se ztrácejí."
-                        <span class="source">— Z rozhovorů: Brož, Petřek, Smyčka, Němeček (P-083, P-082)</span>
+                        <span class="source">— Z rozhovorů: Petřek, Smyčka, Němeček (P-083, P-082)</span>
                     </div>
                     <div class="system-tags">
                         <span class="system-tag primary">Microsoft Teams</span>
@@ -3624,14 +3828,14 @@ Upload do NotebookLM
         </div>
     </div>
 
-    <!-- Modal: Obchodní tabulka (Chobotnice) -->
+    <!-- Modal: Méně manuálního přepisování -->
     <div class="modal" id="modal-project-chobotnice">
         <div class="modal-content">
             <div class="modal-header" style="background: linear-gradient(135deg, #1E4A9A 0%, #3B82F6 100%);">
                 <div class="detail-header">
                     <div>
                         <h2>Méně manuálního přepisování</h2>
-                        <p>Obchodní tabulka „Chobotnice" – automatizace Raynet ↔ Excel ↔ TNS</p>
+                        <p>Automatizace datových toků Raynet ↔ Excel ↔ TNS</p>
                     </div>
                     <span class="detail-level l2">Týmová úroveň</span>
                 </div>
@@ -3745,7 +3949,7 @@ Upload do NotebookLM
                 <div class="modal-section">
                     <h3>Procesní náčrt: Starý svět → Nový svět</h3>
                     <div class="process-flow">
-                        <div class="process-label">STARÝ SVĚT – „Chobotnice" s chapadly</div>
+                        <div class="process-label">STARÝ SVĚT – ruční přepisování</div>
                         <div class="process-row">
                             <div class="process-step">
                                 <div class="process-box">
@@ -4194,94 +4398,95 @@ Rychlejší cink
         </div>
     </div>
 
-    <!-- Modal: Revenue Optimizer -->
-    <div class="modal" id="modal-project-revenue">
+    <!-- Modal: Predikce Cash Flow -->
+    <div class="modal" id="modal-project-cashflow">
         <div class="modal-content">
             <div class="modal-header" style="background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);">
                 <div class="detail-header">
                     <div>
-                        <h2>AI monitoring cen pronájmů</h2>
-                        <p>Revenue Optimizer – AI pro dynamic pricing krátkodobých pronájmů</p>
+                        <h2>Predikce Cash Flow</h2>
+                        <p>AI propojení bank + CRM pro přehled o likviditě a simulaci scénářů</p>
                     </div>
                     <span class="detail-level l1">Strategická úroveň</span>
                 </div>
-                <button class="modal-close" onclick="closeModal('modal-project-revenue')">×</button>
+                <button class="modal-close" onclick="closeModal('modal-project-cashflow')">×</button>
             </div>
             <div class="modal-body">
                 <div class="detail-stats">
                     <div class="detail-stat">
-                        <div class="detail-stat-value">1 mio</div>
+                        <div class="detail-stat-value">500 tis.</div>
                         <div class="detail-stat-label">Investice</div>
                     </div>
                     <div class="detail-stat">
-                        <div class="detail-stat-value highlight">500 tis.</div>
-                        <div class="detail-stat-label">Benefit/rok (FTE)</div>
+                        <div class="detail-stat-value highlight">350 tis.</div>
+                        <div class="detail-stat-label">Benefit/rok</div>
                     </div>
                     <div class="detail-stat">
-                        <div class="detail-stat-value">~24</div>
+                        <div class="detail-stat-value">~17</div>
                         <div class="detail-stat-label">Měsíce návratnost</div>
                     </div>
                     <div class="detail-stat">
-                        <div class="detail-stat-value">500</div>
-                        <div class="detail-stat-label">Jednotek k optimalizaci</div>
+                        <div class="detail-stat-value">~100</div>
+                        <div class="detail-stat-label">Obchodů ročně</div>
                     </div>
                 </div>
 
                 <div class="modal-section">
                     <h3>Pain Point – co říkají kolegové</h3>
                     <div class="pain-quote">
-                        „Každé ráno hodinu procházím Booking a Sreality, koukám, za kolik má konkurence. Pak ručně měním ceny v Domsysu. Když to nestihnu, máme buď prázdno, nebo pronajímáme pod cenou."
-                        <span class="source">— Homolová (Správa nájmů)</span>
+                        „Řízení likvidity je Excel a intuice. Nemám přehled, kdy přijdou peníze z obchodů – obchodníci mi hlásí termíny, ale ty se mění. Simulovat různé scénáře je noční můra."
+                        <span class="source">— Kosová (Finance)</span>
                     </div>
                     <div class="pain-quotes-grid">
                         <div class="pain-quote-mini">
-                            „Automatizovaný scraping nástroj, který každé ráno doručí report s cenami konkurence ze všech kanálů."
-                            <span class="source">— UC-020 (Správa nájmů)</span>
+                            „Implementace prediktivního modelu likvidity, který by automaticky propojil data z bank a CRM. AI by mohla simulovat různé scénáře a upozorňovat na kritické propady."
+                            <span class="source">— UC-058 (Finance)</span>
                         </div>
                         <div class="pain-quote-mini">
-                            „Manuální sledování cen konkurence na ubytovacích portálech zabírá 10 hodin týdně."
+                            „Extrémní závislost uvolňování peněz z úschov na manuálním hlídání. Nevíme dopředu, kdy peníze přijdou."
                             <span class="source">— Pyramida Pain Pointů (L1)</span>
                         </div>
                         <div class="pain-quote-mini">
-                            „Data by se automaticky natahovala z Domsysu a párovala s bankovními výpisy. AI by označila platby, které se nepřiřadily."
-                            <span class="source">— Němeček (Správa nájmů), UC-015</span>
+                            „Obchodníci posunují termíny inkasa a já se to dozvím pozdě. Potřebuju vidět změny v reálném čase."
+                            <span class="source">— UC-010 (Finance)</span>
                         </div>
                     </div>
                     <div class="system-tags">
-                        <span class="system-tag primary">Booking.com</span>
-                        <span class="system-tag primary">Sreality</span>
-                        <span class="system-tag domsys">Domsys</span>
-                        <span class="system-tag primary">ML model</span>
+                        <span class="system-tag primary">Bankovní API</span>
+                        <span class="system-tag raynet">Raynet CRM</span>
+                        <span class="system-tag tns">TNS</span>
+                        <span class="system-tag primary">Power BI</span>
                     </div>
                 </div>
 
                 <div class="modal-section">
                     <h3>Procesní náčrt</h3>
                     <div class="process-flow">
-                        <div class="process-label">DNES</div>
+                        <div class="process-label">DNES – ruční odhady</div>
                         <div class="process-row">
                             <div class="process-step">
                                 <div class="process-box">
-Ráno
+Obchodník
                                 </div>
                             </div>
                             <span class="process-arrow">→</span>
                             <div class="process-step">
                                 <div class="process-box pain">
-Booking + Sreality
-                                    <span class="time-badge">1h denně</span>
+Hlásí termín
+                                    <span class="time-badge">mění se</span>
                                 </div>
                             </div>
                             <span class="process-arrow">→</span>
                             <div class="process-step">
                                 <div class="process-box pain">
-Ruční analýza
+Excel
+                                    <span class="time-badge">ruční</span>
                                 </div>
                             </div>
                             <span class="process-arrow">→</span>
                             <div class="process-step">
                                 <div class="process-box pain">
-Změna cen v Domsysu
+„Kolik máme?"
                                 </div>
                             </div>
                         </div>
@@ -4293,34 +4498,35 @@ Změna cen v Domsysu
                         <div class="process-row">
                             <div class="process-step">
                                 <div class="process-box ai">
-AI scrapuje
-                                    <span class="ai-badge">24/7</span>
+Banka API
+                                    <span class="ai-badge">realtime</span>
                                 </div>
                             </div>
                             <span class="process-arrow">→</span>
                             <div class="process-step">
                                 <div class="process-box ai">
-ML analyzuje
+CRM data
+                                    <span class="ai-badge">termíny</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box ai">
+AI predikce
                                 </div>
                             </div>
                             <span class="process-arrow">→</span>
                             <div class="process-step">
                                 <div class="process-box solution">
-Návrh cen
-                                    <span class="ai-badge">automaticky</span>
-                                </div>
-                            </div>
-                            <span class="process-arrow">→</span>
-                            <div class="process-step">
-                                <div class="process-box solution">
-Schválení 1 klikem
+Dashboard
+                                    <span class="ai-badge">scénáře</span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="result-highlight">
-                            <div class="value">10h/týden úspora + optimální ceny</div>
-                            <div class="label">FTE 500 tis. + potenciální revenue uplift</div>
+                            <div class="value">Přehled o likviditě v reálném čase</div>
+                            <div class="label">Méně překvapení, lepší plánování, méně manuální práce</div>
                         </div>
                     </div>
                 </div>
@@ -4328,29 +4534,50 @@ Schválení 1 klikem
                 <div class="modal-section">
                     <h3>Business Case</h3>
                     <table class="modal-table">
-                        <tr><td><strong>Investice</strong></td><td><strong>1 mio Kč</strong></td></tr>
-                        <tr><td><strong>FTE úspora</strong></td><td>10h/týden × 2 lidé × 50 týdnů × 500 Kč = 500 tis./rok</td></tr>
-                        <tr><td><strong>Revenue uplift</strong></td><td>Potenciálně další stovky tis. (nelze konzervativně odhadnout)</td></tr>
-                        <tr><td><strong>Návratnost</strong></td><td><strong>~24 měsíců</strong> (bez revenue uplift)</td></tr>
+                        <tr><td><strong>Investice</strong></td><td><strong>500 tis. Kč</strong></td></tr>
+                        <tr><td><strong>FTE úspora</strong></td><td>5h/týden × 50 týdnů × 500 Kč + méně ad-hoc = 150 tis./rok</td></tr>
+                        <tr><td><strong>Lepší rozhodování</strong></td><td>Včasné upozornění na propady = ~200 tis./rok (odhad)</td></tr>
+                        <tr><td><strong>Návratnost</strong></td><td><strong>~17 měsíců</strong></td></tr>
                     </table>
                     <div style="margin-top: 1rem; padding: 1rem; background: var(--gray-100); border-radius: 8px;">
-                        <strong>Co je v investici 1 mio:</strong>
+                        <strong>Co je v investici 500 tis.:</strong>
                         <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--gray-600);">
-                            <li>Scraping engine pro Booking/Sreality/konkurenci: ~400 tis. (externí)</li>
-                            <li>Pricing algoritmus + ML model: ~300 tis. (externí)</li>
-                            <li>Dashboard + integrace do systému: ~200 tis.</li>
-                            <li>Testování, ladění, kalibrace: ~100 tis.</li>
+                            <li>Napojení na bankovní API: ~150 tis.</li>
+                            <li>Integrace CRM dat (termíny obchodů): ~100 tis.</li>
+                            <li>Prediktivní model + dashboard v Power BI: ~150 tis.</li>
+                            <li>Testování, kalibrace, edge cases: ~100 tis.</li>
                             <li>Školení řešíme interně (0 Kč)</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="approach-section">
-                    <h3>Náš přístup: Revenue jako součást nového systému</h3>
-                    <p>Revenue management není standalone scraping tool. V novém systému je cenotvorba přirozenou součástí správy pronájmů – od obsazenosti, přes konkurenční ceny, až po automatické návrhy.</p>
+                    <h3>Náš přístup: Cash Flow jako součást nového systému</h3>
+                    <p>Predikce likvidity není standalone dashboard. V novém systému jsou termíny obchodů, stavy úschov a bankovní pohyby propojené od začátku – Finance vidí všechno na jednom místě.</p>
                     
                     <div class="approach-highlight">
-                        <strong>V novém systému:</strong> Jednotky spravované v novém systému budou mít automatický pricing od začátku. Žádný export do Domsysu, žádné ruční procházení Bookingu. Jeden dashboard, jedna pravda.
+                        <strong>V novém systému:</strong> Jakmile obchodník změní termín v CRM, predikce se automaticky přepočítá. Jakmile proběhne „cink" (návaznost na katastr), systém to vidí okamžitě. Žádné ruční přepisování, žádné překvapení.
+                    </div>
+
+                    <div class="approach-compare">
+                        <div class="approach-old">
+                            <h4>Starý svět</h4>
+                            <ul>
+                                <li>Excel s ručními odhady</li>
+                                <li>Termíny od obchodníků mailem</li>
+                                <li>„Kolik máme?" = hodina práce</li>
+                                <li>Scénáře = další hodina</li>
+                            </ul>
+                        </div>
+                        <div class="approach-new">
+                            <h4>Nový systém</h4>
+                            <ul>
+                                <li>Realtime data z bank</li>
+                                <li>Termíny přímo z CRM</li>
+                                <li>Dashboard s predikcí</li>
+                                <li>Simulace scénářů 1 klikem</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -4364,7 +4591,7 @@ Schválení 1 klikem
                 <div class="detail-header">
                     <div>
                         <h2>Jeden zdroj pravdy dat</h2>
-                        <p>Sjednocení dat – jeden SharePoint, jasná struktura</p>
+                        <p>TNS pro strukturovaná data, SharePoint pro dokumenty – dotažení toho, co už máme</p>
                     </div>
                     <span class="detail-level l0">Datová základna</span>
                 </div>
@@ -4393,12 +4620,12 @@ Schválení 1 klikem
                 <div class="modal-section">
                     <h3>Pain Point – co říkají kolegové</h3>
                     <div class="pain-quote">
-                        „Máme starý SharePoint, nový SharePoint, OneDrive, TNS, Raynet, Domsys, Pohodu. Nikdo neví, kde je aktuální verze dokumentu. Hledám 30 minut, než najdu smlouvu."
+                        „Máme starý SharePoint, nový SharePoint, OneDrive. Nikdo neví, kde je aktuální verze dokumentu. Hledám 30 minut, než najdu smlouvu. Data jsou v TNS, ale dokumenty jsou všude."
                         <span class="source">— Langer (IT)</span>
                     </div>
                     <div class="pain-quotes-grid">
                         <div class="pain-quote-mini">
-                            „Roztříštěnost dat mezi TNS, SharePoint, OneDrive, Raynet, Domsys a Pohodu, kdy nikdo neví, kde je pravda."
+                            „Strukturovaná data máme v TNS, ale dokumenty jsou roztříštěné mezi 3 SharePointy a OneDrive."
                             <span class="source">— Pyramida Pain Pointů (L0 Foundation)</span>
                         </div>
                         <div class="pain-quote-mini">
@@ -4420,30 +4647,30 @@ Schválení 1 klikem
                 </div>
 
                 <div class="approach-section">
-                    <h3>Náš přístup: Ne uklízet starý chaos, ale vytvořit nový pořádek</h3>
-                    <p>Klasický přístup by byl: sjednotit starý a nový SharePoint, vyčistit duplicity, zdokumentovat strukturu. Ale to je nekonečný projekt – než uklidíte jedno, vznikne další chaos.</p>
+                    <h3>Náš přístup: Stavíme na TNS, které už máme</h3>
+                    <p>Do TNS jsme už investovali a funguje jako zdroj pravdy pro strukturovaná data (obchody, klienti, projekty). Teď jde o to dotáhnout napojení na ostatní systémy a sjednotit dokumenty na SharePointu.</p>
                     
                     <div class="approach-highlight">
-                        <strong>Náš přístup:</strong> Starý chaos necháme být. Pro nový systém vytvoříme novou, čistou datovou strukturu. Nové zakázky = nová data. Staré zůstanou ve starém, dokud přirozeně neskončí.
+                        <strong>Co už máme:</strong> TNS od Xeelo je náš základ pro strukturovaná data. Není potřeba budovat nový systém – potřebujeme dotáhnout napojení (Raynet, Excel exporty) a uklidit dokumenty na jednom SharePointu.
                     </div>
 
                     <div class="approach-compare">
                         <div class="approach-box old">
-                            <h4>Co NEBUDEME dělat</h4>
+                            <h4>Kam patří co</h4>
                             <ul>
-                                <li>Uklízet 10 let starý SharePoint</li>
-                                <li>Migrovat data ze 7 systémů</li>
-                                <li>Dokumentovat strukturu chaosu</li>
-                                <li>„Sjednocovat" to, co nefunguje</li>
+                                <li><strong>TNS</strong> = strukturovaná data (obchody, termíny, stavy)</li>
+                                <li><strong>SharePoint</strong> = dokumenty (smlouvy, LV, podklady)</li>
+                                <li><strong>Raynet</strong> = CRM napojené na TNS</li>
+                                <li><strong>Power BI</strong> = reporting nad TNS</li>
                             </ul>
                         </div>
                         <div class="approach-box new">
-                            <h4>Co BUDEME dělat</h4>
+                            <h4>Co dotahujeme</h4>
                             <ul>
-                                <li>Nová struktura pro nový systém</li>
-                                <li>Čistý start, žádný balast</li>
-                                <li>Data vznikají správně od začátku</li>
-                                <li>Starý svět necháme dožít</li>
+                                <li>Napojení Raynet ↔ TNS (méně přepisování)</li>
+                                <li>Jeden SharePoint místo tří úložišť</li>
+                                <li>Jasná pravidla: kam co patří</li>
+                                <li>Staré dokumenty: necháme dožít</li>
                             </ul>
                         </div>
                     </div>
@@ -4675,7 +4902,7 @@ Méně práce
                         <p>Extrémní závislost uvolňování peněz z úschov na manuálním hlídání plomb a vkladů v katastru nemovitostí.</p>
                     </div>
                     <div class="modal-card">
-                        <h4>Revenue Management & Market Intelligence</h4>
+                        <h4>Cash Flow & Likvidita</h4>
                         <p>Manuální sledování cen konkurence na ubytovacích portálech (10 h týdně) a sledování Sreality.cz pro dynamickou cenotvorbu.</p>
                     </div>
                 </div>
@@ -4752,7 +4979,7 @@ Méně práce
                             <tr class="clickable" onclick="closeModal('modal-businesscase'); setTimeout(() => openModal('modal-project-chobotnice'), 200);"><td>Méně manuálního přepisování</td><td><span class="tag tag-l2">L2</span></td><td>200 tis.</td><td>175 tis.</td><td>~14 měsíců</td></tr>
                             <tr class="clickable" onclick="closeModal('modal-businesscase'); setTimeout(() => openModal('modal-project-kickoff'), 200);"><td>Z nákupu do prodeje rychleji</td><td><span class="tag tag-l2">L2</span></td><td>100 tis.</td><td>60 tis.</td><td>~20 měsíců</td></tr>
                             <tr class="clickable" onclick="closeModal('modal-businesscase'); setTimeout(() => openModal('modal-project-katastr'), 200);"><td>Upozornění na změny v katastru</td><td><span class="tag tag-l1">L1</span></td><td>700 tis.</td><td>500 tis.</td><td>~17 měsíců</td></tr>
-                            <tr class="clickable" onclick="closeModal('modal-businesscase'); setTimeout(() => openModal('modal-project-revenue'), 200);"><td>AI monitoring cen pronájmů</td><td><span class="tag tag-l1">L1</span></td><td>1 mio</td><td>500 tis.</td><td>~24 měsíců</td></tr>
+                            <tr class="clickable" onclick="closeModal('modal-businesscase'); setTimeout(() => openModal('modal-project-cashflow'), 200);"><td>Predikce Cash Flow</td><td><span class="tag tag-l1">L1</span></td><td>500 tis.</td><td>350 tis.</td><td>~17 měsíců</td></tr>
                             <tr class="clickable" onclick="closeModal('modal-businesscase'); setTimeout(() => openModal('modal-project-sharepoint'), 200);"><td>Jeden zdroj pravdy dat</td><td><span class="tag tag-l0">L0</span></td><td>200 tis.</td><td>150 tis.</td><td>~16 měsíců</td></tr>
                             <tr class="clickable" onclick="closeModal('modal-businesscase'); setTimeout(() => openModal('modal-project-kvalita'), 200);"><td>Jeden report místo čtyř</td><td><span class="tag tag-l0">L0</span></td><td>50 tis.</td><td>100 tis.</td><td>6 měsíců</td></tr>
                         </tbody>
@@ -4767,9 +4994,9 @@ Méně práce
                         <tbody>
                             <tr><td><span class="tag tag-l3">Osobní úroveň</span></td><td>6</td><td>70 tis.</td><td>1,175 mio</td></tr>
                             <tr><td><span class="tag tag-l2">Týmová úroveň</span></td><td>2</td><td>300 tis.</td><td>235 tis.</td></tr>
-                            <tr><td><span class="tag tag-l1">Strategická úroveň</span></td><td>2</td><td>1,7 mio</td><td>1 mio</td></tr>
+                            <tr><td><span class="tag tag-l1">Strategická úroveň</span></td><td>2</td><td>1,2 mio</td><td>850 tis.</td></tr>
                             <tr><td><span class="tag tag-l0">Datová základna</span></td><td>2</td><td>250 tis.</td><td>250 tis.</td></tr>
-                            <tr style="font-weight:700;background:var(--gray-100);"><td>CELKEM</td><td>12</td><td>2,32 mio</td><td>2,66 mio</td></tr>
+                            <tr style="font-weight:700;background:var(--gray-100);"><td>CELKEM</td><td>12</td><td>1,82 mio</td><td>2,51 mio</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -4893,7 +5120,7 @@ Méně práce
                             <tr><td>UC-014</td><td>Automatizovaná správa kmenových dat</td><td>Správa nájmů</td><td>Generování nájemních smluv z CRM</td></tr>
                             <tr><td>UC-015</td><td>Dashboard inkasa</td><td>Správa nájmů</td><td>Automatické párování s bankovními výpisy</td></tr>
                             <tr><td>UC-019</td><td>Digitalizace toku dokumentů</td><td>Správa nájmů</td><td>OCR a extrakce z naskenovaných dokumentů</td></tr>
-                            <tr><td>UC-020</td><td>Revenue Management</td><td>Správa nájmů</td><td>Automatizovaný scraping cen konkurence</td></tr>
+                            <tr><td>UC-058</td><td>Predikce Cash Flow</td><td>Finance</td><td>Prediktivní model likvidity propojený s bankami a CRM</td></tr>
                             <tr><td>UC-021</td><td>Inteligentní správa revizí</td><td>Správa nájmů</td><td>Prediktivní údržba, automatické objednávky</td></tr>
                             <tr><td>UC-022</td><td>AI Sourcing LinkedIn</td><td>HR</td><td>Screening životopisů a párování kandidátů</td></tr>
                             <tr><td>UC-026</td><td>AI Mailbox Triage</td><td>Back Office</td><td>Třídění datových schránek, identifikace dlužníků</td></tr>
@@ -4990,11 +5217,11 @@ Méně práce
                     </div>
                     <div class="modal-card">
                         <h4>Reality Čechy</h4>
-                        <p><strong>Brož</strong> – koordinace rekonstrukcí, potřeba rychlejších vizualizací</p>
+                        <p><strong>Vondráček</strong> – terénní práce, prohlídky, potřeba hlasového zadávání</p>
                     </div>
                     <div class="modal-card">
                         <h4>Obchod</h4>
-                        <p><strong>Jurča, Šiška, Varga, Sekanina</strong> – „chobotnice" obchodní tabulky, přepisování dat</p>
+                        <p><strong>Jurča, Šiška, Varga, Sekanina</strong> – přepisování dat mezi systémy</p>
                     </div>
                     <div class="modal-card">
                         <h4>Finance</h4>
@@ -5010,7 +5237,7 @@ Méně práce
                     </div>
                     <div class="modal-card">
                         <h4>Správa nájmů</h4>
-                        <p><strong>Němeček, Homolová</strong> – Domsys, upomínky, revenue management STR</p>
+                        <p><strong>Němeček, Homolová</strong> – Domsys, upomínky, správa nájmů</p>
                     </div>
                     <div class="modal-card">
                         <h4>IT</h4>
@@ -5055,9 +5282,9 @@ Méně práce
                         <thead><tr><th>Vlna</th><th>Timing</th><th>Projekty</th><th>Proč</th></tr></thead>
                         <tbody>
                             <tr><td><strong>Vlna 0</strong></td><td>Únor</td><td>L3 – všech 5</td><td>Máme licence, jen rollout</td></tr>
-                            <tr><td><strong>Vlna 1</strong></td><td>Q1–Q2</td><td>L2 – Chobotnice + Kick-off</td><td>Must-win pro obchod</td></tr>
+                            <tr><td><strong>Vlna 1</strong></td><td>Q1–Q2</td><td>L2 – Automatizace + Kick-off</td><td>Must-win pro obchod</td></tr>
                             <tr><td><strong>Vlna 2</strong></td><td>Q2</td><td>L0 – Sjednocení dat</td><td>Enabler pro L1</td></tr>
-                            <tr><td><strong>Vlna 3</strong></td><td>Q2–Q3</td><td>L1 – Katastr + Revenue</td><td>Potřebuje čistá data</td></tr>
+                            <tr><td><strong>Vlna 3</strong></td><td>Q2–Q3</td><td>L1 – Katastr + Cash Flow</td><td>Potřebuje čistá data</td></tr>
                         </tbody>
                     </table>
                 </div>
