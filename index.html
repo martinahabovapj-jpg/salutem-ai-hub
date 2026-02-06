@@ -1444,121 +1444,110 @@
 
         .gantt-header {
             display: grid;
-            grid-template-columns: 220px repeat(6, 1fr);
-            gap: 2px;
-            margin-bottom: 8px;
+            grid-template-columns: 200px repeat(6, 1fr);
+            gap: 0;
+            margin-bottom: 12px;
             padding-left: 0;
         }
 
         .gantt-month {
             text-align: center;
-            font-weight: 600;
+            font-weight: 500;
+            font-size: 0.8rem;
+            color: var(--gray-400);
+            padding: 6px 4px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .gantt-section {
+            margin-bottom: 20px;
+        }
+
+        .gantt-section-title {
             font-size: 0.85rem;
-            color: var(--gray-600);
-            padding: 8px 4px;
-            background: var(--gray-100);
-            border-radius: 4px;
-        }
-
-        .gantt-month.gate {
-            background: var(--orange-light);
-            color: var(--orange-dark);
-            font-weight: 700;
-        }
-
-        .gantt-month.mvp {
-            background: var(--success);
-            color: white;
-            font-weight: 700;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 0;
+            margin-bottom: 8px;
+            border-bottom: 1px solid var(--gray-200);
         }
 
         .gantt-row {
             display: grid;
-            grid-template-columns: 220px repeat(6, 1fr);
-            gap: 2px;
-            margin-bottom: 4px;
+            grid-template-columns: 200px repeat(6, 1fr);
+            gap: 0;
+            margin-bottom: 6px;
             align-items: center;
+            height: 32px;
         }
 
         .gantt-project {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
             color: var(--gray-700);
-            padding: 8px 12px;
-            background: var(--gray-50);
-            border-radius: 4px;
+            padding: 0 8px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .gantt-level {
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 2px 6px;
-            border-radius: 4px;
-            flex-shrink: 0;
+            display: none;
         }
-
-        .gantt-level.l3 { background: #FEF3C7; color: #92400E; }
-        .gantt-level.l2 { background: #DBEAFE; color: #1E40AF; }
-        .gantt-level.l1 { background: #D1FAE5; color: #065F46; }
-        .gantt-level.l0 { background: #E5E7EB; color: #374151; }
 
         .gantt-bar-container {
             position: relative;
-            height: 28px;
-            background: var(--gray-100);
-            border-radius: 4px;
+            height: 24px;
+            background: transparent;
+            border-left: 1px solid var(--gray-100);
+        }
+
+        .gantt-bar-container.gate-col {
+            border-left: 2px dashed var(--orange);
+        }
+
+        .gantt-bar-container.mvp-col {
+            border-left: 2px dashed var(--success);
         }
 
         .gantt-bar {
             position: absolute;
             height: 100%;
-            border-radius: 4px;
-            opacity: 0.9;
+            border-radius: 3px;
+            opacity: 0.85;
         }
 
-        .gantt-bar.l3 { background: linear-gradient(90deg, #F59E0B, #FBBF24); }
-        .gantt-bar.l2 { background: linear-gradient(90deg, #3B82F6, #60A5FA); }
-        .gantt-bar.l1 { background: linear-gradient(90deg, #10B981, #34D399); }
-        .gantt-bar.l0 { background: linear-gradient(90deg, #6B7280, #9CA3AF); }
+        .gantt-bar.l3 { background: #F59E0B; }
+        .gantt-bar.l2 { background: #3B82F6; }
+        .gantt-bar.l1 { background: #10B981; }
+        .gantt-bar.l0 { background: #9CA3AF; }
 
-        .gantt-gates {
+        .gantt-milestones {
             display: grid;
-            grid-template-columns: 220px repeat(6, 1fr);
-            gap: 2px;
+            grid-template-columns: 200px repeat(6, 1fr);
+            gap: 0;
             margin-top: 16px;
-            padding-top: 16px;
-            border-top: 2px dashed var(--gray-200);
+            padding-top: 8px;
         }
 
-        .gantt-gate-label {
-            font-size: 0.8rem;
-            color: var(--gray-500);
-            padding: 4px 8px;
-        }
-
-        .gantt-gate-marker {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .gantt-milestone-label {
             font-size: 0.75rem;
             font-weight: 600;
+            text-align: center;
+            padding: 4px;
         }
 
-        .gate-badge {
-            background: var(--orange);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
+        .gantt-milestone-label.gate {
+            color: var(--orange);
         }
 
-        .mvp-badge {
-            background: var(--success);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
+        .gantt-milestone-label.mvp {
+            color: var(--success);
         }
 
         .gantt-legend {
@@ -1994,7 +1983,7 @@
                     <div class="hero-stat-value" style="font-size: 1.5rem;">vs</div>
                 </div>
                 <div class="hero-stat">
-                    <div class="hero-stat-value">2,5 mio</div>
+                    <div class="hero-stat-value">~1,8 mio</div>
                     <div class="hero-stat-label">zkusit AI</div>
                 </div>
                 <div class="hero-stat">
@@ -2649,147 +2638,159 @@
                         <div class="gantt-month"></div>
                         <div class="gantt-month">Únor</div>
                         <div class="gantt-month">Březen</div>
-                        <div class="gantt-month gate">Duben (Gate 1)</div>
+                        <div class="gantt-month">Duben</div>
                         <div class="gantt-month">Květen</div>
                         <div class="gantt-month">Červen</div>
-                        <div class="gantt-month mvp">Červenec (MVP)</div>
+                        <div class="gantt-month">Červenec</div>
                     </div>
 
-                    <!-- L3 projekty - Osobní úroveň -->
-                    <div class="gantt-row">
-                        <div class="gantt-project"><span class="gantt-level l3">L3</span> Rychlejší práce s emaily</div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                    </div>
-                    <div class="gantt-row">
-                        <div class="gantt-project"><span class="gantt-level l3">L3</span> Přehled z Teams skupin</div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                    </div>
-                    <div class="gantt-row">
-                        <div class="gantt-project"><span class="gantt-level l3">L3</span> Zadávej úkoly hlasem</div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 50%;"></div></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                    </div>
-                    <div class="gantt-row">
-                        <div class="gantt-project"><span class="gantt-level l3">L3</span> Z porady rovnou úkoly</div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                    </div>
-                    <div class="gantt-row">
-                        <div class="gantt-project"><span class="gantt-level l3">L3</span> Rychlejší analýza smluv</div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                    </div>
-                    <div class="gantt-row">
-                        <div class="gantt-project"><span class="gantt-level l3">L3</span> Chytřejší práce s tabulkami</div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 30%;"></div></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                    </div>
-
-                    <!-- L2 projekty - Týmová úroveň -->
-                    <div class="gantt-row" style="margin-top: 12px;">
-                        <div class="gantt-project"><span class="gantt-level l2">L2</span> Méně manuálního přepisování</div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 50%;"></div></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                    </div>
-                    <div class="gantt-row">
-                        <div class="gantt-project"><span class="gantt-level l2">L2</span> Z nákupu do prodeje rychleji</div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 50%;"></div></div>
+                    <!-- L3 - Rychlé výhry -->
+                    <div class="gantt-section">
+                        <div class="gantt-section-title">Rychlé výhry (L3)</div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Rychlejší práce s emaily</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container gate-col"></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Přehled z Teams skupin</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container gate-col"></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Zadávej úkoly hlasem</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 50%;"></div></div>
+                            <div class="gantt-bar-container gate-col"></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Z porady rovnou úkoly</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container gate-col"></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Rychlejší analýza smluv</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container gate-col"></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Chytřejší práce s tabulkami</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 30%;"></div></div>
+                            <div class="gantt-bar-container gate-col"></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
                     </div>
 
-                    <!-- L0 projekty - Datová základna -->
-                    <div class="gantt-row" style="margin-top: 12px;">
-                        <div class="gantt-project"><span class="gantt-level l0">L0</span> Jeden report místo čtyř</div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                    </div>
-                    <div class="gantt-row">
-                        <div class="gantt-project"><span class="gantt-level l0">L0</span> Jeden zdroj pravdy dat</div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 50%;"></div></div>
-                    </div>
-
-                    <!-- L1 projekty - Strategická úroveň -->
-                    <div class="gantt-row" style="margin-top: 12px;">
-                        <div class="gantt-project"><span class="gantt-level l1">L1</span> Predikce Cash Flow</div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 50%;"></div></div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"></div>
-                    </div>
-                    <div class="gantt-row">
-                        <div class="gantt-project"><span class="gantt-level l1">L1</span> Upozornění na změny v katastru</div>
-                        <div class="gantt-bar-container"></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
-                        <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                    <!-- L2 - Týmové procesy -->
+                    <div class="gantt-section">
+                        <div class="gantt-section-title">Týmové procesy (L2)</div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Méně manuálního přepisování</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 50%;"></div></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Z nákupu do prodeje rychleji</div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container mvp-col"><div class="gantt-bar l2" style="left: 0; width: 50%;"></div></div>
+                        </div>
                     </div>
 
-                    <!-- Gates -->
-                    <div class="gantt-gates">
-                        <div class="gantt-gate-label">Rozhodovací body:</div>
-                        <div class="gantt-gate-marker"></div>
-                        <div class="gantt-gate-marker"></div>
-                        <div class="gantt-gate-marker"><span class="gate-badge">Gate: Co je připravené?</span></div>
-                        <div class="gantt-gate-marker"></div>
-                        <div class="gantt-gate-marker"></div>
-                        <div class="gantt-gate-marker"><span class="mvp-badge">MVP hotové</span></div>
+                    <!-- L0 - Datová základna -->
+                    <div class="gantt-section">
+                        <div class="gantt-section-title">Datová základna (L0)</div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Jeden report místo čtyř</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Jeden zdroj pravdy dat</div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container mvp-col"><div class="gantt-bar l0" style="left: 0; width: 50%;"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- L1 - Strategické iniciativy -->
+                    <div class="gantt-section">
+                        <div class="gantt-section-title">Strategické iniciativy (L1)</div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Predikce Cash Flow</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 50%;"></div></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Upozornění na změny v katastru</div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container mvp-col"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Milníky -->
+                    <div class="gantt-milestones">
+                        <div class="gantt-milestone-label"></div>
+                        <div class="gantt-milestone-label"></div>
+                        <div class="gantt-milestone-label"></div>
+                        <div class="gantt-milestone-label gate">Gate 1</div>
+                        <div class="gantt-milestone-label"></div>
+                        <div class="gantt-milestone-label"></div>
+                        <div class="gantt-milestone-label mvp">MVP</div>
                     </div>
                 </div>
             </div>
 
             <!-- Legenda -->
             <div class="gantt-legend">
-                <div class="legend-item"><div class="legend-color l3"></div> Osobní úroveň (L3)</div>
-                <div class="legend-item"><div class="legend-color l2"></div> Týmová úroveň (L2)</div>
-                <div class="legend-item"><div class="legend-color l0"></div> Datová základna (L0)</div>
-                <div class="legend-item"><div class="legend-color l1"></div> Strategická úroveň (L1)</div>
+                <div class="legend-item"><div class="legend-color l3"></div> Rychlé výhry</div>
+                <div class="legend-item"><div class="legend-color l2"></div> Týmové procesy</div>
+                <div class="legend-item"><div class="legend-color l0"></div> Datová základna</div>
+                <div class="legend-item"><div class="legend-color l1"></div> Strategické</div>
             </div>
         </div>
     </section>
