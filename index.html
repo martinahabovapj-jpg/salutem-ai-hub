@@ -63,6 +63,7 @@
             align-items: center;
             justify-content: space-between;
             height: 70px;
+            position: relative;
         }
 
         .nav-logo {
@@ -97,6 +98,54 @@
         .nav-links a:hover,
         .nav-links a.active {
             color: var(--orange);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            width: 44px;
+            height: 44px;
+            padding: 10px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 18px;
+            height: 2px;
+            background: var(--gray-700);
+            border-radius: 2px;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .nav.open .nav-toggle span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .nav.open .nav-toggle span:nth-child(2) {
+            opacity: 0;
+        }
+        .nav.open .nav-toggle span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .nav-backdrop {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.35);
+            z-index: 999;
+        }
+
+        .nav-backdrop.active {
+            display: block;
         }
 
         /* Hero Section */
@@ -1924,6 +1973,14 @@
         }
 
         @media (max-width: 768px) {
+            .section {
+                padding: 64px 1.25rem;
+            }
+
+            .nav {
+                padding: 0 1.25rem;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -1937,12 +1994,64 @@
                 grid-template-columns: 1fr;
             }
             
+            .nav-toggle {
+                display: inline-flex;
+            }
+
             .nav-links {
                 display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                border-bottom: 1px solid var(--gray-200);
+                box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+                padding: 0.75rem 1.25rem 1.25rem;
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .nav.open .nav-links {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 10px 12px;
+                border-radius: 10px;
+                background: var(--gray-50);
+            }
+
+            .nav-links a.active {
+                background: rgba(243,108,43,0.12);
+            }
+
+            .project-filters {
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card {
+                padding: 1.25rem;
             }
             
             .resources-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .roi-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+
+            .hero {
+                padding: 120px 1.25rem 80px;
             }
         }
     </style>
@@ -1956,6 +2065,11 @@
                 <img src="logo.png" alt="Salutem Group" onerror="this.style.display='none'">
                 <span>AI Hub</span>
             </div>
+            <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <div class="nav-links">
                 <a href="#roadmap" class="active">Roadmapa</a>
                 <a href="#projects">Projekty</a>
@@ -1966,6 +2080,7 @@
             </div>
         </div>
     </nav>
+    <div class="nav-backdrop" id="navBackdrop"></div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -5360,6 +5475,41 @@ Méně práce
     </footer>
 
     <script>
+        // Mobile navigation
+        const navEl = document.querySelector('.nav');
+        const navToggleBtn = document.querySelector('.nav-toggle');
+        const navBackdrop = document.getElementById('navBackdrop');
+
+        function setBodyOverflowAutoIfSafe() {
+            if (document.querySelector('.modal.active')) return;
+            document.body.style.overflow = 'auto';
+        }
+
+        function openNav() {
+            navEl.classList.add('open');
+            navBackdrop.classList.add('active');
+            navToggleBtn.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeNav() {
+            navEl.classList.remove('open');
+            navBackdrop.classList.remove('active');
+            navToggleBtn.setAttribute('aria-expanded', 'false');
+            setBodyOverflowAutoIfSafe();
+        }
+
+        if (navToggleBtn) {
+            navToggleBtn.addEventListener('click', () => {
+                if (navEl.classList.contains('open')) closeNav();
+                else openNav();
+            });
+        }
+
+        if (navBackdrop) {
+            navBackdrop.addEventListener('click', closeNav);
+        }
+
         // Pyramid level switching
         function showLevel(level) {
             // Remove active from all levels
@@ -5428,6 +5578,7 @@ Méně práce
         // Close modal on Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
+                closeNav();
                 document.querySelectorAll('.modal.active').forEach(modal => {
                     modal.classList.remove('active');
                 });
@@ -5439,10 +5590,16 @@ Méně práce
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
+                closeNav();
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // Close mobile nav on resize to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) closeNav();
         });
 
         // Animate numbers on scroll (simple version)
