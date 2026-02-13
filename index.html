@@ -1664,6 +1664,286 @@
             background: linear-gradient(135deg, #f8f9ff 0%, #fff5f0 100%);
         }
 
+        .docs-header-row {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 1.25rem;
+            margin-top: 2rem;
+        }
+
+        .teams-card {
+            background: linear-gradient(135deg, #5b5fc7 0%, #4b4faf 100%);
+            border-radius: 16px;
+            padding: 1.5rem;
+            color: white;
+            box-shadow: 0 4px 15px rgba(91, 95, 199, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: block;
+        }
+
+        .teams-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(91, 95, 199, 0.3);
+        }
+
+        .docs-info-card {
+            background: rgba(255,255,255,0.9);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 2px solid var(--gray-200);
+        }
+
+        .docs-info-card h3 {
+            margin: 0 0 0.75rem 0;
+            font-size: 1.1rem;
+            color: var(--gray-800);
+        }
+
+        .docs-info-card p {
+            margin: 0;
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .docs-catalog {
+            margin-top: 1.5rem;
+            background: rgba(255,255,255,0.9);
+            border: 1px solid var(--gray-200);
+            border-radius: 18px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        }
+
+        .docs-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .docs-search {
+            flex: 1;
+            min-width: 260px;
+            position: relative;
+        }
+
+        .docs-search input {
+            width: 100%;
+            padding: 12px 14px 12px 40px;
+            border-radius: 12px;
+            border: 2px solid var(--gray-200);
+            background: white;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .docs-search input:focus {
+            border-color: rgba(243,108,43,0.7);
+            box-shadow: 0 0 0 4px rgba(243,108,43,0.12);
+        }
+
+        .docs-search::before {
+            content: '⌕';
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            font-weight: 700;
+        }
+
+        .docs-filters {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .docs-filter {
+            border: 2px solid var(--gray-200);
+            background: white;
+            color: var(--gray-700);
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .docs-filter:hover {
+            border-color: var(--orange);
+        }
+
+        .docs-filter.active {
+            background: rgba(243,108,43,0.12);
+            border-color: rgba(243,108,43,0.55);
+            color: var(--orange-dark);
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .doc-card {
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: 16px;
+            padding: 1.1rem 1.1rem 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+            min-height: 150px;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+            border-color: rgba(13,53,121,0.25);
+        }
+
+        .doc-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 0.75rem;
+        }
+
+        .doc-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 2px solid transparent;
+            white-space: nowrap;
+        }
+
+        .doc-badge.navod { background: rgba(243,108,43,0.10); border-color: rgba(243,108,43,0.22); color: var(--orange-dark); }
+        .doc-badge.nastroj { background: rgba(13,53,121,0.10); border-color: rgba(13,53,121,0.18); color: var(--blue-dark); }
+        .doc-badge.sablona { background: rgba(16,185,129,0.10); border-color: rgba(16,185,129,0.22); color: #065F46; }
+
+        .doc-title {
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .doc-desc {
+            color: var(--gray-600);
+            font-size: 0.92rem;
+            line-height: 1.55;
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .doc-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        .doc-btn {
+            border-radius: 12px;
+            padding: 10px 12px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border: 2px solid var(--gray-200);
+            background: white;
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .doc-btn.primary {
+            background: var(--blue);
+            color: white;
+            border-color: var(--blue);
+        }
+
+        .doc-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .doc-btn.primary:hover {
+            background: var(--blue-dark);
+            border-color: var(--blue-dark);
+        }
+
+        .docs-empty {
+            display: none;
+            padding: 1.25rem;
+            text-align: center;
+            color: var(--gray-500);
+        }
+
+        .docs-footnote {
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--gray-500);
+            font-size: 0.9rem;
+        }
+
+        .doc-modal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+        }
+
+        .doc-modal-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .doc-modal-actions a {
+            text-decoration: none;
+        }
+
+        @media (max-width: 1024px) {
+            .docs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .docs-header-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .docs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .learning-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -5425,48 +5705,73 @@ Méně práce
                 <p class="section-subtitle">Vše na jednom místě: návody, postupy, AI nástroje a vzdělávací materiály.</p>
             </div>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
-                
-                <!-- Teams kanál -->
-                <a href="https://teams.microsoft.com/l/channel/19%3A433a5d4d41c54168abfb8b68bd86e69e%40thread.tacv2/U%C4%8D%C3%ADme%20se%20AI?groupId=44fbadd0-4e7a-40e1-b862-ebb3b40d52a9&tenantId=aec1b4b8-a66b-4fe3-943d-69877d3cd280" target="_blank" style="text-decoration: none;">
-                    <div style="background: linear-gradient(135deg, #5b5fc7 0%, #4b4faf 100%); border-radius: 16px; padding: 1.5rem; color: white; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(91, 95, 199, 0.2);" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 25px rgba(91, 95, 199, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(91, 95, 199, 0.2)';">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem;">
-                            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 32px; height: 32px;"><path d="M19.19 8.77q-.46 0-.87-.17-.41-.18-.72-.49-.32-.32-.49-.73-.17-.41-.17-.87V4.64q0-.47.17-.88.17-.41.49-.72.31-.31.72-.49.41-.17.87-.17.46 0 .87.17.41.17.72.49.32.31.49.72.18.41.18.88v1.87q0 .46-.18.87-.17.41-.49.73-.31.31-.72.49-.41.17-.87.17zm-5.42 0q-.69 0-1.31-.26-.62-.27-1.08-.74-.47-.46-.74-1.08-.26-.62-.26-1.31 0-.69.26-1.31.27-.62.74-1.08.46-.47 1.08-.74.62-.26 1.31-.26.69 0 1.31.26.62.27 1.08.74.47.46.74 1.08.26.62.26 1.31 0 .69-.26 1.31-.27.62-.74 1.08-.46.47-1.08.74-.62.26-1.31.26zm6.73 2.18v6.24q0 .49-.19.93-.18.43-.51.76-.32.32-.76.51-.43.18-.93.18h-.3v-5.63q0-.94-.36-1.77-.35-.84-.97-1.46-.62-.63-1.46-.98-.84-.36-1.77-.36H8.42q-.43 0-.83.09-.41.08-.79.24-.38.16-.71.39-.34.23-.61.53-.29-.35-.46-.77-.16-.42-.16-.88v-.96q0-.47.18-.88.17-.41.49-.72.31-.31.73-.49.41-.17.88-.17h10.61q.46 0 .87.17.42.18.73.49.31.31.49.72.17.41.17.88v.96q0 .21-.04.42-.03.21-.1.41zm-7.25 10.42H6.06q-.65 0-1.23-.25-.58-.26-1.01-.69-.44-.44-.69-1.01-.25-.58-.25-1.23v-7.19q0-.65.25-1.23.25-.58.69-1.01.43-.44 1.01-.69.58-.25 1.23-.25h7.19q.65 0 1.23.25.57.25 1.01.69.44.43.69 1.01.25.58.25 1.23v7.19q0 .65-.25 1.23-.25.57-.69 1.01-.44.43-1.01.69-.58.25-1.23.25zm-3.6-3.41h3.6v-1.23h-3.6v1.23zm0-2.12h3.6v-1.23h-3.6v1.23zm0-2.13h3.6v-1.22h-3.6v1.22z"/></svg>
+            <div class="docs-header-row">
+                <a class="teams-card" href="https://teams.microsoft.com/l/channel/19%3A433a5d4d41c54168abfb8b68bd86e69e%40thread.tacv2/U%C4%8D%C3%ADme%20se%20AI?groupId=44fbadd0-4e7a-40e1-b862-ebb3b40d52a9&tenantId=aec1b4b8-a66b-4fe3-943d-69877d3cd280" target="_blank" rel="noopener noreferrer">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem;">
+                        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 32px; height: 32px;"><path d="M19.19 8.77q-.46 0-.87-.17-.41-.18-.72-.49-.32-.32-.49-.73-.17-.41-.17-.87V4.64q0-.47.17-.88.17-.41.49-.72.31-.31.72-.49.41-.17.87-.17.46 0 .87.17.41.17.72.49.32.31.49.72.18.41.18.88v1.87q0 .46-.18.87-.17.41-.49.73-.31.31-.72.49-.41.17-.87.17zm-5.42 0q-.69 0-1.31-.26-.62-.27-1.08-.74-.47-.46-.74-1.08-.26-.62-.26-1.31 0-.69.26-1.31.27-.62.74-1.08.46-.47 1.08-.74.62-.26 1.31-.26.69 0 1.31.26.62.27 1.08.74.47.46.74 1.08.26.62.26 1.31 0 .69-.26 1.31-.27.62-.74 1.08-.46.47-1.08.74-.62.26-1.31.26zm6.73 2.18v6.24q0 .49-.19.93-.18.43-.51.76-.32.32-.76.51-.43.18-.93.18h-.3v-5.63q0-.94-.36-1.77-.35-.84-.97-1.46-.62-.63-1.46-.98-.84-.36-1.77-.36H8.42q-.43 0-.83.09-.41.08-.79.24-.38.16-.71.39-.34.23-.61.53-.29-.35-.46-.77-.16-.42-.16-.88v-.96q0-.47.18-.88.17-.41.49-.72.31-.31.73-.49.41-.17.88-.17h10.61q.46 0 .87.17.42.18.73.49.31.31.49.72.17.41.17.88v.96q0 .21-.04.42-.03.21-.1.41zm-7.25 10.42H6.06q-.65 0-1.23-.25-.58-.26-1.01-.69-.44-.44-.69-1.01-.25-.58-.25-1.23v-7.19q0-.65.25-1.23.25-.58.69-1.01.43-.44 1.01-.69.58-.25 1.23-.25h7.19q.65 0 1.23.25.57.25 1.01.69.44.43.69 1.01.25.58.25 1.23v7.19q0 .65-.25 1.23-.25.57-.69 1.01-.44.43-1.01.69-.58.25-1.23.25zm-3.6-3.41h3.6v-1.23h-3.6v1.23zm0-2.12h3.6v-1.23h-3.6v1.23zm0-2.13h3.6v-1.22h-3.6v1.22z"/></svg>
+                        <div>
                             <h3 style="margin: 0; font-size: 1.2rem;">Učíme se AI</h3>
+                            <div style="opacity: 0.9; font-size: 0.92rem; margin-top: 2px;">Teams kanál</div>
                         </div>
-                        <p style="margin: 0; opacity: 0.9; font-size: 0.95rem;">Teams kanál pro dotazy, tipy a sdílení zkušeností s AI nástroji.</p>
                     </div>
+                    <p style="margin: 0; opacity: 0.9; font-size: 0.95rem;">Zde jsou aktuality, materiály a sdílené tipy k AI nástrojům.</p>
                 </a>
-                
-                <!-- Postupy a návody -->
-                <a href="#" onclick="alert('Odkaz na SharePoint složku bude doplněn'); return false;" style="text-decoration: none;">
-                    <div style="background: white; border-radius: 16px; padding: 1.5rem; border: 2px solid var(--gray-200); transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.1)'; this.style.borderColor='var(--orange)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'; this.style.borderColor='var(--gray-200)';">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem;">
-                            <div style="width: 32px; height: 32px; background: linear-gradient(135deg, var(--orange) 0%, #ff8a50 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">P</div>
-                            <h3 style="margin: 0; font-size: 1.2rem; color: var(--gray-800);">Postupy a návody</h3>
-                        </div>
-                        <p style="margin: 0; color: var(--gray-600); font-size: 0.95rem;">Krok za krokem: jak používat jednotlivé nástroje a procesy.</p>
-                    </div>
-                </a>
-                
-                <!-- AI nástroje -->
-                <a href="#" onclick="alert('Odkaz na SharePoint složku bude doplněn'); return false;" style="text-decoration: none;">
-                    <div style="background: white; border-radius: 16px; padding: 1.5rem; border: 2px solid var(--gray-200); transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.1)'; this.style.borderColor='var(--blue)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'; this.style.borderColor='var(--gray-200)';">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem;">
-                            <div style="width: 32px; height: 32px; background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">N</div>
-                            <h3 style="margin: 0; font-size: 1.2rem; color: var(--gray-800);">Firemní AI nástroje</h3>
-                        </div>
-                        <p style="margin: 0; color: var(--gray-600); font-size: 0.95rem;">Seznam schválených AI nástrojů s popisem a přístupy.</p>
-                    </div>
-                </a>
-                
+
+                <div class="docs-info-card">
+                    <h3>Dokumentace (katalog)</h3>
+                    <p>Obsah se načítá z jednoduchého katalogu. Později jej napojíme na SharePoint List (varianta B2) a bude se aktualizovat automaticky.</p>
+                </div>
             </div>
-            
-            <p style="text-align: center; margin-top: 2rem; color: var(--gray-500); font-size: 0.9rem;">
-                Dokumentace je uložena na SharePointu. Editaci mají oprávnění členové AI týmu.
-            </p>
+
+            <div class="docs-catalog" aria-label="Dokumentace a návody">
+                <div class="docs-controls">
+                    <div class="docs-search">
+                        <input id="docsSearch" type="text" placeholder="Hledat v dokumentaci…" autocomplete="off">
+                    </div>
+                    <div class="docs-filters" role="tablist" aria-label="Filtr kategorie">
+                        <button class="docs-filter active" data-cat="all" type="button">Vše</button>
+                        <button class="docs-filter" data-cat="Návod" type="button">Návody</button>
+                        <button class="docs-filter" data-cat="AI nástroj" type="button">AI nástroje</button>
+                        <button class="docs-filter" data-cat="Šablona" type="button">Šablony</button>
+                    </div>
+                </div>
+
+                <div id="docsGrid" class="docs-grid"></div>
+                <div id="docsEmpty" class="docs-empty">Nic nenalezeno. Zkuste jiné klíčové slovo nebo filtr.</div>
+
+                <div class="docs-footnote">Editaci katalogu budou mít oprávnění členové AI týmu.</div>
+            </div>
         </div>
     </section>
+
+    <!-- Modal: Dokumentace detail -->
+    <div class="modal" id="modal-doc-detail">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+                    <div>
+                        <div class="doc-modal-badge" id="docModalBadge">Dokumentace</div>
+                        <h2 id="docModalTitle" style="margin-top: 10px;">Položka dokumentace</h2>
+                        <p id="docModalSubtitle" style="margin: 0; opacity: 0.85;">Stručný popis</p>
+                    </div>
+                    <button class="modal-close" onclick="closeModal('modal-doc-detail')">×</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section" style="margin-bottom: 1.5rem;">
+                    <h3>Co to je</h3>
+                    <div class="modal-card">
+                        <p id="docModalDesc" style="margin:0;"></p>
+                    </div>
+                    <div class="doc-modal-actions">
+                        <a id="docModalOpenLink" class="doc-btn primary" href="#" target="_blank" rel="noopener noreferrer">Otevřít</a>
+                        <button class="doc-btn" type="button" onclick="copyDocLink()">Kopírovat odkaz</button>
+                    </div>
+                    <div style="margin-top: 10px; color: var(--gray-500); font-size: 0.85rem; word-break: break-all;" id="docModalUrl"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -5482,6 +5787,7 @@ Méně práce
 
         function setBodyOverflowAutoIfSafe() {
             if (document.querySelector('.modal.active')) return;
+            if (navEl && navEl.classList.contains('open')) return;
             document.body.style.overflow = 'auto';
         }
 
@@ -5562,8 +5868,205 @@ Méně práce
 
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
-            document.body.style.overflow = 'auto';
+            setBodyOverflowAutoIfSafe();
         }
+
+        // Dokumentace katalog
+        const DOCS_DATA_URL = 'data/dokumentace.json';
+        let docsItems = [];
+        let docsActiveCategory = 'all';
+
+        const docsFallback = [
+            {
+                id: 'doc-001',
+                kategorie: 'Návod',
+                nazev: 'Copilot v Outlooku: rychlejší emaily',
+                popis: 'Základy: shrnutí konverzace, návrhy odpovědí, rychlá úprava tónu. Praktický postup pro každodenní práci.',
+                url: '#'
+            },
+            {
+                id: 'doc-002',
+                kategorie: 'Návod',
+                nazev: 'Copilot v Teams: shrnutí kanálů',
+                popis: 'Jak si jednou denně vytáhnout to důležité z více kanálů bez scrollování.',
+                url: '#'
+            },
+            {
+                id: 'doc-003',
+                kategorie: 'AI nástroj',
+                nazev: 'Copilot (Microsoft 365)',
+                popis: 'Co umí, na co si dát pozor, a kde to nejvíc pomůže ve Salutem.',
+                url: '#'
+            },
+            {
+                id: 'doc-004',
+                kategorie: 'AI nástroj',
+                nazev: 'Power Automate',
+                popis: 'Automatizace jednoduchých procesů: notifikace, schvalování, přenos dat mezi službami.',
+                url: '#'
+            },
+            {
+                id: 'doc-005',
+                kategorie: 'Šablona',
+                nazev: 'Šablona: AI use case (1 stránka)',
+                popis: 'Rychlá šablona pro popis problému, řešení, dopadu a toho, co potřebujeme ověřit.',
+                url: '#'
+            }
+        ];
+
+        function stripDiacritics(input) {
+            return (input || '')
+                .toString()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase();
+        }
+
+        function getRawUrl(raw) {
+            if (!raw) return '';
+            if (typeof raw === 'string') return raw;
+            if (raw.Url) return raw.Url;
+            if (raw.url) return raw.url;
+            return '';
+        }
+
+        function normalizeDoc(raw) {
+            const title = raw.nazev || raw.Název || raw.Title || raw.title || '';
+            const desc = raw.popis || raw.Popis || raw.Description || raw.description || '';
+            const cat = raw.kategorie || raw.Kategorie || raw.category || 'Návod';
+            const url = getRawUrl(raw.url || raw.URL || raw.Link || raw.link || raw) || '';
+            const id = raw.id || raw.ID || raw.Id || raw.guid || `doc-${Math.random().toString(16).slice(2)}`;
+
+            return {
+                id: id.toString(),
+                nazev: title.toString(),
+                popis: desc.toString(),
+                kategorie: cat.toString(),
+                url: url.toString()
+            };
+        }
+
+        function badgeClass(cat) {
+            if (cat === 'AI nástroj') return 'nastroj';
+            if (cat === 'Šablona') return 'sablona';
+            return 'navod';
+        }
+
+        function renderDocs() {
+            const grid = document.getElementById('docsGrid');
+            const empty = document.getElementById('docsEmpty');
+            const q = stripDiacritics(document.getElementById('docsSearch')?.value || '');
+
+            const filtered = docsItems.filter(item => {
+                const byCat = docsActiveCategory === 'all' || item.kategorie === docsActiveCategory;
+                if (!byCat) return false;
+                if (!q) return true;
+                const hay = stripDiacritics(`${item.nazev} ${item.popis} ${item.kategorie}`);
+                return hay.includes(q);
+            });
+
+            grid.innerHTML = filtered.map(item => {
+                const badge = badgeClass(item.kategorie);
+                const safeTitle = item.nazev.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                const safeDesc = item.popis.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+                return `
+                    <div class="doc-card" role="button" tabindex="0" onclick="openDocDetail('${item.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); openDocDetail('${item.id}');}">
+                        <div class="doc-meta">
+                            <span class="doc-badge ${badge}">${item.kategorie}</span>
+                        </div>
+                        <div class="doc-title">${safeTitle}</div>
+                        <p class="doc-desc">${safeDesc}</p>
+                        <div class="doc-actions">
+                            <button class="doc-btn" type="button" onclick="event.stopPropagation(); openDocDetail('${item.id}')">Detail</button>
+                            <a class="doc-btn primary" href="${item.url || '#'}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">${item.url ? 'Otevřít' : 'Doplníme'}</a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            empty.style.display = filtered.length ? 'none' : 'block';
+        }
+
+        function setDocsActiveFilter(cat) {
+            docsActiveCategory = cat;
+            document.querySelectorAll('.docs-filter').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.cat === cat);
+            });
+            renderDocs();
+        }
+
+        async function loadDocsCatalog() {
+            try {
+                const res = await fetch(`${DOCS_DATA_URL}?v=${Date.now()}`, { cache: 'no-store' });
+                if (!res.ok) throw new Error('docs fetch failed');
+                const data = await res.json();
+                const arr = Array.isArray(data) ? data : (data.items || data.dokumentace || []);
+                docsItems = arr.map(normalizeDoc).filter(x => x.nazev);
+                if (!docsItems.length) docsItems = docsFallback.map(normalizeDoc);
+            } catch (e) {
+                docsItems = docsFallback.map(normalizeDoc);
+            }
+
+            renderDocs();
+        }
+
+        function openDocDetail(docId) {
+            const item = docsItems.find(x => x.id === docId);
+            if (!item) return;
+
+            const badgeEl = document.getElementById('docModalBadge');
+            const titleEl = document.getElementById('docModalTitle');
+            const subtitleEl = document.getElementById('docModalSubtitle');
+            const descEl = document.getElementById('docModalDesc');
+            const openLinkEl = document.getElementById('docModalOpenLink');
+            const urlEl = document.getElementById('docModalUrl');
+
+            badgeEl.textContent = item.kategorie;
+            titleEl.textContent = item.nazev;
+            subtitleEl.textContent = 'Dokumentace / Návod / Nástroj';
+            descEl.textContent = item.popis || 'Popis doplníme.';
+
+            const url = item.url || '#';
+            openLinkEl.href = url;
+            openLinkEl.textContent = item.url ? 'Otevřít' : 'Doplníme';
+            urlEl.textContent = item.url ? url : 'Odkaz na dokument doplníme po založení SharePointu.';
+            openLinkEl.dataset.url = item.url || '';
+
+            openModal('modal-doc-detail');
+        }
+
+        async function copyDocLink() {
+            const openLinkEl = document.getElementById('docModalOpenLink');
+            const url = openLinkEl?.dataset?.url || '';
+            if (!url) return;
+
+            try {
+                await navigator.clipboard.writeText(url);
+                const btn = document.querySelector('#modal-doc-detail .doc-btn:not(.primary)');
+                if (btn) {
+                    const prev = btn.textContent;
+                    btn.textContent = 'Zkopírováno';
+                    setTimeout(() => (btn.textContent = prev), 1200);
+                }
+            } catch (e) {
+                // ignore
+            }
+        }
+
+        // Init docs UI
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.docs-filter').forEach(btn => {
+                btn.addEventListener('click', () => setDocsActiveFilter(btn.dataset.cat));
+            });
+
+            const input = document.getElementById('docsSearch');
+            if (input) {
+                input.addEventListener('input', () => renderDocs());
+            }
+
+            loadDocsCatalog();
+        });
 
         // Close modal on outside click
         document.querySelectorAll('.modal').forEach(modal => {

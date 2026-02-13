@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "id": "doc-001",
+      "kategorie": "Návod",
+      "nazev": "Copilot v Outlooku: rychlejší emaily",
+      "popis": "Základy: shrnutí konverzace, návrhy odpovědí a rychlá úprava tónu. Praktický postup pro každodenní práci.",
+      "url": ""
+    },
+    {
+      "id": "doc-002",
+      "kategorie": "Návod",
+      "nazev": "Copilot v Teams: shrnutí kanálů",
+      "popis": "Jak si jednou denně vytáhnout to důležité z více kanálů bez scrollování.",
+      "url": ""
+    },
+    {
+      "id": "doc-003",
+      "kategorie": "AI nástroj",
+      "nazev": "Copilot (Microsoft 365)",
+      "popis": "Co umí, na co si dát pozor, a kde to nejvíc pomůže ve Salutem.",
+      "url": ""
+    },
+    {
+      "id": "doc-004",
+      "kategorie": "AI nástroj",
+      "nazev": "Power Automate",
+      "popis": "Automatizace jednoduchých procesů: notifikace, schvalování, přenos dat mezi službami.",
+      "url": ""
+    },
+    {
+      "id": "doc-005",
+      "kategorie": "Šablona",
+      "nazev": "Šablona: AI use case (1 stránka)",
+      "popis": "Rychlá šablona pro popis problému, řešení, dopadu a toho, co potřebujeme ověřit.",
+      "url": ""
+    }
+  ]
+}
