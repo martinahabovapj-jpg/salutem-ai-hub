@@ -24,12 +24,12 @@ const USE_CASES = [
 ];
 
 // Parsuje HTML popis šablony na strukturovaný objekt
+// Formát: <p><strong>KLÍČ:</strong> hodnota</p>
 function parseDescription(html) {
   if (!html) return {};
   const fields = {};
-  // Freelo ukládá šablonu jako HTML s <strong>POLE:</strong> hodnota
-  // Regex vytáhne každý pár POLE: hodnota přímo z HTML
-  const pattern = /<strong>([^<]+):<\/strong>\s*([^<]*?)(?=<strong>|<\/p>|<p>|$)/gi;
+  // Přesný pattern pro formát Freela: <p><strong>KLÍČ:</strong> hodnota</p>
+  const pattern = /<p><strong>([^<]+):<\/strong>\s*(.*?)<\/p>/gi;
   let match;
   while ((match = pattern.exec(html)) !== null) {
     const rawKey = match[1].trim();
@@ -95,8 +95,15 @@ async function processTask(taskId) {
     'pozastaveno': 'paused',
     'plánováno': 'planned',
   };
-  const rawStatus = (fields['STATUS'] || '').toLowerCase();
-  const status = statusMap[rawStatus] || (data.state?.state === 'finished' ? 'done' : 'inprocess');
+  // Zkus různé varianty klíče STATUS po normalizaci
+  const rawStatus = (
+    fields['STATUS'] || 
+    fields['STAV'] || 
+    fields['STATUS_'] ||
+    ''
+  ).toLowerCase().trim();
+  
+  const status = statusMap[rawStatus] || (data.state?.state === 'finished' ? 'done' : 'planned');
 
   return {
     taskId,
