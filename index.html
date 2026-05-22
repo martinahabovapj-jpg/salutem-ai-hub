@@ -304,6 +304,280 @@
             margin-top: 0.5rem;
         }
 
+        /* Dashboard Section */
+        .dashboard-section {
+            background: var(--gray-50);
+        }
+        .dash-kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .dash-kpi {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 20px 24px;
+            text-align: center;
+        }
+        .dash-kpi--highlight {
+            background: var(--blue);
+            border-color: var(--blue);
+        }
+        .dash-kpi--highlight .dash-kpi-value,
+        .dash-kpi--highlight .dash-kpi-label {
+            color: var(--white);
+        }
+        .dash-kpi-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--blue);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+        .dash-kpi-label {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            font-weight: 500;
+        }
+        .dash-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .dash-filter {
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1.5px solid var(--gray-300);
+            background: var(--white);
+            color: var(--gray-600);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .dash-filter:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+        .dash-filter.active {
+            background: var(--orange);
+            border-color: var(--orange);
+            color: var(--white);
+        }
+        .dash-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+        }
+        .dash-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 14px;
+            padding: 20px 22px;
+            transition: box-shadow 0.2s, transform 0.2s;
+            border-left: 4px solid var(--gray-300);
+        }
+        .dash-card:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        .dash-card--inprocess { border-left-color: var(--orange); }
+        .dash-card--done      { border-left-color: var(--success); }
+        .dash-card--planned   { border-left-color: var(--gray-400); }
+        .dash-card--paused    { border-left-color: var(--warning); }
+        .dash-card-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .dash-badge {
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 3px 9px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .dash-badge--inprocess { background: #FEF3C7; color: #92400E; }
+        .dash-badge--done      { background: #D1FAE5; color: #065F46; }
+        .dash-badge--planned   { background: var(--gray-100); color: var(--gray-600); }
+        .dash-badge--paused    { background: #FEE2E2; color: #991B1B; }
+        .dash-level-badge {
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 3px 9px;
+            border-radius: 20px;
+            background: var(--gray-100);
+            color: var(--gray-600);
+        }
+        .dash-card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+        .dash-card-popis {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .dash-people {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 12px;
+        }
+        .dash-person {
+            font-size: 0.75rem;
+            background: var(--gray-100);
+            color: var(--gray-700);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .dash-result {
+            background: var(--gray-50);
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+        }
+        .dash-result-number {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--success);
+        }
+        .dash-result-label {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-top: 2px;
+        }
+        .dash-quote {
+            border-left: 3px solid var(--orange);
+            padding-left: 10px;
+            font-size: 0.83rem;
+            color: var(--gray-600);
+            font-style: italic;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+        .dash-subtasks {
+            margin-top: 12px;
+        }
+        .dash-subtasks-toggle {
+            font-size: 0.78rem;
+            color: var(--orange);
+            font-weight: 600;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .dash-subtasks-toggle:hover { text-decoration: underline; }
+        .dash-subtask-list {
+            margin-top: 8px;
+            display: none;
+        }
+        .dash-subtask-list.open { display: block; }
+        .dash-subtask-item {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            padding: 5px 0;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+        .dash-subtask-item:last-child { border-bottom: none; }
+        .dash-subtask-due {
+            font-size: 0.72rem;
+            color: var(--gray-400);
+            white-space: nowrap;
+        }
+        .dash-subtask-due.soon {
+            color: var(--orange);
+            font-weight: 600;
+        }
+        .dash-loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray-500);
+        }
+        .dash-spinner {
+            width: 36px;
+            height: 36px;
+            border: 3px solid var(--gray-200);
+            border-top-color: var(--orange);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 12px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .dash-updated {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--gray-400);
+            margin-top: 20px;
+            font-style: italic;
+        }
+        .dash-error {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: var(--error);
+        }
+        .dash-block {
+            margin-bottom: 40px;
+        }
+        .dash-block-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--gray-200);
+        }
+        .dash-block-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+        .dash-block-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .dash-block-dot--orange { background: var(--orange); }
+        .dash-block-dot--green  { background: var(--success); }
+        .dash-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 32px;
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+        @media (max-width: 768px) {
+            .dash-kpi-row { grid-template-columns: repeat(2, 1fr); }
+            .dash-grid { grid-template-columns: 1fr; }
+        }
+
+        /* =========================================== */
+
         /* Pyramid Section */
         .pyramid-section {
             background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
@@ -2352,6 +2626,7 @@
             </button>
             <div class="nav-links">
                 <a href="#roadmap" class="active">Roadmapa</a>
+                <a href="#dashboard">Dashboard</a>
                 <a href="#projects">Projekty</a>
                 <a href="#timeline">Harmonogram</a>
                 <a href="#learning">Dokumentace</a>
@@ -2518,6 +2793,66 @@
             <p style="text-align: center; font-size: 0.85rem; color: var(--neutral-300); margin-top: 24px; font-style: italic;">
                 Odhady vycházejí z interních rozhovorů. Kalkulace: hodinovka 500 Kč.
             </p>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section class="section dashboard-section" id="dashboard">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Kde teď jsme</h2>
+                <p class="section-subtitle">Živý přehled AI projektů — co právě běží, co se povedlo a co to přináší.</p>
+            </div>
+
+            <!-- Blok C: Kumulativní výsledky -->
+            <div class="dash-kpi-row" id="dashKpiRow">
+                <div class="dash-kpi">
+                    <div class="dash-kpi-value" id="kpiActive">—</div>
+                    <div class="dash-kpi-label">projektů v běhu</div>
+                </div>
+                <div class="dash-kpi dash-kpi--highlight">
+                    <div class="dash-kpi-value" id="kpiHodin">—</div>
+                    <div class="dash-kpi-label">h ušetřeno / týden</div>
+                </div>
+                <div class="dash-kpi dash-kpi--highlight">
+                    <div class="dash-kpi-value" id="kpiKc">—</div>
+                    <div class="dash-kpi-label">Kč úspora / rok</div>
+                </div>
+                <div class="dash-kpi">
+                    <div class="dash-kpi-value" id="kpiLide">—</div>
+                    <div class="dash-kpi-label">zapojených kolegů</div>
+                </div>
+            </div>
+
+            <!-- Blok B: Aktuální sprint -->
+            <div class="dash-block" id="dashBlockInprocess">
+                <div class="dash-block-header">
+                    <span class="dash-block-dot dash-block-dot--orange"></span>
+                    <h3 class="dash-block-title">Právě v běhu</h3>
+                </div>
+                <div class="dash-grid" id="dashGridInprocess">
+                    <div class="dash-loading"><div class="dash-spinner"></div><p>Načítám…</p></div>
+                </div>
+            </div>
+
+            <!-- Blok A: Zpětný pohled -->
+            <div class="dash-block" id="dashBlockDone">
+                <div class="dash-block-header">
+                    <span class="dash-block-dot dash-block-dot--green"></span>
+                    <h3 class="dash-block-title">Povedlo se — poslední 2 měsíce</h3>
+                </div>
+                <div class="dash-grid" id="dashGridDoneRecent">
+                    <div class="dash-loading"><div class="dash-spinner"></div><p>Načítám…</p></div>
+                </div>
+                <div id="dashOlderWrap" style="display:none; margin-top:12px;">
+                    <button class="dash-subtasks-toggle" id="dashOlderToggle" onclick="toggleOlder()">
+                        ▼ Zobrazit starší výsledky
+                    </button>
+                    <div class="dash-grid" id="dashGridDoneOlder" style="display:none; margin-top:16px;"></div>
+                </div>
+            </div>
+
+            <p class="dash-updated" id="dashUpdated"></p>
         </div>
     </section>
 
@@ -6125,6 +6460,169 @@ Méně práce
             el.style.transition = 'all 0.5s ease';
             observer.observe(el);
         });
+    </script>
+
+
+    <!-- Dashboard JavaScript -->
+    <script>
+    (function() {
+        const API_URL = '/api/dashboard';
+        const LEVEL_LABELS = { l3: 'L3 · osobní', l2: 'L2 · týmová', l1: 'L1 · strategická', l0: 'L0 · data' };
+        const STATUS_LABELS = { inprocess: 'V běhu', done: 'Hotovo', planned: 'Plánováno', paused: 'Pozastaveno' };
+        let allData = [];
+        let olderData = [];
+
+        function formatKc(n) {
+            if (!n) return null;
+            if (n >= 1000000) return (n / 1000000).toFixed(1).replace('.0','') + ' mil.';
+            if (n >= 1000) return Math.round(n / 1000) + ' tis.';
+            return n.toString();
+        }
+
+        function isSoon(dateStr) {
+            if (!dateStr) return false;
+            const due = new Date(dateStr);
+            const now = new Date();
+            const diff = (due - now) / (1000 * 60 * 60 * 24);
+            return diff >= 0 && diff <= 14;
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const d = new Date(dateStr);
+            return d.toLocaleDateString('cs-CZ', { day: 'numeric', month: 'short' });
+        }
+
+        function isRecentDone(uc) {
+            if (!uc.dateFinished) return false;
+            const finished = new Date(uc.dateFinished);
+            const twoMonthsAgo = new Date();
+            twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+            return finished >= twoMonthsAgo;
+        }
+
+        function renderCard(uc) {
+            const statusLabel = STATUS_LABELS[uc.status] || uc.status;
+            const levelLabel = LEVEL_LABELS[uc.level] || uc.level;
+            const people = (uc.zapojeniKolegove || []).filter(Boolean);
+
+            const upcoming = (uc.subtasks || []).filter(s => isSoon(s.dueDate) && !s.finished);
+            const rest = (uc.subtasks || []).filter(s => !isSoon(s.dueDate) || s.finished);
+
+            const subtaskHtml = (list) => list.map(s => `
+                <div class="dash-subtask-item">
+                    <span>${s.name}</span>
+                    ${s.dueDate ? `<span class="dash-subtask-due${isSoon(s.dueDate) ? ' soon' : ''}">${formatDate(s.dueDate)}</span>` : ''}
+                </div>`).join('');
+
+            const subtasksSection = (uc.subtasks && uc.subtasks.length > 0) ? `
+                <div class="dash-subtasks">
+                    ${upcoming.length > 0 ? subtaskHtml(upcoming) : ''}
+                    ${rest.length > 0 ? `
+                        <button class="dash-subtasks-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'▲ Skrýt':'▼ Zobrazit vše (${rest.length})'">
+                            ▼ Zobrazit vše (${rest.length})
+                        </button>
+                        <div class="dash-subtask-list">${subtaskHtml(rest)}</div>
+                    ` : ''}
+                </div>` : '';
+
+            const resultHtml = (uc.usporaHodin || uc.usporaKc) ? `
+                <div class="dash-result">
+                    ${uc.usporaHodin ? `<div class="dash-result-number">${uc.usporaHodin} h / týden</div><div class="dash-result-label">ušetřeno na osobu</div>` : ''}
+                    ${uc.usporaKc ? `<div class="dash-result-number" style="margin-top:4px">${formatKc(uc.usporaKc)} Kč / rok</div><div class="dash-result-label">odhadovaná úspora</div>` : ''}
+                    ${uc.vysledekPopis ? `<div class="dash-result-label" style="margin-top:6px;font-style:italic">${uc.vysledekPopis}</div>` : ''}
+                </div>` : '';
+
+            const citatHtml = uc.citat ? `<div class="dash-quote">${uc.citat}</div>` : '';
+            const peopleHtml = people.length > 0 ? `
+                <div class="dash-people">${people.map(p => `<span class="dash-person">${p}</span>`).join('')}</div>` : '';
+
+            const finishedDate = uc.dateFinished ? `<div style="font-size:0.72rem;color:var(--gray-400);margin-top:4px;">Dokončeno ${formatDate(uc.dateFinished)}</div>` : '';
+
+            return `
+                <div class="dash-card dash-card--${uc.status}" data-status="${uc.status}">
+                    <div class="dash-card-header">
+                        <span class="dash-badge dash-badge--${uc.status}">${statusLabel}</span>
+                        <span class="dash-level-badge">${levelLabel}</span>
+                    </div>
+                    <div class="dash-card-title">${uc.name}</div>
+                    ${finishedDate}
+                    ${uc.popis ? `<div class="dash-card-popis">${uc.popis}</div>` : ''}
+                    ${peopleHtml}
+                    ${resultHtml}
+                    ${citatHtml}
+                    ${subtasksSection}
+                </div>`;
+        }
+
+        function renderGrid(gridId, items) {
+            const grid = document.getElementById(gridId);
+            if (!grid) return;
+            if (!items || items.length === 0) {
+                grid.innerHTML = '<div class="dash-empty">Žádné projekty v tomto stavu.</div>';
+                return;
+            }
+            grid.innerHTML = items.map(renderCard).join('');
+        }
+
+        function updateKpis(summary) {
+            document.getElementById('kpiActive').textContent = summary.activeCount || 0;
+            document.getElementById('kpiHodin').textContent = summary.totalHodin ? summary.totalHodin + ' h' : '—';
+            document.getElementById('kpiKc').textContent = summary.totalKc ? formatKc(summary.totalKc) : '—';
+            document.getElementById('kpiLide').textContent = summary.kolegoveCount || '—';
+        }
+
+        window.toggleOlder = function() {
+            const wrap = document.getElementById('dashGridDoneOlder');
+            const btn = document.getElementById('dashOlderToggle');
+            const isOpen = wrap.style.display !== 'none';
+            wrap.style.display = isOpen ? 'none' : 'grid';
+            btn.textContent = isOpen ? '▼ Zobrazit starší výsledky' : '▲ Skrýt starší výsledky';
+        };
+
+        function initDashboard() {
+            fetch(API_URL)
+                .then(r => {
+                    if (!r.ok) throw new Error('API error ' + r.status);
+                    return r.json();
+                })
+                .then(data => {
+                    allData = data.useCases || [];
+                    updateKpis(data.summary || {});
+
+                    // Blok B: V běhu
+                    const inprocess = allData.filter(uc => uc.status === 'inprocess');
+                    renderGrid('dashGridInprocess', inprocess);
+
+                    // Blok A: Hotovo — rozdělení na nedávné a starší
+                    const done = allData.filter(uc => uc.status === 'done');
+                    const recentDone = done.filter(isRecentDone);
+                    const olderDone = done.filter(uc => !isRecentDone(uc));
+
+                    renderGrid('dashGridDoneRecent', recentDone);
+
+                    if (olderDone.length > 0) {
+                        const olderWrap = document.getElementById('dashOlderWrap');
+                        olderWrap.style.display = 'block';
+                        renderGrid('dashGridDoneOlder', olderDone);
+                    }
+
+                    // Timestamp
+                    if (data.generatedAt) {
+                        const d = new Date(data.generatedAt);
+                        document.getElementById('dashUpdated').textContent =
+                            'Aktualizováno: ' + d.toLocaleString('cs-CZ', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+                    }
+                })
+                .catch(err => {
+                    console.error('Dashboard error:', err);
+                    document.getElementById('dashGridInprocess').innerHTML = '<div class="dash-error">Nepodařilo se načíst data. Zkuste obnovit stránku.</div>';
+                    document.getElementById('dashGridDoneRecent').innerHTML = '';
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    })();
     </script>
 
 </body>
