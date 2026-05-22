@@ -26,18 +26,19 @@ const USE_CASES = [
 // Parsuje HTML popis šablony na strukturovaný objekt
 function parseDescription(html) {
   if (!html) return {};
-  // Odstraní HTML tagy, zachová hodnoty za <strong>POLE:</strong>
-  const text = html.replace(/<br\s*\/?>/gi, '\n').replace(/<[^>]+>/g, '');
   const fields = {};
-  const lines = text.split('\n');
-  for (const line of lines) {
-    const match = line.match(/^([A-ZÁÉÍÓÚŮÝŽŠČŘĎŤŇ\s]+):\s*(.*)$/u);
-    if (match) {
-      const key = match[1].trim().toUpperCase()
-        .replace(/ /g, '_')
-        .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // oddiakritizuj klíč
-      fields[key] = match[2].trim();
-    }
+  // Freelo ukládá šablonu jako HTML s <strong>POLE:</strong> hodnota
+  // Regex vytáhne každý pár POLE: hodnota přímo z HTML
+  const pattern = /<strong>([^<]+):<\/strong>\s*([^<]*?)(?=<strong>|<\/p>|<p>|$)/gi;
+  let match;
+  while ((match = pattern.exec(html)) !== null) {
+    const rawKey = match[1].trim();
+    const value = match[2].replace(/<[^>]+>/g, '').trim();
+    // Normalizuj klíč — odstraň diakritiku, nahraď mezery podtržítkem
+    const key = rawKey.toUpperCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/\s+/g, '_');
+    fields[key] = value;
   }
   return fields;
 }
