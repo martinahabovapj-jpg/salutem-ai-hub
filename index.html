@@ -389,6 +389,11 @@
         .dash-card--done      { border-left-color: var(--success); }
         .dash-card--planned   { border-left-color: var(--gray-400); }
         .dash-card--paused    { border-left-color: var(--warning); }
+        /* Barvy podle úrovně pyramidy — přepisují border-left */
+        .dash-card--l3 { border-left-color: #F59E0B; }
+        .dash-card--l2 { border-left-color: #3B82F6; }
+        .dash-card--l1 { border-left-color: #10B981; }
+        .dash-card--l0 { border-left-color: #9CA3AF; }
         .dash-card-header {
             display: flex;
             align-items: center;
@@ -416,6 +421,10 @@
             background: var(--gray-100);
             color: var(--gray-600);
         }
+        .dash-level-badge--l3 { background: #FEF3C7; color: #92400E; }
+        .dash-level-badge--l2 { background: #DBEAFE; color: #1E40AF; }
+        .dash-level-badge--l1 { background: #E0E7FF; color: #3730A3; }
+        .dash-level-badge--l0 { background: #F3F4F6; color: #374151; }
         .dash-card-title {
             font-size: 1rem;
             font-weight: 700;
@@ -6540,10 +6549,10 @@ Méně práce
             const finishedDate = uc.dateFinished ? `<div style="font-size:0.72rem;color:var(--gray-400);margin-top:4px;">Dokončeno ${formatDate(uc.dateFinished)}</div>` : '';
 
             return `
-                <div class="dash-card dash-card--${uc.status}" data-status="${uc.status}">
+                <div class="dash-card dash-card--${uc.status} dash-card--${uc.level}" data-status="${uc.status}">
                     <div class="dash-card-header">
                         <span class="dash-badge dash-badge--${uc.status}">${statusLabel}</span>
-                        <span class="dash-level-badge">${levelLabel}</span>
+                        <span class="dash-level-badge dash-level-badge--${uc.level}">${levelLabel}</span>
                     </div>
                     <div class="dash-card-title">${uc.name}</div>
                     ${finishedDate}
