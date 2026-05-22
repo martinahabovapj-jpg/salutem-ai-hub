@@ -4,6 +4,7 @@
 
 const FREELO_BASE = 'https://api.freelo.io/v1';
 const TOKEN = process.env.FREELO_API_TOKEN;
+const EMAIL = process.env.FREELO_EMAIL; // tvůj přihlašovací email do Freela
 
 // ID hlavních use casů (task ID → název)
 const USE_CASES = [
@@ -45,7 +46,8 @@ function parseDescription(html) {
 async function freeloGet(path) {
   const res = await fetch(`${FREELO_BASE}${path}`, {
     headers: {
-      'Authorization': `Bearer ${TOKEN}`,
+      // Freelo používá HTTP Basic auth: email + API token jako heslo
+      'Authorization': 'Basic ' + Buffer.from(`${EMAIL}:${TOKEN}`).toString('base64'),
       'Content-Type': 'application/json',
     },
   });
@@ -134,8 +136,8 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
 
-  if (!TOKEN) {
-    return res.status(500).json({ error: 'FREELO_API_TOKEN není nastaven' });
+  if (!TOKEN || !EMAIL) {
+    return res.status(500).json({ error: 'FREELO_API_TOKEN nebo FREELO_EMAIL není nastaven' });
   }
 
   try {
