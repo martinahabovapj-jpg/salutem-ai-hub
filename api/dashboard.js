@@ -119,10 +119,9 @@ async function processTask(taskId) {
 
 // Zpracuje Týmové piloty na míru (list bez jednoho hlavního úkolu)
 async function processMultiTaskList(listId) {
-  const data = await freeloGet(`/tasklist/${listId}/tasks`);
-  // Freelo vrací data pole různě — zkusíme data.tasks nebo data nebo přímé pole
-  const rawTasks = (data.data && data.data.tasks) ? data.data.tasks : 
-                   (Array.isArray(data) ? data : []);
+  const data = await freeloGet(`/tasklist/${listId}`);
+  // Freelo vrací úkoly v poli tasks[] uvnitř detail tasklistu
+  const rawTasks = Array.isArray(data.tasks) ? data.tasks : [];
   const tasks = rawTasks.filter(t => !t.parent_task_id);
   
   const pilots = await Promise.all(
