@@ -34,6 +34,48 @@
       "nazev": "Šablona: AI use case (1 stránka)",
       "popis": "Rychlá šablona pro popis problému, řešení, dopadu a toho, co potřebujeme ověřit.",
       "url": ""
+    },
+    {
+      "id": "doc-006",
+      "kategorie": "Automatizace",
+      "nazev": "Nastavení obecného newsletteru (NL)",
+      "popis": "Jak v Raynetu označit kontakt štítkem NL Obecny a jak funguje synchronizace segmentu v Ecomailu.",
+      "url": "https://pjcapital.sharepoint.com/sites/AIHUB/SitePages/Nastaven%C3%AD-pro-obecn%C3%BD-NL.aspx"
+    },
+    {
+      "id": "doc-007",
+      "kategorie": "Automatizace",
+      "nazev": "Obousměrná synchronizace Ecomail ↔ Raynet",
+      "popis": "Kontakty se synchronizují v reálném čase — jméno, štítky, vlastní pole. Aktivity z Ecomailu se denně propisují do Raynetu.",
+      "url": "https://pjcapital.sharepoint.com/sites/AIHUB/SitePages/Obousm%C4%9Brn%C3%A1-synchronizace-Ecomail-s-Raynet.aspx"
+    },
+    {
+      "id": "doc-008",
+      "kategorie": "Automatizace",
+      "nazev": "Raynet + Zaptime: rezervace schůzek",
+      "popis": "Jak funguje propojení rezervačního nástroje Zaptime s Raynetem — od SMS kampaně po automatické vytvoření Leadu.",
+      "url": "https://pjcapital.sharepoint.com/sites/AIHUB/SitePages/Raynet---nov%C3%A9-propojen%C3%AD-s-rezerva%C4%8Dn%C3%ADm-n%C3%A1strojem-Zaptime.aspx"
+    },
+    {
+      "id": "doc-009",
+      "kategorie": "Návod",
+      "nazev": "Ecomail: import kontaktů a segmentace",
+      "popis": "Jak rychle naimportovat kontaktní seznam do Ecomailu, přiřadit štítky a vytvořit segment pro cílenou rozesílku.",
+      "url": "https://pjcapital.sharepoint.com/sites/AIHUB/SitePages/Ecomail---import-kontaktn%C3%ADho-seznamu-pro-segmentaci.aspx"
+    },
+    {
+      "id": "doc-010",
+      "kategorie": "Návod",
+      "nazev": "Ecomail: sběr kontaktů z Facebook Lead Ads",
+      "popis": "Nastavení automatizace pro welcome email po vyplnění leadgen formuláře — logika segmentace podle regionů.",
+      "url": "https://pjcapital.sharepoint.com/sites/AIHUB/SitePages/Ecomail.aspx"
+    },
+    {
+      "id": "doc-011",
+      "kategorie": "Automatizace",
+      "nazev": "Make: automatizace štítků a stavů v Raynetu",
+      "popis": "Scénáře pro automatické přidávání a odebírání štítků při změně stavu obchodního případu — od přidělení po výhru nebo prohru.",
+      "url": "https://pjcapital.sharepoint.com/sites/AIHUB/SitePages/MAKE.aspx"
     }
   ]
 }
