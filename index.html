@@ -2821,7 +2821,7 @@
                 </div>
                 <div class="dash-kpi dash-kpi--highlight">
                     <div class="dash-kpi-value" id="kpiHodin">—</div>
-                    <div class="dash-kpi-label">h ušetřeno / týden</div>
+                    <div class="dash-kpi-label">h ušetřeno / rok</div>
                 </div>
                 <div class="dash-kpi dash-kpi--highlight">
                     <div class="dash-kpi-value" id="kpiKc">—</div>
@@ -6537,7 +6537,7 @@ Méně práce
 
             const resultHtml = (uc.usporaHodin || uc.usporaKc) ? `
                 <div class="dash-result">
-                    ${uc.usporaHodin ? `<div class="dash-result-number">${uc.usporaHodin} h / týden</div><div class="dash-result-label">ušetřeno na osobu</div>` : ''}
+                    ${uc.usporaHodin ? `<div class="dash-result-number">${uc.usporaHodin} h / týden</div><div class="dash-result-label">ušetřeno celkem / rok</div>` : ''}
                     ${uc.usporaKc ? `<div class="dash-result-number" style="margin-top:4px">${formatKc(uc.usporaKc)} Kč / rok</div><div class="dash-result-label">odhadovaná úspora</div>` : ''}
                     ${uc.vysledekPopis ? `<div class="dash-result-label" style="margin-top:6px;font-style:italic">${uc.vysledekPopis}</div>` : ''}
                 </div>` : '';

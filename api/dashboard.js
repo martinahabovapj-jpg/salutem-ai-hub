@@ -117,7 +117,7 @@ async function processTask(taskId) {
     zapojeniKolegove: fields['ZAPOJENI_KOLEGOVE'] 
       ? fields['ZAPOJENI_KOLEGOVE'].split(',').map(s => s.trim()).filter(Boolean)
       : [],
-    usporaHodin: parseFloat(fields['USPORA_HODIN']) || null,
+    usporaHodin: parseFloat(fields['USPORA_HODIN']) || null,  // celkem h/rok za celý tým
     usporaKc: parseFloat(fields['USPORA_KC']) || null,
     vysledekPopis: fields['VYSLEDEK_POPIS'] || '',
     citat: fields['CITAT'] || '',
