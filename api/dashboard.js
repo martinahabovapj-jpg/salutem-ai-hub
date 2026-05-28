@@ -76,11 +76,10 @@ async function processTask(taskId) {
     subtasks = subList
       .filter(s => {
         const name = s.name || '';
-        const isDashboard = name.includes('[dashboard]') ||
-          /pilot s|schůzka s|sezení s|rozhovor s/i.test(name);
+        // Vyřaď pouze explicitně interní operativu
         const isIntern = name.includes('[interní]') ||
-          /technická příprava|komunikační příprava|checklist|interní příprava|pilotní obsah|interní pracovní systém|datová příprava/i.test(name);
-        return isDashboard && !isIntern;
+          /^(technická příprava|komunikační příprava|checklist pro start|interní příprava|pilotní obsah a šablony|interní pracovní systém|datová příprava)$/i.test(name.trim());
+        return !isIntern;
       })
       .map(s => ({
         id: s.task_id,
