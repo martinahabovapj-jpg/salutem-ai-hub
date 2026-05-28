@@ -7,6 +7,9 @@ const TOKEN = process.env.FREELO_API_TOKEN;
 const EMAIL = process.env.FREELO_EMAIL; // tvůj přihlašovací email do Freela
 
 // ID hlavních use casů (task ID → název)
+// To-do listy které se NEZOBRAZUJÍ na dashboardu
+const EXCLUDED_LIST_IDS = [1883045, 1717295]; // AI Hub & provoz týmu, Freelo formulář + ukolník PŠ
+
 const USE_CASES = [
   { taskId: 29993565, listId: 1883031, name: 'Rychlejší práce s emaily',         level: 'l3', direction: 'dovnitř' },
   { taskId: 29993922, listId: 1883032, name: 'Přehled z 20 Teams skupin',        level: 'l3', direction: 'dovnitř' },
@@ -59,7 +62,7 @@ async function freeloGet(path) {
 // Zpracuje jeden hlavní use case task
 async function processTask(taskId) {
   const data = await freeloGet(`/task/${taskId}`);
-  
+
   // Najdi description komentář (is_description: true)
   const descComment = (data.comments || []).find(c => c.is_description);
   const fields = descComment ? parseDescription(descComment.content) : {};
@@ -73,18 +76,19 @@ async function processTask(taskId) {
     subtasks = subList
       .filter(s => {
         const name = s.name || '';
-        const isDashboard = name.includes('[dashboard]') || 
+        const isDashboard = name.includes('[dashboard]') ||
           /pilot s|schůzka s|sezení s|rozhovor s/i.test(name);
         const isIntern = name.includes('[interní]') ||
           /technická příprava|komunikační příprava|checklist|interní příprava|pilotní obsah|interní pracovní systém|datová příprava/i.test(name);
         return isDashboard && !isIntern;
       })
       .map(s => ({
-        id: s.task_id,          // task_id je skutečné ID, ne s.id
+        id: s.task_id,
         name: s.name.replace('[dashboard]', '').trim(),
-        status: s.state?.id === 5 ? 'finished' : 'active',  // id=5 finished, id=1 active
+        status: s.state?.id === 5 ? 'finished' : 'active',
         dueDate: s.due_date || null,
         finished: s.state?.id === 5,
+        worker: s.worker?.fullname || null,
       }));
   }
 
@@ -97,13 +101,30 @@ async function processTask(taskId) {
   };
   // Zkus různé varianty klíče STATUS po normalizaci
   const rawStatus = (
-    fields['STATUS'] || 
-    fields['STAV'] || 
+    fields['STATUS'] ||
+    fields['STAV'] ||
     fields['STATUS_'] ||
     ''
   ).toLowerCase().trim();
-  
-  const status = statusMap[rawStatus] || (data.state?.state === 'finished' ? 'done' : 'planned');
+
+  // Fallback logika: pokud STATUS není vyplněn, odvoď ze stavu úkolu a podúkolů
+  let status = statusMap[rawStatus];
+  if (!status) {
+    if (data.state?.id === 5) {
+      status = 'done';
+    } else {
+      // "v běhu" pokud má podúkol s řešitelem nebo termínem (načteme níže)
+      status = null; // doplníme po načtení subtasků
+    }
+  }
+
+  // Pokud status nebyl určen ze šablony, odvoď z podúkolů
+  if (!status) {
+    const hasActiveSubtaskWithDateOrWorker = subtasks.some(s =>
+      !s.finished && (s.dueDate || s.worker)
+    );
+    status = hasActiveSubtaskWithDateOrWorker ? 'inprocess' : 'planned';
+  }
 
   return {
     taskId,
@@ -114,7 +135,7 @@ async function processTask(taskId) {
     datumZahajeni: fields['DATUM_ZAHAJENI'] || '',
     datumDokonceni: fields['DATUM_DOKONCENI'] || data.date_finished || '',
     dateFinished: data.date_finished || null,
-    zapojeniKolegove: fields['ZAPOJENI_KOLEGOVE'] 
+    zapojeniKolegove: fields['ZAPOJENI_KOLEGOVE']
       ? fields['ZAPOJENI_KOLEGOVE'].split(',').map(s => s.trim()).filter(Boolean)
       : [],
     usporaHodin: parseFloat(fields['USPORA_HODIN']) || null,  // celkem h/rok za celý tým
@@ -125,23 +146,55 @@ async function processTask(taskId) {
   };
 }
 
-// Zpracuje Týmové piloty na míru (list bez jednoho hlavního úkolu)
-async function processMultiTaskList(listId) {
-  const data = await freeloGet(`/tasklist/${listId}`);
-  // Freelo vrací úkoly v poli tasks[] uvnitř detail tasklistu
+// Zpracuje Týmové piloty na míru jako JEDNU kartu s podúkoly z celého to-do listu
+async function processListAsOneCard(uc) {
+  const data = await freeloGet(`/tasklist/${uc.listId}`);
   const rawTasks = Array.isArray(data.tasks) ? data.tasks : [];
-  const tasks = rawTasks.filter(t => !t.parent_task_id);
-  
-  const pilots = await Promise.all(
-    tasks.slice(0, 20).map(t => processTask(t.id).catch(() => null))
-  );
-  return pilots.filter(Boolean);
+
+  // Všechny top-level úkoly v listu = piloty = zobrazíme jako subtasky
+  const topTasks = rawTasks.filter(t => !t.parent_task_id);
+
+  // Filtruj jen aktivní (ne hotové) s termínem nebo bez
+  const subtasks = topTasks
+    .filter(t => {
+      const isIntern = /technická příprava|komunikační příprava|checklist|interní příprava/i.test(t.name || '');
+      return !isIntern;
+    })
+    .map(t => ({
+      id: t.id,
+      name: t.name,
+      status: t.state?.id === 5 ? 'finished' : 'active',
+      dueDate: t.due_date || null,
+      finished: t.state?.id === 5,
+    }));
+
+  // "v běhu" pokud má alespoň jeden pilot s termínem nebo řešitelem
+  const hasActiveWithDateOrWorker = subtasks.some(s => !s.finished && (s.dueDate || s.worker));
+  const listStatus = hasActiveWithDateOrWorker ? 'inprocess' : 'planned';
+
+  return {
+    taskId: null,
+    name: uc.name,
+    popis: `Aktivní piloty na míru pro různá oddělení — Customer Care, Pronájmy, Marketing, HR/IT a další.`,
+    uroven: uc.level,
+    status: listStatus,
+    direction: uc.direction,
+    datumZahajeni: '',
+    datumDokonceni: '',
+    dateFinished: null,
+    zapojeniKolegove: [],
+    usporaHodin: null,
+    usporaKc: null,
+    vysledekPopis: '',
+    citat: '',
+    subtasks,
+  };
 }
 
 export default async function handler(req, res) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
+  res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate=1800'); // cache 15 minut
 
   if (!TOKEN || !EMAIL) {
     return res.status(500).json({ error: 'FREELO_API_TOKEN nebo FREELO_EMAIL není nastaven' });
@@ -155,19 +208,14 @@ export default async function handler(req, res) {
     const allKolegove = new Set();
 
     for (const uc of USE_CASES) {
+      // Přeskoč vyloučené to-do listy
+      if (EXCLUDED_LIST_IDS.includes(uc.listId)) continue;
+
       if (uc.multiTask) {
-        // Týmové piloty na míru — zpracuj každý pilot zvlášť
-        const pilots = await processMultiTaskList(uc.listId);
-        for (const pilot of pilots) {
-          pilot.parentList = uc.name;
-          pilot.level = uc.level;
-          pilot.direction = uc.direction;
-          results.push(pilot);
-          if (pilot.status === 'inprocess') activeCount++;
-          if (pilot.usporaHodin) totalHodin += pilot.usporaHodin;
-          if (pilot.usporaKc) totalKc += pilot.usporaKc;
-          pilot.zapojeniKolegove.forEach(k => allKolegove.add(k));
-        }
+        // Týmové piloty na míru — jedna karta zastřešující celý to-do list
+        const card = await processListAsOneCard(uc);
+        results.push(card);
+        if (card.status === 'inprocess') activeCount++;
       } else {
         const task = await processTask(uc.taskId);
         task.level = uc.level;
