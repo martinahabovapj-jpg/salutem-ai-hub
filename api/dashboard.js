@@ -60,34 +60,36 @@ async function freeloGet(path) {
 }
 
 // Zpracuje jeden hlavní use case task
-async function processTask(taskId) {
+// Šablona (popis, citát atd.) se bere z hlavního úkolu
+// Podúkoly se berou z celého to-do listu (listId)
+async function processTask(taskId, listId) {
   const data = await freeloGet(`/task/${taskId}`);
 
   // Najdi description komentář (is_description: true)
   const descComment = (data.comments || []).find(c => c.is_description);
   const fields = descComment ? parseDescription(descComment.content) : {};
 
-  // Subtasky — načti zvlášť
+  // Podúkoly — načti z celého to-do listu
   let subtasks = [];
-  if (data.count_subtasks > 0) {
-    const subData = await freeloGet(`/task/${taskId}/subtasks`);
-    // Freelo vrací data.subtasks, ne items
-    const subList = (subData.data && subData.data.subtasks) ? subData.data.subtasks : [];
-    subtasks = subList
-      .filter(s => {
-        const name = s.name || '';
-        // Vyřaď pouze explicitně interní operativu
+  if (listId) {
+    const listData = await freeloGet(`/tasklist/${listId}`);
+    const rawTasks = Array.isArray(listData.tasks) ? listData.tasks : [];
+    subtasks = rawTasks
+      .filter(t => {
+        // Přeskoč samotný hlavní úkol
+        if (t.id === taskId) return false;
+        const name = t.name || '';
         const isIntern = name.includes('[interní]') ||
           /^(technická příprava|komunikační příprava|checklist pro start|interní příprava|pilotní obsah a šablony|interní pracovní systém|datová příprava)$/i.test(name.trim());
         return !isIntern;
       })
-      .map(s => ({
-        id: s.task_id,
-        name: s.name.replace('[dashboard]', '').trim(),
-        status: s.state?.id === 5 ? 'finished' : 'active',
-        dueDate: s.due_date || null,
-        finished: s.state?.id === 5,
-        worker: s.worker?.fullname || null,
+      .map(t => ({
+        id: t.id,
+        name: t.name.replace('[dashboard]', '').trim(),
+        status: t.state?.id === 5 ? 'finished' : 'active',
+        dueDate: t.due_date || null,
+        finished: t.state?.id === 5,
+        worker: t.worker?.fullname || null,
       }));
   }
 
@@ -216,7 +218,7 @@ export default async function handler(req, res) {
         results.push(card);
         if (card.status === 'inprocess') activeCount++;
       } else {
-        const task = await processTask(uc.taskId);
+        const task = await processTask(uc.taskId, uc.listId);
         task.level = uc.level;
         task.direction = uc.direction;
         results.push(task);
