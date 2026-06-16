@@ -417,6 +417,106 @@
             .assessment-grid { grid-template-columns: 1fr; }
         }
 
+        /* Text link (Teams kanál) */
+        .tlink {
+            color: var(--orange);
+            text-decoration: none;
+            border-bottom: 2px solid rgba(243,108,43,0.4);
+            transition: border-color 0.2s;
+        }
+        .tlink:hover { border-color: var(--orange); }
+
+        /* Cycle summary box */
+        .cycle-summary {
+            max-width: 880px;
+            margin: 2rem auto 0;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            color: var(--white);
+            border-radius: 14px;
+            padding: 1.5rem 1.75rem;
+            font-size: 1.02rem;
+        }
+        .cycle-summary strong { color: var(--orange); }
+
+        /* Journey box (bullets inside a step) */
+        .journey-box {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-left: 4px solid var(--orange);
+            border-radius: 0 12px 12px 0;
+            padding: 1.1rem 1.4rem;
+            margin: 1rem 0;
+        }
+        .journey-box ul { margin-left: 1.2rem; color: var(--gray-600); font-size: 0.95rem; }
+        .journey-box li { margin-bottom: 0.4rem; }
+        .journey-box li:last-child { margin-bottom: 0; }
+        .journey-note { font-size: 0.9rem; color: var(--gray-500); font-style: italic; }
+
+        /* Heatmap */
+        .heatmap-wrap { max-width: 880px; margin: 0 auto; overflow-x: auto; }
+        .heatmap { width: 100%; border-collapse: separate; border-spacing: 4px; min-width: 560px; }
+        .heatmap th {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            font-weight: 600;
+            padding: 0.5rem 0.4rem;
+            text-align: center;
+            vertical-align: bottom;
+        }
+        .heatmap th.row-h { text-align: left; }
+        .heatmap td {
+            text-align: center;
+            padding: 0.6rem 0.4rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .heatmap td.name { text-align: left; background: var(--gray-100); color: var(--gray-700); font-weight: 600; }
+        .heatmap tr.avg td { font-weight: 800; }
+        .heatmap tr.avg td.name { background: var(--gray-200); }
+        .hm-0 { background: #DC2626; color: #fff; }
+        .hm-1 { background: #F59E0B; color: #fff; }
+        .hm-2 { background: #34D399; color: #064E3B; }
+        .hm-3 { background: #10B981; color: #fff; }
+        .heatmap-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.25rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+        .heatmap-legend span { display: inline-flex; align-items: center; gap: 0.5rem; }
+        .heatmap-legend i { width: 16px; height: 16px; border-radius: 4px; display: inline-block; }
+        .note-block {
+            max-width: 880px;
+            margin: 1.75rem auto 0;
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-left: 4px solid var(--gray-300);
+            border-radius: 0 12px 12px 0;
+            padding: 1.25rem 1.5rem;
+        }
+        .section--white .note-block { background: var(--gray-50); }
+
+        /* Simple table (rytmus) */
+        .table-wrap { max-width: 880px; margin: 0 auto; overflow-x: auto; }
+        .simple-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 14px;
+            overflow: hidden;
+            min-width: 480px;
+        }
+        .simple-table th { background: var(--blue); color: #fff; text-align: left; padding: 0.85rem 1.25rem; font-size: 0.9rem; }
+        .simple-table td { padding: 0.85rem 1.25rem; border-top: 1px solid var(--gray-200); color: var(--gray-700); font-size: 0.95rem; vertical-align: top; }
+        .simple-table td:first-child { font-weight: 700; color: var(--blue); white-space: nowrap; }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .card-grid { grid-template-columns: repeat(2, 1fr); }
@@ -703,8 +803,8 @@
 
                 <div class="info-card is-product">
                     <div class="card-badge">P7</div>
-                    <h3>Use-case knihovna</h3>
-                    <p>Vzdělávací materiál postavený na reálných příkladech ze Salutemu. Místo obecných ukázek typu „AI vám pomůže s produktivitou" ukazuje konkrétní situace: co se řešilo, kdo měl problém, jaký byl původní postup, jak pomohla AI a jaký byl dopad. Může vycházet z 12 produkčních use-casů v AI Hubu — tím se vzdělávání propojí s praxí.</p>
+                    <h3>Kanál <a class="tlink" href="https://teams.microsoft.com/l/channel/19%3A433a5d4d41c54168abfb8b68bd86e69e%40thread.tacv2/U%C4%8D%C3%ADme%20se%20AI?groupId=44fbadd0-4e7a-40e1-b862-ebb3b40d52a9&tenantId=aec1b4b8-a66b-4fe3-943d-69877d3cd280" target="_blank" rel="noopener noreferrer">„Učíme se AI"</a></h3>
+                    <p>Společný prostor v Teams, kde žijí reálné příklady ze Salutemu. Místo obecných ukázek typu „AI vám pomůže s produktivitou" ukazuje konkrétní situace: co se řešilo, kdo měl problém, jaký byl původní postup, jak pomohla AI a jaký byl dopad. Může vycházet z 12 produkčních use-casů v AI Hubu — tím se vzdělávání propojí s praxí.</p>
                 </div>
             </div>
         </div>
@@ -974,8 +1074,8 @@
                 <div class="journey-step">
                     <div class="journey-num">3</div>
                     <div class="journey-content">
-                        <h3>Sed-by-side koučink, use-case knihovna a komunita</h3>
-                        <p>Vzdělávání se posune blíž k praxi: koučink nad reálnými úkoly, budování use-case knihovny a pravidelná komunikace přes newsletter nebo komunitu. Cílem je ukazovat konkrétní příklady a dostat AI do běžného pracovního rytmu.</p>
+                        <h3>Sed-by-side koučink, kanál <a class="tlink" href="https://teams.microsoft.com/l/channel/19%3A433a5d4d41c54168abfb8b68bd86e69e%40thread.tacv2/U%C4%8D%C3%ADme%20se%20AI?groupId=44fbadd0-4e7a-40e1-b862-ebb3b40d52a9&tenantId=aec1b4b8-a66b-4fe3-943d-69877d3cd280" target="_blank" rel="noopener noreferrer">„Učíme se AI"</a> a komunita</h3>
+                        <p>Vzdělávání se posune blíž k praxi: koučink nad reálnými úkoly, sdílení konkrétních příkladů v kanálu „Učíme se AI" a pravidelná komunikace přes newsletter nebo komunitu. Cílem je ukazovat konkrétní příklady a dostat AI do běžného pracovního rytmu.</p>
                     </div>
                 </div>
 
@@ -986,6 +1086,174 @@
                         <p>Služba se začne systematicky měřit, vyhodnocovat a zlepšovat: posun v mapě schopností, skutečné používání AI, zpětná vazba, dopad na práci a potřeba úprav obsahu. Škálování probíhá přes champions, aby vzdělávání nebylo závislé jen na kapacitě AI týmu.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- D2.2 Jeden cyklus na tým -->
+    <section class="section section--gray">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Jeden cyklus na tým</h2>
+            </div>
+
+            <p class="section-lead">Není to dvojí paralelní proces. Je to jeden cyklus na jeden tým, který řídí AI tým společně s manažerem týmu. Jeden tým, jedno kolo — a kola se opakují.</p>
+
+            <div class="journey">
+                <div class="journey-step">
+                    <div class="journey-num">1</div>
+                    <div class="journey-content">
+                        <h3>Assessment týmu</h3>
+                        <p>Všichni v týmu vyplní dotazník. Vznikne heatmapa — 5 oblastí × lidé, obarvená podle úrovní 0–3. Hned je vidět, kde tým „svítí červeně".</p>
+                        <a class="link-btn link-btn--orange" href="https://forms.office.com/Pages/ResponsePage.aspx?id=uLTBrmum40-UPWmHfTzSgHJpid13tINHp_x_-a1h_O5UQlFBVUhPUEs3WFdaRU82RTNOQVpSRVRFUy4u" target="_blank" rel="noopener noreferrer">Vyplnit dotazník</a>
+                    </div>
+                </div>
+
+                <div class="journey-step">
+                    <div class="journey-num">2</div>
+                    <div class="journey-content">
+                        <h3>Výběr 1–2 oblastí</h3>
+                        <p>Vybírá se z heatmapy. Skoro vždy mindset (je to prediktor, cíl ≥ 2 pro všechny) plus jedna dovednostní oblast, kde je tým nejslabší a zároveň je pro jeho práci nejdůležitější. Příklad: obchodní tým má nízko prompting a „AI v mojí práci" → vybere se mindset + prompting. Neřeší se všech 5 oblastí najednou — vždy jedna věc.</p>
+                    </div>
+                </div>
+
+                <div class="journey-step">
+                    <div class="journey-num">3</div>
+                    <div class="journey-content">
+                        <h3>Doručení — jak se lidé do dané úrovně dostanou</h3>
+                        <p>Doručení je ten akt, kdy se dovednost reálně předá. Je to menu způsobů — volí se podle situace:</p>
+                        <div class="journey-box">
+                            <ul>
+                                <li>základ (Elements of AI — projdou sami)</li>
+                                <li>modul pro jejich roli (konkrétní příklady z jejich práce)</li>
+                                <li>sed-by-side (společná práce nad reálným úkolem konkrétního člověka)</li>
+                                <li>(později) champion to odkoučuje za AI tým</li>
+                            </ul>
+                        </div>
+                        <p class="journey-note">Na startu doručení zajišťuje přímo AI tým spolu s manažerem.</p>
+                    </div>
+                </div>
+
+                <div class="journey-step is-final">
+                    <div class="journey-num">4</div>
+                    <div class="journey-content">
+                        <h3>Po ~3 měsících znovu dotazník</h3>
+                        <p>Ukáže, jestli se tým posunul ve dvou vybraných oblastech. Posun = funguje to. Pak se vybere další oblast — a jede další kolo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cycle-summary">
+                <strong>Shrnutí jednou větou:</strong> vybere se jeden pilotní tým → vyplní dotazník → z heatmapy se vezme mindset + jedna slabá oblast → tři měsíce probíhá doručování (základ + sed-by-side, zpočátku přímo AI tým) → přeměří se → posun na další tým a z nadšenců se stanou první champions.
+            </div>
+        </div>
+    </section>
+
+    <!-- D2.3 Ukázka heatmapy týmu -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Ukázka heatmapy týmu (ilustrační data)</h2>
+            </div>
+
+            <p class="section-lead">Příklad obchodního týmu. Každý řádek je člověk, každý sloupec jedna z 5 oblastí. Barva ukazuje úroveň 0–3. Tmavě červené pole = kde tým „svítí" a kde má smysl začít.</p>
+
+            <div class="heatmap-wrap">
+                <table class="heatmap">
+                    <thead>
+                        <tr>
+                            <th class="row-h">Člověk</th>
+                            <th>Mindset &amp; pravidla</th>
+                            <th>Prompting &amp; nástroje</th>
+                            <th>Data &amp; governance</th>
+                            <th>AI v mojí práci</th>
+                            <th>Kritické myšlení</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="name">Člověk A</td>
+                            <td class="hm-0">0</td><td class="hm-1">1</td><td class="hm-2">2</td><td class="hm-1">1</td><td class="hm-1">1</td>
+                        </tr>
+                        <tr>
+                            <td class="name">Člověk B</td>
+                            <td class="hm-1">1</td><td class="hm-0">0</td><td class="hm-2">2</td><td class="hm-1">1</td><td class="hm-2">2</td>
+                        </tr>
+                        <tr>
+                            <td class="name">Člověk C</td>
+                            <td class="hm-0">0</td><td class="hm-1">1</td><td class="hm-3">3</td><td class="hm-0">0</td><td class="hm-1">1</td>
+                        </tr>
+                        <tr>
+                            <td class="name">Člověk D</td>
+                            <td class="hm-1">1</td><td class="hm-1">1</td><td class="hm-2">2</td><td class="hm-1">1</td><td class="hm-1">1</td>
+                        </tr>
+                        <tr>
+                            <td class="name">Člověk E</td>
+                            <td class="hm-0">0</td><td class="hm-0">0</td><td class="hm-1">1</td><td class="hm-1">1</td><td class="hm-2">2</td>
+                        </tr>
+                        <tr class="avg">
+                            <td class="name">Ø tým</td>
+                            <td class="hm-0">0,4</td><td class="hm-1">0,6</td><td class="hm-2">2,0</td><td class="hm-1">0,8</td><td class="hm-1">1,4</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="heatmap-legend">
+                <span><i class="hm-0"></i> 0 Nepoužívá</span>
+                <span><i class="hm-1"></i> 1 Povědomí</span>
+                <span><i class="hm-2"></i> 2 Aktivně</span>
+                <span><i class="hm-3"></i> 3 Tvoří &amp; pomáhá</span>
+            </div>
+
+            <div class="note-block">
+                Z průměrů je vidět, že tým je nejslabší v Mindsetu a v „AI v mojí práci" — to jsou dvě oblasti pro první kolo. Naopak „Data &amp; governance" jsou na tom dobře, ty se teď neřeší.
+            </div>
+        </div>
+    </section>
+
+    <!-- D2.4 Týmový cyklus vs. self-service + Champions -->
+    <section class="section section--gray">
+        <div class="section-container">
+            <div class="assessment-grid">
+                <div class="info-card">
+                    <h3>Týmový cyklus vs. self-service</h3>
+                    <p>Neřídí se 111 individuálních cyklů — to nejde. Existuje jeden týmový cyklus, který řídí AI tým. Self-service znamená jen, že jednotlivec si může zdroje vzít sám (projít Elements of AI, číst newsletter, přijít do poradny) bez vodění za ruku. Jednotlivec se veze v týmovém kole a navíc si může přibrat sám.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Champions vznikají postupně</h3>
+                    <p>Na startu nikdo champion není — to je normální. Začíná se v malém: ne všech 111, ale jeden pilotní tým (dva lidé víc neobslouží). První lidé, kteří se dostanou na úroveň 3 nebo jsou nadšení, se stanou prvními championy a teprve pak začnou škálovat. Než champions jsou, zajišťuje AI tým L1 i L2 podporu — proto malý rozsah.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- D2.5 Rytmus vzdělávání -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Rytmus vzdělávání</h2>
+            </div>
+
+            <p class="section-lead">Vzdělávání není jen newsletter. Newsletter je pojivo — patří sem i živé školení. Reálný rytmus:</p>
+
+            <div class="table-wrap">
+                <table class="simple-table">
+                    <thead>
+                        <tr><th>Kdy</th><th>Co</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Při nástupu / jednorázově</td><td>základ (Elements of AI) — každý sám</td></tr>
+                        <tr><td>Týdně</td><td>AI poradna (office hours) + sed-by-side s pilotními lidmi</td></tr>
+                        <tr><td>Měsíčně</td><td>1 živá „AI session" pro celou firmu (30–45 min Teams — ukázky, novinky) + newsletter</td></tr>
+                        <tr><td>Kvartálně</td><td>re-assessment + role workshop pro tým, který je na řadě</td></tr>
+                        <tr><td>Průběžně</td><td>champion koučink (až budou champions k dispozici)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="note-block">
+                Měsíční živá online session pro celou firmu tedy patří dovnitř; newsletter ji jen doplňuje. (L2 office hours = AI poradna: pravidelná hodina týdně, kdy je AI tým k dispozici. Úrovně podpory: L1 rychlá pomoc → L2 AI tým → L3 IT/dodavatel. Dokud nejsou champions, zajišťuje AI tým L1 i L2.)
             </div>
         </div>
     </section>
