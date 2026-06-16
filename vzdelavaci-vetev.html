@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vzdělávací větev | AI Hub Salutem Group</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #F36C2B;
+            --orange-light: #FF8A50;
+            --orange-dark: #D55A1F;
+            --blue: #0D3579;
+            --blue-light: #1E4A9A;
+            --blue-dark: #082451;
+            --white: #FFFFFF;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: var(--white);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 0 2rem;
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            position: relative;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 24px; text-decoration: none; }
+        .nav-logo img { height: 40px; }
+        .nav-logo span { font-weight: 700; font-size: 1.55rem; color: var(--blue); }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--orange); }
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            width: 44px; height: 44px;
+            padding: 10px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 18px; height: 2px;
+            background: var(--gray-700);
+            border-radius: 2px;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .nav.open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+        .nav.open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .nav-backdrop {
+            display: none;
+            position: fixed;
+            top: 70px; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.35);
+            z-index: 999;
+        }
+        .nav-backdrop.active { display: block; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            padding: 140px 2rem 100px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -20%;
+            width: 80%; height: 200%;
+            background: var(--orange);
+            opacity: 0.1;
+            transform: rotate(-15deg);
+            border-radius: 50%;
+        }
+        .hero-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 { font-size: 3rem; font-weight: 800; line-height: 1.12; margin-bottom: 1.5rem; }
+        .hero-intro { font-size: 1.2rem; opacity: 0.92; max-width: 760px; }
+        .hero-meta { font-size: 0.85rem; opacity: 0.78; margin-top: 1.75rem; }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--white);
+            opacity: 0.85;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            transition: opacity 0.2s, color 0.2s;
+        }
+        .back-link:hover { opacity: 1; color: var(--orange); }
+
+        /* Sections */
+        .section { padding: 80px 2rem; }
+        .section-container { max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 3.5rem; }
+        .section-title { font-size: 2.5rem; font-weight: 700; color: var(--blue); margin-bottom: 1rem; }
+        .section-subtitle { font-size: 1.1rem; color: var(--gray-500); max-width: 760px; margin: 0 auto; }
+        .section--white { background: var(--white); }
+        .section--gray { background: var(--gray-50); }
+        .section-lead { max-width: 880px; margin: 0 auto 3rem; color: var(--gray-600); font-size: 1.1rem; text-align: center; }
+
+        /* Intro / compliance / smart blocks */
+        .intro-block, .compliance-block {
+            max-width: 880px;
+            margin: 0 auto;
+            border-radius: 0 12px 12px 0;
+            padding: 1.75rem 2rem;
+            font-size: 1.1rem;
+        }
+        .intro-block { background: var(--gray-50); border-left: 4px solid var(--orange); color: var(--gray-700); }
+        .section--gray .intro-block { background: var(--white); }
+        .compliance-block { background: var(--gray-50); border-left: 4px solid var(--blue); color: var(--gray-700); margin-bottom: 2rem; }
+        .compliance-block strong { color: var(--blue); }
+
+        .smart-block {
+            max-width: 880px;
+            margin: 0 auto;
+            border-radius: 16px;
+            padding: 2rem 2.25rem;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            color: var(--white);
+        }
+        .smart-block p { margin-bottom: 1rem; font-size: 1.1rem; }
+        .smart-block p:last-child { margin-bottom: 0; opacity: 0.9; font-size: 0.98rem; }
+
+        .openitems {
+            max-width: 880px;
+            margin: 0 auto;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            padding: 2rem 2.25rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .openitems ul { margin-left: 1.2rem; color: var(--gray-600); }
+        .openitems li { margin-bottom: 0.6rem; }
+        .openitems li:last-child { margin-bottom: 0; }
+
+        /* Cards grid (9 areas, products, motivation, PRIMES) */
+        .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .info-card {
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-top: 5px solid var(--blue);
+            border-radius: 16px;
+            padding: 1.75rem;
+            transition: all 0.3s;
+        }
+        .info-card:hover { border-color: var(--orange); transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
+        .info-card.is-product { border-top-color: var(--orange); }
+        .card-badge {
+            min-width: 38px; height: 38px;
+            padding: 0 10px;
+            border-radius: 10px;
+            background: var(--blue);
+            color: var(--white);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .info-card.is-product .card-badge { background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%); }
+        .info-card h3 { font-size: 1.1rem; color: var(--gray-800); margin-bottom: 0.5rem; }
+        .card-intro { color: var(--gray-600); font-size: 0.92rem; margin-bottom: 1rem; }
+        .info-card ul { margin-left: 1.1rem; color: var(--gray-600); font-size: 0.9rem; }
+        .info-card li { margin-bottom: 0.4rem; }
+        .info-card p { color: var(--gray-600); font-size: 0.95rem; }
+
+        /* Inline text links */
+        .inline-links { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin-top: 1rem; }
+        .inline-link { color: var(--blue); font-weight: 600; text-decoration: none; font-size: 0.88rem; border-bottom: 1px solid transparent; transition: all 0.2s; }
+        .inline-link:hover { color: var(--orange); border-bottom-color: var(--orange); }
+
+        /* Buttons */
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 24px;
+            background: var(--blue);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .link-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .link-btn--orange { background: var(--orange); }
+        .link-btn--orange:hover { background: var(--orange-dark); }
+        .btn-row { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2.5rem; }
+
+        /* Journey (ADKAR + Roadmap) */
+        .journey { max-width: 880px; margin: 0 auto; }
+        .journey-step { position: relative; padding-left: 72px; padding-bottom: 2.5rem; }
+        .journey-step:last-child { padding-bottom: 0; }
+        .journey-step::before {
+            content: '';
+            position: absolute;
+            left: 23px; top: 50px; bottom: 0;
+            width: 2px;
+            background: var(--gray-200);
+        }
+        .journey-step:last-child::before { display: none; }
+        .journey-num {
+            position: absolute;
+            left: 0; top: 0;
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: var(--blue);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            z-index: 1;
+        }
+        .journey-step.is-final .journey-num { background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%); }
+        .journey-content {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 14px;
+            padding: 1.5rem 1.75rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .journey-step.is-final .journey-content { border: 2px solid var(--orange); }
+        .journey-content h3 { font-size: 1.2rem; color: var(--blue); margin-bottom: 0.25rem; }
+        .journey-tag { display: block; font-size: 0.9rem; font-style: italic; color: var(--orange); font-weight: 500; margin-bottom: 1rem; }
+        .journey-content p { color: var(--gray-600); margin-bottom: 1rem; }
+        .journey-content p:last-child { margin-bottom: 0; }
+        .journey-content .link-btn { margin-top: 0.5rem; }
+
+        /* Levels (Mapa schopností 0-3, Kirkpatrick) */
+        .levels { max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+        .level-card {
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-left: 5px solid var(--blue);
+            border-radius: 14px;
+            padding: 1.25rem 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .level-card.is-key { border-left-color: var(--orange); }
+        .level-badge {
+            flex-shrink: 0;
+            min-width: 52px; height: 44px;
+            padding: 0 10px;
+            border-radius: 12px;
+            background: var(--blue);
+            color: var(--white);
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .level-card.is-key .level-badge { background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%); }
+        .level-body { flex: 1; }
+        .level-body h4 { color: var(--gray-800); margin-bottom: 0.25rem; font-size: 1.05rem; }
+        .level-note { color: var(--orange); font-weight: 600; font-style: italic; }
+        .level-body p { color: var(--gray-600); font-size: 0.95rem; margin: 0; }
+        .level-body .link-btn { margin-top: 0.85rem; }
+
+        /* Summary text */
+        .summary-text { max-width: 860px; margin: 0 auto; }
+        .summary-text p { color: var(--gray-600); font-size: 1.08rem; margin-bottom: 1.1rem; }
+        .summary-text p:last-child { margin-bottom: 0; }
+
+        /* Closing banner */
+        .closing-banner {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 80px 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .closing-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -20%;
+            width: 70%; height: 200%;
+            background: var(--orange);
+            opacity: 0.1;
+            transform: rotate(-15deg);
+            border-radius: 50%;
+        }
+        .closing-banner-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+        .closing-banner p { font-size: 1.35rem; margin-bottom: 0.5rem; opacity: 0.95; }
+        .closing-banner p.lead { font-size: 1.8rem; font-weight: 800; color: var(--orange); margin-bottom: 0.75rem; opacity: 1; }
+        .closing-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 2rem;
+            padding: 12px 28px;
+            background: var(--white);
+            color: var(--blue);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .closing-back:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+
+        /* Footer */
+        .footer { background: var(--gray-900); color: var(--gray-400); padding: 3rem 2rem; text-align: center; }
+        .footer-logo { font-size: 1.5rem; font-weight: 700; color: var(--white); margin-bottom: 1rem; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .card-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .section { padding: 64px 1.25rem; }
+            .nav { padding: 0 1.25rem; }
+            .hero { padding: 120px 1.25rem 80px; }
+            .hero h1 { font-size: 2.2rem; }
+            .nav-toggle { display: inline-flex; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px; left: 0; right: 0;
+                background: var(--white);
+                border-bottom: 1px solid var(--gray-200);
+                box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+                padding: 0.75rem 1.25rem 1.25rem;
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            .nav.open .nav-links { display: flex; }
+            .nav-links a { padding: 10px 12px; border-radius: 10px; background: var(--gray-50); }
+        }
+        @media (max-width: 700px) {
+            .card-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 2rem; }
+            .level-card { flex-direction: column; gap: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a class="nav-logo" href="/">
+                <img src="logo.png" alt="Salutem Group" onerror="this.style.display='none'">
+                <span>AI Hub</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <a href="/#service">Služba</a>
+                <a href="/#howitworks">Jak funguje</a>
+                <a href="/#dashboard">Stav služby</a>
+                <a href="/#projects">Portfolio</a>
+                <a href="/vzdelavaci-vetev" class="active">Vzdělávací větev</a>
+                <a href="/#governance">Řízení</a>
+                <a href="/#resources">Zdroje</a>
+            </div>
+        </div>
+    </nav>
+    <div class="nav-backdrop" id="navBackdrop"></div>
+
+    <!-- B1. Hero -->
+    <section class="hero">
+        <div class="hero-container">
+            <a class="back-link" href="/">← Zpět na hlavní stránku</a>
+            <span class="hero-badge">Vzdělávací větev · služba AI Adopce @ Salutem</span>
+            <h1>Pomáháme lidem přejít od povědomí o AI k pravidelnému používání v praxi</h1>
+            <p class="hero-intro">Vzdělávací větev pomáhá lidem ve firmě pochopit, osvojit si a bezpečně používat AI v běžné práci. Cílem není jen proškolit zaměstnance nebo splnit formální povinnost — cílem je změnit pracovní návyky tak, aby se AI stala přirozenou součástí každodenní práce.</p>
+            <p class="hero-meta">Vlastník Martina Habová · Realizace Jakub Hovorka · Garant metodiky Petr Suchý</p>
+        </div>
+    </section>
+
+    <!-- B2. Compliance blok + B3. Úvodní rámující blok -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="compliance-block">
+                <strong>Compliance role:</strong> Služba je opřená o požadavek AI gramotnosti podle čl. 4 AI Actu, účinný od 2. 2. 2025. Vzdělávání v AI tedy není jen „hezký benefit", ale součást odpovědného a povinného přístupu firmy k používání AI.
+            </div>
+            <div class="intro-block">
+                V produkční větvi lidé přicházejí s viditelnou potřebou — něco je zdržuje, něco chtějí zrychlit. U vzdělávání je to jinak: mnoho lidí zatím žádnou potřebu necítí. Proto nestačí „udělat kurz". Jádrem služby je change management — postupná změna chování, motivace a návyků. A školení nekončí absolvováním kurzu: pokud se dovednosti nepoužívají, rychle se ztratí. Proto každý formát pokračuje do fáze Udržuj.
+            </div>
+        </div>
+    </section>
+
+    <!-- B4. Definice služby v devíti oblastech -->
+    <section class="section section--gray">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Definice služby v devíti oblastech</h2>
+            </div>
+
+            <div class="card-grid">
+                <div class="info-card">
+                    <div class="card-badge">1</div>
+                    <h3>Zákazník a cílové skupiny</h3>
+                    <p class="card-intro">Určena celé firmě, ~16 oddělení. Pracuje se čtyřmi hlavními cílovými skupinami.</p>
+                    <ul>
+                        <li><strong>Všichni zaměstnanci</strong> — základní AI gramotnost, bezpečné návyky, co AI umí a neumí</li>
+                        <li><strong>Manažeři</strong> — sami AI používají a vedou k ní své týmy</li>
+                        <li><strong>Power-useři a champions</strong> — rychleji přijímají AI a pomáhají ostatním</li>
+                        <li><strong>Vedení</strong> — strategický dopad, rizika, governance, přínosy</li>
+                        <li>externí sítě zůstávají mimo rozsah</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-badge">2</div>
+                    <h3>Hodnota služby</h3>
+                    <p class="card-intro">Hodnota nevzniká dokončením kurzu, ale když lidé začnou AI skutečně používat při práci.</p>
+                    <ul>
+                        <li>lidé umí rozeznat vhodné použití, kontrolovat výstupy a zapojit AI tam, kde šetří čas</li>
+                        <li>pomáhá firmě zvládnout více práce na stávající kapacitě</li>
+                        <li>podporuje splnění zákonné povinnosti AI gramotnosti</li>
+                        <li>hodnotou není proškolený člověk, ale člověk, který změnil způsob práce</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-badge">3</div>
+                    <h3>Rozsah služby</h3>
+                    <p class="card-intro">Rozvoj AI gramotnosti, praktických dovedností a odpovědného používání AI napříč firmou.</p>
+                    <ul>
+                        <li>základní orientace v AI, práce s nástroji, prompting</li>
+                        <li>bezpečnost, práce s daty, kontrola výstupů, role člověka v rozhodování</li>
+                        <li>konkrétní použití AI podle pracovní role</li>
+                        <li>nepatří sem hluboké technické školení vývojářů (to je IT)</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-badge">4</div>
+                    <h3>Vlastnictví a odpovědnosti</h3>
+                    <p class="card-intro">Za službu odpovídá AI tým. Klíčový princip: vlastníkem vzdělávání týmu je jeho manažer.</p>
+                    <ul>
+                        <li><strong>Vlastník:</strong> Martina Habová</li>
+                        <li><strong>Realizace:</strong> Martina Habová, Jakub Hovorka a vybraní champions v týmech</li>
+                        <li><strong>Konzultace:</strong> HR (Anna Hrušková) — evidence, procesy, onboarding</li>
+                        <li><strong>Sponzor:</strong> Jaroslav Ton (informován)</li>
+                        <li>AI tým dodá obsah a metodiku, manažer drží odpovědnost za posun týmu</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-badge">5</div>
+                    <h3>SLO a úroveň služby</h3>
+                    <p class="card-intro">Vzdělávací služba musí být předvídatelná a měřitelná.</p>
+                    <ul>
+                        <li>nový zaměstnanec projde základní AI gramotností do 30 dní od nástupu — jako onboardingová brána <strong>vyplní vstupní dotazník</strong> před prací s ostrými daty</li>
+                        <li>reakce na žádost o školení do 5 pracovních dní</li>
+                        <li>roční povinný refresh, podobně jako u GDPR — AI se rychle mění</li>
+                        <li>cílové úrovně podle role se odvozují od <strong>kompetenční matice</strong></li>
+                    </ul>
+                    <div class="inline-links">
+                        <a class="inline-link" href="https://forms.office.com/Pages/ResponsePage.aspx?id=uLTBrmum40-UPWmHfTzSgHJpid13tINHp_x_-a1h_O5UQlFBVUhPUEs3WFdaRU82RTNOQVpSRVRFUy4u" target="_blank" rel="noopener noreferrer">→ Vstupní dotazník (do 30 dní)</a>
+                        <a class="inline-link" href="https://pjcapital-my.sharepoint.com/:u:/g/personal/martina_habova_pj-capital_cz/IQCTDcaI-pPJTrSpwYziwzyyAdGOVK4rbP4tTNbSMzt9pRY?e=jhieZS" target="_blank" rel="noopener noreferrer">→ Kompetenční matice (cílové úrovně)</a>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-badge">6</div>
+                    <h3>Support model</h3>
+                    <p class="card-intro">Lidé musí vědět, kam se obrátit, když si nejsou jistí.</p>
+                    <ul>
+                        <li>L1 — champion v týmu nebo AI helpdesk: běžné dotazy, jednoduché návody</li>
+                        <li>L2 — AI tým: office hours, konzultace, pomoc s konkrétním use-casem</li>
+                        <li>L3 — externí lektoři nebo ověřené zdroje (např. Elements of AI)</li>
+                        <li>cíl: běžná podpora nezávislá jen na dvou lidech — budovat síť champions</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-badge">7</div>
+                    <h3>Change model</h3>
+                    <p class="card-intro">Obsah vzdělávání se bude průběžně měnit — musí být verzovaný a revidovaný.</p>
+                    <ul>
+                        <li>osnovy a moduly se kontrolují po 3, 6 a 12 měsících</li>
+                        <li>nový nástroj, riziko, pravidlo nebo use-case se promítne do aktualizace modulu</li>
+                        <li>vzdělávání není jednorázový balík prezentací, ale živá služba</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-badge">8</div>
+                    <h3>Metriky</h3>
+                    <p class="card-intro">Úspěch se neměří jen účastí — ta ještě neznamená změnu chování. Vychází z Kirkpatrickova modelu.</p>
+                    <ul>
+                        <li>jak lidé vzdělávání vnímají</li>
+                        <li>co se naučili</li>
+                        <li>zda nové dovednosti používají</li>
+                        <li>jaký to má dopad na práci a výsledky</li>
+                        <li>hlavní je skutečné používání a posun ve schopnostech, ne docházka</li>
+                        <li>posun se měří proti <strong>kompetenční matici</strong> jako škále</li>
+                        <li>data sbírá <strong>dotazník</strong> — vstupní a opakovaný re-assessment</li>
+                    </ul>
+                    <div class="inline-links">
+                        <a class="inline-link" href="https://pjcapital-my.sharepoint.com/:u:/g/personal/martina_habova_pj-capital_cz/IQCTDcaI-pPJTrSpwYziwzyyAdGOVK4rbP4tTNbSMzt9pRY?e=jhieZS" target="_blank" rel="noopener noreferrer">→ Kompetenční matice (škála)</a>
+                        <a class="inline-link" href="https://forms.office.com/Pages/ResponsePage.aspx?id=uLTBrmum40-UPWmHfTzSgHJpid13tINHp_x_-a1h_O5UQlFBVUhPUEs3WFdaRU82RTNOQVpSRVRFUy4u" target="_blank" rel="noopener noreferrer">→ Dotazník (sběr dat)</a>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-badge">9</div>
+                    <h3>Rizika</h3>
+                    <p class="card-intro">Největším rizikem je nízká motivace — mnoho lidí nebude mít přirozenou potřebu AI používat.</p>
+                    <ul>
+                        <li>omezená kapacita AI týmu — dva lidé nepokryjí celou firmu, nutné škálovat přes champions</li>
+                        <li>newslettery nečtené, obsah rychle zastará, hromadná školení bez dopadu</li>
+                        <li>mitigace: praktické ukázky, malé návyky, podpora manažerů, champions, komunita, refresh, měření</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B5. Portfolio vzdělávacích produktů -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Portfolio vzdělávacích produktů</h2>
+            </div>
+
+            <div class="card-grid">
+                <div class="info-card is-product">
+                    <div class="card-badge">P1</div>
+                    <h3>Základ AI gramotnosti</h3>
+                    <p>Povinný vstupní modul pro všechny zaměstnance — přechod z nuly na základní orientaci. Každý rozumí základům AI, ví, jak ji používat bezpečně, kdy být opatrný a jak kontrolovat výstupy. Funguje jako brána před prací s ostrými daty. Výchozí zdroj např. Elements of AI CZ nebo Get AI Ready.</p>
+                </div>
+
+                <div class="info-card is-product">
+                    <div class="card-badge">P2</div>
+                    <h3>Mapa schopností 0–3</h3>
+                    <p>Pomáhá zjistit, kde se lidé ve využívání AI nacházejí. Není to známkování ani kontrola — jednoduchý assessment, který každému člověku i manažerovi určí výchozí úroveň a osobní cíl. Smyslem je, aby každý věděl, kam se má posunout.</p>
+                </div>
+
+                <div class="info-card is-product">
+                    <div class="card-badge">P3</div>
+                    <h3>Role-based osnova</h3>
+                    <p>Jednotné školení pro všechny nestačí — manažer potřebuje něco jiného než účetní, obchodník nebo právník. Každá skupina dostává příklady, nástroje a scénáře odpovídající její běžné práci. Cílem je, aby si člověk řekl „tohle můžu zítra použít".</p>
+                </div>
+
+                <div class="info-card is-product">
+                    <div class="card-badge">P4</div>
+                    <h3>Sed-by-side koučink a champions</h3>
+                    <p>Praktická podpora přímo nad reálnými úkoly. Uživatel nepřináší modelový příklad, ale svůj e-mail, tabulku, report nebo poradu — společně se hledá, kde AI pomůže. Důležité hlavně u lidí, kteří nevědí, kde začít. Champions slouží jako prodloužená ruka AI týmu.</p>
+                </div>
+
+                <div class="info-card is-product">
+                    <div class="card-badge">P5</div>
+                    <h3>AI newsletter a komunita</h3>
+                    <p>Slouží k udržení pozornosti. Ne každý se aktivně zeptá — proto je potřeba AI pravidelně připomínat malými, konkrétními a užitečnými podněty. Newsletter neukazuje vatu, ale krátké tipy, reálné příklady a malé úspory času. Komunita pomáhá sdílet zkušenosti mezi týmy.</p>
+                </div>
+
+                <div class="info-card is-product">
+                    <div class="card-badge">P6</div>
+                    <h3>Soft-skills</h3>
+                    <p>Používání AI není jen technická dovednost — souvisí s komunikací, mindsetem, ochotou zkoušet nové věci a kritickým hodnocením výstupů. Patří sem práce s nejistotou, změnou návyků, komunikace s AI, kritické myšlení. Otevřená možnost spolupráce s Hanou Chiperovou, případně využití dotace.</p>
+                </div>
+
+                <div class="info-card is-product">
+                    <div class="card-badge">P7</div>
+                    <h3>Use-case knihovna</h3>
+                    <p>Vzdělávací materiál postavený na reálných příkladech ze Salutemu. Místo obecných ukázek typu „AI vám pomůže s produktivitou" ukazuje konkrétní situace: co se řešilo, kdo měl problém, jaký byl původní postup, jak pomohla AI a jaký byl dopad. Může vycházet z 12 produkčních use-casů v AI Hubu — tím se vzdělávání propojí s praxí.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B6. Motor adopce — ADKAR -->
+    <section class="section section--gray">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Motor adopce — change management a psychologie (ADKAR)</h2>
+            </div>
+
+            <p class="section-lead">Srdcem vzdělávací služby je změna chování. Pokud lidé necítí potřebu, nestačí jim dát kurz — je potřeba vytvořit prostředí, ve kterém pro ně bude jednodušší AI zkusit, bezpečně ji použít a postupně si z ní udělat návyk. Základní páteří je model ADKAR — cesta od pochopení důvodu až po udržení nového chování.</p>
+
+            <div class="journey">
+                <div class="journey-step">
+                    <div class="journey-num">A</div>
+                    <div class="journey-content">
+                        <h3>Awareness</h3>
+                        <span class="journey-tag">lidé vědí, proč se mají měnit</span>
+                        <p>Vysvětlit, proč se AI týká celé firmy. Důvodem není trend, ale růst firmy, potřeba zvládat víc práce na stávající kapacitě a povinnost AI gramotnosti podle AI Actu. Pomáhá „podsouvat potřebu" přes konkrétní příklady, newsletter, ukázky z praxe a jednoduché vysvětlení, co AI reálně ušetří.</p>
+                    </div>
+                </div>
+
+                <div class="journey-step">
+                    <div class="journey-num">D</div>
+                    <div class="journey-content">
+                        <h3>Desire</h3>
+                        <span class="journey-tag">lidé chtějí AI zkusit</span>
+                        <p>Nestačí vědět, že AI existuje — lidé musí vidět osobní přínos. Dobře funguje jednoduché sdělení: stejnou práci zvládneš rychleji a s menší námahou. Motivaci podpoří praktický závazek v kalendáři — krátký vyhrazený čas, kdy si člověk zkusí AI na vlastním úkolu. Ne obecně „někdy", ale konkrétně.</p>
+                    </div>
+                </div>
+
+                <div class="journey-step">
+                    <div class="journey-num">K</div>
+                    <div class="journey-content">
+                        <h3>Knowledge</h3>
+                        <span class="journey-tag">lidé vědí, jak na to</span>
+                        <p>Tady přichází základní vzdělávání. Lidé potřebují pochopit základy AI, bezpečnost, prompting, práci s daty a vhodné použití podle role. K tomu slouží Elements of AI, interní moduly a role-based osnovy.</p>
+                    </div>
+                </div>
+
+                <div class="journey-step">
+                    <div class="journey-num">A</div>
+                    <div class="journey-content">
+                        <h3>Ability</h3>
+                        <span class="journey-tag">lidé to opravdu umějí použít</span>
+                        <p>Skutečná schopnost vzniká až praxí. Proto je důležitý sed-by-side koučink, práce na vlastních úkolech, hotové prompty, šablony a konkrétní návody. Cílem je dostat lidi přes první bariéru — jakmile si jednou vyzkouší, že jim AI pomohla s reálnou prací, roste šance, že ji použijí znovu.</p>
+                    </div>
+                </div>
+
+                <div class="journey-step is-final">
+                    <div class="journey-num">R</div>
+                    <div class="journey-content">
+                        <h3>Reinforcement</h3>
+                        <span class="journey-tag">nový návyk se udrží</span>
+                        <p>Bez opakování se nové chování ztratí. Proto služba potřebuje champions, komunitu, newsletter, měření, připomínky a pravidelné návraty k tématu. Cílem je, aby AI nezůstala jednorázovým školením, ale stala se běžnou součástí práce.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B7. Jak řešit nízkou motivaci -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Jak řešit nízkou motivaci</h2>
+            </div>
+
+            <p class="section-lead">Nízká motivace je u vzdělávání klíčový problém. Služba se nesmí spoléhat jen na vůli jednotlivců — potřebuje lidem používání AI maximálně zjednodušit.</p>
+
+            <div class="card-grid">
+                <div class="info-card">
+                    <h3>Začít malými návyky</h3>
+                    <p>Snížit obtížnost — jeden malý AI úkon navázaný na existující rutinu: nechat Copilot zkontrolovat report před odesláním, navrhnout úkoly po poradě, připravit první návrh u složitějšího e-mailu, udělat shrnutí delšího dokumentu.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Dát lidem možnost volby</h3>
+                    <p>Lidé používají věci raději, když si mohou vybrat, co jim dává smysl. Nechat je zvolit vlastní use-case nebo pracovní situaci — z obecného školení se stane osobní přínos.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Stavět na malých výhrách</h3>
+                    <p>První zkušenost musí být praktická. Když člověk zažije úsporu času nebo lepší výstup, roste sebedůvěra. Cílem není hned naučit pokročilé postupy, ale vytvořit první pozitivní zkušenost.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Využít champions a komunitu</h3>
+                    <p>Dva lidé nepokryjí 111 zaměstnanců sami. Champions přijímají AI rychleji, chtějí pomáhat a umí téma přeložit do jazyka svého týmu. Překlenou rozdíl mezi early adopters a většinou firmy.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Udržet návyk připomínkami a sociálním důkazem</h3>
+                    <p>Návyky se drží, když mají spouštěč, jednoduchou rutinu a viditelnou odměnu: připomínka v newsletteru, tip od championa, šablona přímo v pracovním procesu, ukázka, že ostatní kolegové už AI používají, krátké sdílení úspory času. Když lidé vidí, že AI používají jejich kolegové, snáze ji zkusí také.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B8. PRIMES -->
+    <section class="section section--gray">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">PRIMES — kvalitní brána před spuštěním vzdělávání</h2>
+            </div>
+
+            <p class="section-lead">Aby vzdělávání nebylo obecné, těžkopádné nebo rychle zapomenuté, každý modul by měl projít jednoduchou kontrolou podle principu PRIMES.</p>
+
+            <div class="card-grid">
+                <div class="info-card is-product">
+                    <div class="card-badge">P</div>
+                    <h3>Practical — praktické</h3>
+                    <p>Napojené na reálnou práci. Lidé se neučí AI abstraktně, ale na úkolech, které skutečně dělají.</p>
+                </div>
+                <div class="info-card is-product">
+                    <div class="card-badge">R</div>
+                    <h3>Reachable — dosažitelné</h3>
+                    <p>Úkol musí být zvládnutelný — chráněný čas, jednoduchý začátek, pocit, že to dokážou.</p>
+                </div>
+                <div class="info-card is-product">
+                    <div class="card-badge">I</div>
+                    <h3>Integrated — začleněné</h3>
+                    <p>Ne vedlejší aktivita mimo práci, ale součást onboardingu, pravidel, práce s daty a procesů.</p>
+                </div>
+                <div class="info-card is-product">
+                    <div class="card-badge">M</div>
+                    <h3>Modular — modulární</h3>
+                    <p>Krátký a dávkovaný obsah, ideálně 30–90 minut, aby se dal zařadit do týdne.</p>
+                </div>
+                <div class="info-card is-product">
+                    <div class="card-badge">E</div>
+                    <h3>Expandable — rozšiřitelný</h3>
+                    <p>Základ musí jít rozšířit o role-based moduly, pokročilejší práci a champions program.</p>
+                </div>
+                <div class="info-card is-product">
+                    <div class="card-badge">S</div>
+                    <h3>Sustainable — udržitelný</h3>
+                    <p>Revize, měření a vlastní provozní model. Bez toho obsah rychle zastará.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B9. Mapa schopností 0–3 -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Mapa schopností 0–3</h2>
+            </div>
+
+            <p class="section-lead">Mapa schopností pomáhá jednoduše popsat, kde se člověk ve využívání AI nachází a kam se má posunout. Sleduje několik oblastí: AI mindset a interní pravidla, prompting a práce s nástroji, data a governance, role-specific workflow, kritické myšlení a práce s biasem.<br><br>Cílem může být, aby se každý posunul alespoň o jeden stupeň ročně. Ne všichni musí být champions — důležité je posunout se vůči své výchozí úrovni.</p>
+
+            <div class="levels">
+                <div class="level-card">
+                    <div class="level-badge">0</div>
+                    <div class="level-body">
+                        <h4>Nepoužívá</h4>
+                        <p>AI zatím nepoužívá, neví, kde začít, nebo nevnímá přínos pro vlastní práci.</p>
+                    </div>
+                </div>
+                <div class="level-card">
+                    <div class="level-badge">1</div>
+                    <div class="level-body">
+                        <h4>Má povědomí</h4>
+                        <p>Zná základní principy, ví, jaká platí pravidla, rozumí základním rizikům.</p>
+                    </div>
+                </div>
+                <div class="level-card">
+                    <div class="level-badge">2</div>
+                    <div class="level-body">
+                        <h4>Aktivně používá</h4>
+                        <p>Používá AI pravidelně, zapojí ji do práce, kontroluje výstupy, ví, kde šetří čas.</p>
+                    </div>
+                </div>
+                <div class="level-card is-key">
+                    <div class="level-badge">3</div>
+                    <div class="level-body">
+                        <h4>Tvoří a pomáhá</h4>
+                        <p>Vytváří vlastní šablony, prompty či agenty, pomáhá kolegům, může být champion.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <a class="link-btn" href="https://pjcapital-my.sharepoint.com/:u:/g/personal/martina_habova_pj-capital_cz/IQCTDcaI-pPJTrSpwYziwzyyAdGOVK4rbP4tTNbSMzt9pRY?e=jhieZS" target="_blank" rel="noopener noreferrer">Otevřít kompetenční matici</a>
+                <a class="link-btn link-btn--orange" href="https://forms.office.com/Pages/ResponsePage.aspx?id=uLTBrmum40-UPWmHfTzSgHJpid13tINHp_x_-a1h_O5UQlFBVUhPUEs3WFdaRU82RTNOQVpSRVRFUy4u" target="_blank" rel="noopener noreferrer">Vyplnit dotazník (zjisti svou úroveň)</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- B10. Měření — Kirkpatrickův model -->
+    <section class="section section--gray">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Měření — Kirkpatrickův model</h2>
+            </div>
+
+            <p class="section-lead">Měření musí jít dál než ke spokojenosti po školení. Je potřeba vědět, jestli se lidé opravdu něco naučili, jestli to používají a jestli to má dopad.</p>
+
+            <div class="levels">
+                <div class="level-card">
+                    <div class="level-badge">L1</div>
+                    <div class="level-body">
+                        <h4>Reakce</h4>
+                        <p>Jak lidé vzdělávání vnímali — krátká anketa, zpětná vazba v newsletteru, hodnocení formátu. Užitečné, ale nestačí: spokojený účastník ještě neznamená změnu chování.</p>
+                    </div>
+                </div>
+                <div class="level-card">
+                    <div class="level-badge">L2</div>
+                    <div class="level-body">
+                        <h4>Učení</h4>
+                        <p>Jestli se člověk posunul ve znalostech a sebedůvěře — měří se přes re-assessment v mapě schopností 0–3. Vstupní i opakovaný sběr probíhá přes dotazník.</p>
+                        <a class="link-btn link-btn--orange" href="https://forms.office.com/Pages/ResponsePage.aspx?id=uLTBrmum40-UPWmHfTzSgHJpid13tINHp_x_-a1h_O5UQlFBVUhPUEs3WFdaRU82RTNOQVpSRVRFUy4u" target="_blank" rel="noopener noreferrer">Vyplnit dotazník (assessment)</a>
+                    </div>
+                </div>
+                <div class="level-card is-key">
+                    <div class="level-badge">L3</div>
+                    <div class="level-body">
+                        <h4>Chování <span class="level-note">— pro adopci nejdůležitější</span></h4>
+                        <p>Jestli lidé AI skutečně používají — adopce v M365, logy agentů, počet aktivních uživatelů, využití šablon, pravidelné zapojení AI do postupů.</p>
+                    </div>
+                </div>
+                <div class="level-card">
+                    <div class="level-badge">L4</div>
+                    <div class="level-body">
+                        <h4>Výsledky</h4>
+                        <p>Dopad na práci — ušetřený čas, vyšší kvalita, rychlejší zpracování, méně rutiny, návaznost na finanční úspory z produkčních use-casů. Tady se vzdělávací větev propojuje s produkční.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B11. Roadmapa zavedení -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Roadmapa zavedení</h2>
+            </div>
+
+            <p class="section-lead">Vzdělávací služba se má zavádět postupně. Nemá smysl spustit všechno najednou — lepší je začít jednoduše, ověřit přístup, získat první příklady a teprve potom škálovat.</p>
+
+            <div class="journey">
+                <div class="journey-step">
+                    <div class="journey-num">0</div>
+                    <div class="journey-content">
+                        <h3>Výchozí mapa schopností a pilot</h3>
+                        <p>Assessment podle mapy schopností 0–3 ukáže, kde lidé stojí a kde má vzdělávání začít. Současně je vhodné spustit pilot na jednom ochotném týmu — ověřit formát, obsah, měření i reakce lidí v praxi.</p>
+                        <a class="link-btn link-btn--orange" href="https://forms.office.com/Pages/ResponsePage.aspx?id=uLTBrmum40-UPWmHfTzSgHJpid13tINHp_x_-a1h_O5UQlFBVUhPUEs3WFdaRU82RTNOQVpSRVRFUy4u" target="_blank" rel="noopener noreferrer">Spustit assessment (dotazník)</a>
+                    </div>
+                </div>
+
+                <div class="journey-step">
+                    <div class="journey-num">1</div>
+                    <div class="journey-content">
+                        <h3>Povinný základ pro všechny</h3>
+                        <p>Základ AI gramotnosti pro všechny zaměstnance, propojený s onboardingem a požadavky AI Actu. Noví zaměstnanci projdou základem do 30 dní od nástupu, stávající podle nastaveného harmonogramu.</p>
+                    </div>
+                </div>
+
+                <div class="journey-step">
+                    <div class="journey-num">2</div>
+                    <div class="journey-content">
+                        <h3>Role-based vzdělávání pro manažery a výběr champions</h3>
+                        <p>Vzdělávání se zaměří na manažery — ti ovlivňují, jestli se AI v týmech skutečně používá. Potřebují rozumět nejen nástrojům, ale hlavně tomu, jak vést tým ke změně návyků, vybírat use-casy a sledovat dopad. Součástí je výběr prvních champions.</p>
+                    </div>
+                </div>
+
+                <div class="journey-step">
+                    <div class="journey-num">3</div>
+                    <div class="journey-content">
+                        <h3>Sed-by-side koučink, use-case knihovna a komunita</h3>
+                        <p>Vzdělávání se posune blíž k praxi: koučink nad reálnými úkoly, budování use-case knihovny a pravidelná komunikace přes newsletter nebo komunitu. Cílem je ukazovat konkrétní příklady a dostat AI do běžného pracovního rytmu.</p>
+                    </div>
+                </div>
+
+                <div class="journey-step is-final">
+                    <div class="journey-num">4</div>
+                    <div class="journey-content">
+                        <h3>Měření, revize a škálování přes champions</h3>
+                        <p>Služba se začne systematicky měřit, vyhodnocovat a zlepšovat: posun v mapě schopností, skutečné používání AI, zpětná vazba, dopad na práci a potřeba úprav obsahu. Škálování probíhá přes champions, aby vzdělávání nebylo závislé jen na kapacitě AI týmu.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B12. SMART cíl -->
+    <section class="section section--gray">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">SMART cíl</h2>
+            </div>
+            <div class="smart-block">
+                <p>Do konce roku 2026 projde 100 % zaměstnanců základem AI gramotnosti a alespoň 50 % vybraných manažerů se posune o jeden stupeň v mapě schopností 0–3.</p>
+                <p>Cíl propojuje compliance, adopci i praktický rozvoj manažerů. Je měřitelný a dá se navázat na onboarding, HR evidenci a reporting adopce.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- B13. Otevřené body před spuštěním -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Otevřené body před spuštěním</h2>
+            </div>
+            <div class="openitems">
+                <ul>
+                    <li>možnost využití dotace</li>
+                    <li>výběr prvních champions</li>
+                    <li>potvrzení principu, že vlastníkem vzdělávání týmu je jeho manažer</li>
+                    <li>nastavení evidence absolvování a refreshů</li>
+                    <li>rozhodnutí, kde bude uložená mapa schopností a výsledky assessmentu</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- B14. Shrnutí vzdělávací služby -->
+    <section class="section section--gray">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Shrnutí vzdělávací služby</h2>
+            </div>
+            <div class="summary-text">
+                <p>Vzdělávací větev AI Adopce @ Salutem není jen sada školení. Je to služba, která má lidem pomoci změnit způsob práce.</p>
+                <p>Její hlavní úkol je převést zaměstnance od základního povědomí k reálnému používání AI. To znamená vysvětlit proč, ukázat jak, dát lidem bezpečný prostor pro první pokusy, podpořit je v týmech a dlouhodobě udržovat nový návyk.</p>
+                <p>Úspěch se neměří tím, kolik lidí sedělo na školení. Úspěch se měří tím, kolik lidí AI opravdu používá, jak se posunuli ve schopnostech a jaký dopad to má na jejich práci.</p>
+                <p>Klíčové je nepředpokládat motivaci. Lidé často sami nepřijdou s tím, že se chtějí učit AI. Proto jim služba musí potřebu ukázat, zjednodušit první krok a nabídnout konkrétní přínos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- B15. Závěrečný banner -->
+    <section class="closing-banner">
+        <div class="closing-banner-inner">
+            <p class="lead">Kurz předá informaci.</p>
+            <p>Služba mění návyk.</p>
+            <a class="closing-back" href="/">← Zpět na hlavní stránku</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">Salutem Group AI Hub</div>
+        <p>© 2026 Salutem Group. Interní dokument.</p>
+    </footer>
+
+    <script>
+        const navEl = document.querySelector('.nav');
+        const navToggleBtn = document.querySelector('.nav-toggle');
+        const navBackdrop = document.getElementById('navBackdrop');
+
+        function openNav() {
+            navEl.classList.add('open');
+            navBackdrop.classList.add('active');
+            navToggleBtn.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeNav() {
+            navEl.classList.remove('open');
+            navBackdrop.classList.remove('active');
+            navToggleBtn.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = 'auto';
+        }
+        if (navToggleBtn) {
+            navToggleBtn.addEventListener('click', () => {
+                if (navEl.classList.contains('open')) closeNav();
+                else openNav();
+            });
+        }
+        if (navBackdrop) {
+            navBackdrop.addEventListener('click', closeNav);
+        }
+    </script>
+</body>
+</html>
