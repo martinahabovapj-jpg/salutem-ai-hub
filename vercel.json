@@ -2,6 +2,7 @@
   "rewrites": [
     { "source": "/produkcni-vetev", "destination": "/produkcni-vetev.html" },
     { "source": "/vzdelavaci-vetev", "destination": "/vzdelavaci-vetev.html" },
+    { "source": "/compliance-vetev", "destination": "/compliance-vetev.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

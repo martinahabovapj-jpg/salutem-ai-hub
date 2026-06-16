@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliance větev | AI Hub Salutem Group</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #F36C2B;
+            --orange-light: #FF8A50;
+            --orange-dark: #D55A1F;
+            --blue: #0D3579;
+            --blue-light: #1E4A9A;
+            --blue-dark: #082451;
+            --white: #FFFFFF;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: var(--white);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 0 2rem;
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            position: relative;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 24px; text-decoration: none; }
+        .nav-logo img { height: 40px; }
+        .nav-logo span { font-weight: 700; font-size: 1.55rem; color: var(--blue); }
+        .nav-links { display: flex; gap: 1rem; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            font-size: 0.82rem;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--orange); }
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            width: 44px; height: 44px;
+            padding: 10px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 18px; height: 2px;
+            background: var(--gray-700);
+            border-radius: 2px;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .nav.open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+        .nav.open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .nav-backdrop {
+            display: none;
+            position: fixed;
+            top: 70px; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.35);
+            z-index: 999;
+        }
+        .nav-backdrop.active { display: block; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            padding: 140px 2rem 100px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -20%;
+            width: 80%; height: 200%;
+            background: var(--orange);
+            opacity: 0.1;
+            transform: rotate(-15deg);
+            border-radius: 50%;
+        }
+        .hero-container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 { font-size: 3rem; font-weight: 800; line-height: 1.12; margin-bottom: 1.5rem; }
+        .hero-intro { font-size: 1.2rem; opacity: 0.92; max-width: 760px; }
+        .hero-meta { font-size: 0.85rem; opacity: 0.78; margin-top: 1.75rem; }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--white);
+            opacity: 0.85;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            transition: opacity 0.2s, color 0.2s;
+        }
+        .back-link:hover { opacity: 1; color: var(--orange); }
+
+        /* Pointa band */
+        .pointa-band {
+            background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .pointa-band p {
+            max-width: 880px;
+            margin: 0 auto;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--orange-dark);
+        }
+
+        /* Sections */
+        .section { padding: 80px 2rem; }
+        .section-container { max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 3.5rem; }
+        .section-title { font-size: 2.5rem; font-weight: 700; color: var(--blue); margin-bottom: 1rem; }
+        .section-subtitle { font-size: 1.1rem; color: var(--gray-500); max-width: 760px; margin: 0 auto; }
+        .section--white { background: var(--white); }
+        .section--gray { background: var(--gray-50); }
+        .section-lead { max-width: 880px; margin: 0 auto 3rem; color: var(--gray-600); font-size: 1.1rem; text-align: center; }
+
+        /* Intro / smart blocks */
+        .intro-block {
+            max-width: 880px;
+            margin: 0 auto;
+            border-radius: 0 12px 12px 0;
+            padding: 1.75rem 2rem;
+            font-size: 1.1rem;
+            background: var(--gray-50);
+            border-left: 4px solid var(--orange);
+            color: var(--gray-700);
+        }
+        .section--gray .intro-block { background: var(--white); }
+
+        .smart-block {
+            max-width: 880px;
+            margin: 0 auto;
+            border-radius: 16px;
+            padding: 2rem 2.25rem;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            color: var(--white);
+        }
+        .smart-block p { margin-bottom: 1rem; font-size: 1.1rem; }
+        .smart-block p:last-child { margin-bottom: 0; opacity: 0.9; font-size: 0.98rem; }
+
+        .openitems {
+            max-width: 880px;
+            margin: 0 auto;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            padding: 2rem 2.25rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .openitems ul { margin-left: 1.2rem; color: var(--gray-600); }
+        .openitems li { margin-bottom: 0.6rem; }
+        .openitems li:last-child { margin-bottom: 0; }
+
+        .cycle-summary {
+            max-width: 880px;
+            margin: 1.75rem auto 0;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            color: var(--white);
+            border-radius: 14px;
+            padding: 1.5rem 1.75rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* Cards grid (9 areas, use-cases, udělátka) */
+        .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 920px; margin: 0 auto; }
+        .info-card {
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-top: 5px solid var(--blue);
+            border-radius: 16px;
+            padding: 1.75rem;
+            transition: all 0.3s;
+        }
+        .info-card:hover { border-color: var(--orange); transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
+        .info-card.is-usecase { border-top-color: var(--orange); }
+        .card-badge {
+            min-width: 38px; height: 38px;
+            padding: 0 10px;
+            border-radius: 10px;
+            background: var(--blue);
+            color: var(--white);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .info-card.is-usecase .card-badge { background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%); }
+        .info-card h3 { font-size: 1.1rem; color: var(--gray-800); margin-bottom: 0.5rem; }
+        .card-intro { color: var(--gray-600); font-size: 0.92rem; margin-bottom: 1rem; }
+        .info-card ul { margin-left: 1.1rem; color: var(--gray-600); font-size: 0.9rem; }
+        .info-card li { margin-bottom: 0.4rem; }
+        .info-card p { color: var(--gray-600); font-size: 0.95rem; }
+
+        /* Red flags */
+        .flags-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 920px; margin: 0 auto; }
+        .flag-card {
+            background: #FEF2F2;
+            border: 2px solid #FECACA;
+            border-left: 5px solid var(--error);
+            border-radius: 16px;
+            padding: 1.75rem;
+        }
+        .flag-card h3 { color: #B91C1C; margin-bottom: 0.75rem; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem; }
+        .flag-card h3 .flag-ico { font-size: 1.25rem; }
+        .flag-card p { color: var(--gray-700); font-size: 0.97rem; }
+
+        /* Chips */
+        .chips { display: flex; flex-wrap: wrap; gap: 0.6rem; max-width: 980px; margin: 0 auto; justify-content: center; }
+        .chip {
+            background: var(--white);
+            border: 1.5px solid var(--gray-300);
+            border-radius: 50px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            color: var(--gray-700);
+            font-weight: 500;
+        }
+        a.chip--ref {
+            background: rgba(243,108,43,0.1);
+            border-color: var(--orange);
+            color: var(--orange-dark);
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        a.chip--ref:hover { background: rgba(243,108,43,0.2); }
+
+        /* Journey (operating model) */
+        .journey { max-width: 880px; margin: 0 auto; }
+        .journey-step { position: relative; padding-left: 72px; padding-bottom: 2.5rem; }
+        .journey-step:last-child { padding-bottom: 0; }
+        .journey-step::before {
+            content: '';
+            position: absolute;
+            left: 23px; top: 50px; bottom: 0;
+            width: 2px;
+            background: var(--gray-200);
+        }
+        .journey-step:last-child::before { display: none; }
+        .journey-num {
+            position: absolute;
+            left: 0; top: 0;
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: var(--blue);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            z-index: 1;
+        }
+        .journey-step.is-final .journey-num { background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%); }
+        .journey-content {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 14px;
+            padding: 1.5rem 1.75rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .journey-step.is-final .journey-content { border: 2px solid var(--orange); }
+        .journey-content h3 { font-size: 1.2rem; color: var(--blue); margin-bottom: 0.5rem; }
+        .journey-content p { color: var(--gray-600); margin-bottom: 0; }
+
+        /* Summary text */
+        .summary-text { max-width: 860px; margin: 0 auto; }
+        .summary-text p { color: var(--gray-600); font-size: 1.08rem; margin-bottom: 1.1rem; }
+        .summary-text p:last-child { margin-bottom: 0; }
+
+        /* Closing banner */
+        .closing-banner {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 80px 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .closing-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -20%;
+            width: 70%; height: 200%;
+            background: var(--orange);
+            opacity: 0.1;
+            transform: rotate(-15deg);
+            border-radius: 50%;
+        }
+        .closing-banner-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+        .closing-banner p { font-size: 1.35rem; margin-bottom: 0.5rem; opacity: 0.95; }
+        .closing-banner p.lead { font-size: 1.8rem; font-weight: 800; color: var(--orange); margin-bottom: 0.75rem; opacity: 1; }
+        .closing-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 2rem;
+            padding: 12px 28px;
+            background: var(--white);
+            color: var(--blue);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .closing-back:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+
+        /* Footer */
+        .footer { background: var(--gray-900); color: var(--gray-400); padding: 3rem 2rem; text-align: center; }
+        .footer-logo { font-size: 1.5rem; font-weight: 700; color: var(--white); margin-bottom: 1rem; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .card-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .section { padding: 64px 1.25rem; }
+            .nav { padding: 0 1.25rem; }
+            .hero { padding: 120px 1.25rem 80px; }
+            .hero h1 { font-size: 2.2rem; }
+            .pointa-band p { font-size: 1.5rem; }
+            .flags-grid { grid-template-columns: 1fr; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .nav-toggle { display: inline-flex; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px; left: 0; right: 0;
+                background: var(--white);
+                border-bottom: 1px solid var(--gray-200);
+                box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+                padding: 0.75rem 1.25rem 1.25rem;
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            .nav.open .nav-links { display: flex; }
+            .nav-links a { padding: 10px 12px; border-radius: 10px; background: var(--gray-50); }
+        }
+        @media (max-width: 700px) {
+            .card-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a class="nav-logo" href="/">
+                <img src="logo.png" alt="Salutem Group" onerror="this.style.display='none'">
+                <span>AI Hub</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <a href="/#service">Služba</a>
+                <a href="/produkcni-vetev">Produkce</a>
+                <a href="/vzdelavaci-vetev">Vzdělávání</a>
+                <a href="/compliance-vetev" class="active">Compliance</a>
+                <a href="/#howitworks">Jak funguje</a>
+                <a href="/#dashboard">Stav služby</a>
+                <a href="/#projects">Portfolio</a>
+                <a href="/#timeline">Harmonogram</a>
+                <a href="/#governance">Řízení</a>
+                <a href="/#resources">Zdroje</a>
+            </div>
+        </div>
+    </nav>
+    <div class="nav-backdrop" id="navBackdrop"></div>
+
+    <!-- B1. Hero -->
+    <section class="hero">
+        <div class="hero-container">
+            <a class="back-link" href="/">← Zpět na hlavní stránku</a>
+            <span class="hero-badge">Compliance větev · služba AI Adopce @ Salutem</span>
+            <h1>Držíme AI v bezpečných mantinelech, aby se dala používat sebevědomě</h1>
+            <p class="hero-intro">Compliance větev zajišťuje, aby firma používala AI legálně, bezpečně a dohledatelně. Nejde jen o směrnici nebo jednorázovou právní kontrolu, ale o trvalou službu, která hlídá, jaké AI nástroje firma používá, k čemu slouží, s jakými daty pracují, jaká nesou rizika a co je potřeba mít doložené pro případ auditu.</p>
+            <p class="hero-meta">Vlastník Petra Svatošová (právní) · Realizace AI tým — Martina Habová, Jakub Hovorka + externí AK · Schvaluje Jaroslav Ton</p>
+        </div>
+    </section>
+
+    <!-- B2. Zvýrazněná pointa -->
+    <section class="pointa-band">
+        <p>Compliance je umožňovač, ne brzda.</p>
+    </section>
+
+    <!-- B3. Úvodní rámující blok -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="intro-block">
+                Dobře nastavená pravidla firmu nezdržují — naopak jí dávají jistotu, co může dělat, kde jsou hranice a kdy je potřeba kontrola. AI se pak nemusí nasazovat opatrně „naslepo", ale řízeně, rychleji a s menším rizikem. Větev pokrývá i „neviditelnou díru" — evidenci, klasifikaci, pravidla, schválení, logování, revize a důkazy. Právní kotvou jsou zejména AI Act a GDPR.
+            </div>
+        </div>
+    </section>
+
+    <!-- B4. Definice služby v devíti oblastech -->
+    <section class="section section--gray">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Definice služby v devíti oblastech</h2>
+            </div>
+
+            <div class="card-grid">
+                <div class="info-card">
+                    <div class="card-badge">1</div>
+                    <h3>Zákazník a cílové skupiny</h3>
+                    <p class="card-intro">Zákazníkem je firma jako celek — potřebuje jistotu, že AI používá bezpečně, legálně a dohledatelně.</p>
+                    <ul>
+                        <li>vedení (zejm. Jaroslav Ton) — přehled o používané AI a jejích rizicích</li>
+                        <li>klienti — očekávají transparentní a bezpečné zacházení s daty</li>
+                        <li>případně externí regulátoři (ČNB, ÚOOÚ)</li>
+                        <li>uživatelé pravidel: všichni, kdo AI používají, navrhují, schvalují či staví — AI tým, manažeři, vlastníci use-casů, IT, právní, HR, finance</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-badge">2</div>
+                    <h3>Hodnota služby</h3>
+                    <p class="card-intro">Umožňuje firmě používat AI bezpečně a legálně — a zároveň ji nasazovat rychleji.</p>
+                    <ul>
+                        <li>chrání před právními riziky, pokutami, únikem dat a reputační škodou</li>
+                        <li>když lidé vědí, co je schválené, nemusí řešit každé rozhodnutí od nuly</li>
+                        <li>jasná pravidla nezpomalují inovaci — zrychlují ji, protože odstraňují nejistotu</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-badge">3</div>
+                    <h3>Rozsah služby</h3>
+                    <p class="card-intro">Vše, co souvisí s bezpečným a právně správným používáním AI napříč firmou.</p>
+                    <ul>
+                        <li>inventář AI systémů, klasifikace rizik, interní pravidla a AI policy</li>
+                        <li>dohled nad use-casy, záznamy a logování, transparentnost</li>
+                        <li>smlouvy s dodavateli, incident management, monitoring změn, revize</li>
+                        <li>pokrývá interní nástroje, nástroje třetích stran i agenty z produkční větve</li>
+                        <li>nepatří sem obecná IT/GDPR agenda mimo oblast AI</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-badge">4</div>
+                    <h3>Vlastnictví a odpovědnosti</h3>
+                    <p class="card-intro">Právo drží výklad a pravidla, AI tým drží praktickou a provozní část.</p>
+                    <ul>
+                        <li><strong>Vlastník:</strong> Petra Svatošová (právní)</li>
+                        <li><strong>Realizace:</strong> AI tým (Habová, Hovorka) + právní tým + externí AK</li>
+                        <li><strong>AI tým:</strong> inventář, napojení na intake, klasifikace, evidence, propojení s Hubem</li>
+                        <li><strong>IT (Langer):</strong> technické závislosti, bezpečnost, integrace</li>
+                        <li><strong>Sponzor:</strong> Jaroslav Ton (informován)</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-badge">5</div>
+                    <h3>SLO a úroveň služby</h3>
+                    <p class="card-intro">Žádný nový AI systém nebo use-case nevzniká mimo kontrolu.</p>
+                    <ul>
+                        <li>žádný nový AI systém bez klasifikace rizika</li>
+                        <li>inventář se aktualizuje minimálně kvartálně</li>
+                        <li>žádná ostrá klientská data v AI nástroji bez předchozího schválení</li>
+                        <li>incidenty a významné regulatorní změny mají jasnou reakční lhůtu</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-badge">6</div>
+                    <h3>Support model</h3>
+                    <p class="card-intro">Lidé musí mít jednoduchou odpověď na otázku „Smím tohle s AI udělat?"</p>
+                    <ul>
+                        <li>L1 — samoobslužná pravidla, FAQ a checklisty (schválené nástroje, zakázaná data, kdy žádat o posouzení)</li>
+                        <li>L2 — AI tým a Petra Svatošová: nejednoznačné situace, nový use-case, klientská data</li>
+                        <li>L3 — externí advokátní kancelář, případně komunikace s regulátorem</li>
+                        <li>opakované dotazy se vracejí do FAQ a pravidel</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-badge">7</div>
+                    <h3>Change model</h3>
+                    <p class="card-intro">Pravidla se mění vždy, když se změní relevantní okolnosti.</p>
+                    <ul>
+                        <li>nový nástroj, nový use-case, změna způsobu používání</li>
+                        <li>práce s jiným typem dat, změna dodavatele, změna regulace</li>
+                        <li>incident nebo nově zjištěné riziko</li>
+                        <li>každý nový nástroj/use-case projde klasifikací a odpovídajícím schválením</li>
+                        <li>směrnice jsou verzované — co platí, co se změnilo, kdo schválil, od kdy</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-badge">8</div>
+                    <h3>Metriky</h3>
+                    <p class="card-intro">Měří se, jestli má firma AI pod kontrolou a umí to doložit.</p>
+                    <ul>
+                        <li>podíl AI systémů v inventáři a s dokončenou klasifikací</li>
+                        <li>podíl produkčních use-casů, které prošly compliance bránou</li>
+                        <li>počet high-risk systémů a stav jejich povinností</li>
+                        <li>počet incidentů, porušení pravidel, případných pokut</li>
+                        <li>podíl zaměstnanců s doloženou AI gramotností (čl. 4 AI Actu)</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-badge">9</div>
+                    <h3>Rizika</h3>
+                    <p class="card-intro">Největší riziko: nasadit high-risk systém, aniž by byl jako high-risk rozpoznán.</p>
+                    <ul>
+                        <li>červená vlajka: credit scoring / posuzování bonity fyzických osob</li>
+                        <li>ostrá klientská data v nezabezpečených či neschválených nástrojích</li>
+                        <li>zastaralý inventář — nástroje mimo evidenci, ztráta přehledu</li>
+                        <li>závislost na kapacitě externí AK — proto jasná interní pravidla a rozhodovací stromy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B5. Portfolio compliance use-casů C1–C14 -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Portfolio compliance use-casů (C1–C14)</h2>
+            </div>
+
+            <div class="card-grid">
+                <div class="info-card is-usecase">
+                    <div class="card-badge">C1</div>
+                    <h3>Inventář AI systémů</h3>
+                    <p>Základ celé větve — bez něj firma neví, jaké AI nástroje používá. Obsahuje minimálně název, účel, typ dat, info zda interní/třetí strana a vlastníka. Může sloužit jako katalog nástrojů sdílený s produkční a vzdělávací větví — lidé uvidí, co je schválené a za jakých podmínek.</p>
+                </div>
+                <div class="info-card is-usecase">
+                    <div class="card-badge">C2</div>
+                    <h3>Klasifikace rizik</h3>
+                    <p>Každý systém či use-case projde základní klasifikací: zakázané, high-risk, limited-risk nebo minimal-risk. Pomáhá včas odhalit červené vlajky — AI vstupuje do rozhodování o lidech, pracuje s citlivými daty, ovlivňuje práva. Výsledek určuje, jak přísná pravidla musí být.</p>
+                </div>
+                <div class="info-card is-usecase">
+                    <div class="card-badge">C3</div>
+                    <h3>Kontrola zakázaných praktik</h3>
+                    <p>Firma vědomě potvrdí, že nepoužívá AI zakázaným způsobem. Není to jen formalita — je to ochranný krok, který odliší bezpečné a běžné využití AI od oblastí, kde by riziko bylo nepřijatelné.</p>
+                </div>
+                <div class="info-card is-usecase">
+                    <div class="card-badge">C4</div>
+                    <h3>Interní směrnice a AI policy</h3>
+                    <p>Říká, co se s AI smí, co nesmí a za jakých podmínek: schválené nástroje, pravidla pro data a ostrá klientská data, schvalovací proces, odpovědnosti, kontrola výstupů, postup při incidentu. Má být praktická, ne dokument do šuplíku.</p>
+                </div>
+                <div class="info-card is-usecase">
+                    <div class="card-badge">C5</div>
+                    <h3>Posuzovací brána pro nové use-casy</h3>
+                    <p>Každý nový use-case z produkčního intake projde compliance bránou ještě před nasazením. Ověřuje účel, data, uživatele, práci s klientskými/osobními údaji a riziko. Bezpečnost a právo se neřeší až na konci, ale už při návrhu.</p>
+                </div>
+                <div class="info-card is-usecase">
+                    <div class="card-badge">C6</div>
+                    <h3>Lidský dohled</h3>
+                    <p>U rizikovějších systémů musí být jasné, kde zůstává člověk v rozhodování. AI nemá sama dělat zásadní rozhodnutí bez kontroly — člověk musí rozumět, jak výstup vznikl, co znamená, jaká má omezení a kdy ho nesmí slepě převzít. Zejména u high-risk scénářů.</p>
+                </div>
+                <div class="info-card is-usecase">
+                    <div class="card-badge">C7</div>
+                    <h3>Záznamy a logování</h3>
+                    <p>Firma musí umět doložit, co bylo posouzeno, schváleno, změněno a používané. Patří sem evidence systémů, klasifikace, schválení, změny, incidenty a doklady o AI gramotnosti. Důkazy mají vznikat průběžně, ne zpětně až když je někdo požaduje.</p>
+                </div>
+                <div class="info-card is-usecase">
+                    <div class="card-badge">C8</div>
+                    <h3>Transparentnost a disclosure</h3>
+                    <p>Některé situace vyžadují, aby člověk věděl, že komunikuje s AI nebo že obsah vznikl s pomocí AI. Připravuje šablony a pravidla: označení AI obsahu, informace „jednáte s AI", upozornění u automatizované komunikace. Cílem je férová a srozumitelná komunikace.</p>
+                </div>
+                <div class="info-card is-usecase">
+                    <div class="card-badge">C9</div>
+                    <h3>Data governance a DPIA</h3>
+                    <p>Pokud AI pracuje s osobními či klientskými daty, řeší se, jaká data používá, odkud pocházejí, kdo k nim má přístup, kam se posílají, jak dlouho se uchovávají a zda je použití přiměřené účelu. Cílem je chránit klienty, zaměstnance i firmu.</p>
+                </div>
+                <div class="info-card is-usecase">
+                    <div class="card-badge">C10</div>
+                    <h3>Dodavatelské smlouvy a AI doložky</h3>
+                    <p>U AI nástrojů od dodavatelů musí být právní a bezpečnostní požadavky promítnuté do smluv: AI doložky, odpovědnosti dodavatelů, práce s daty, bezpečnost, transparentnost, auditovatelnost a povinnosti podle AI Actu. Rizika se řeší i ve vztahu k partnerům.</p>
+                </div>
+                <div class="info-card is-usecase">
+                    <div class="card-badge">C11</div>
+                    <h3>Incident management</h3>
+                    <p>I dobře nastavený systém může selhat. Definuje, kdo incident přijímá, kdo ho vyhodnocuje, kdy se zapojuje právní tým, IT či externí AK, jak se dokumentuje a jak se předchází opakování. Smyslem není hledat viníka, ale rychle zastavit dopad a nastavit nápravu.</p>
+                </div>
+                <div class="info-card is-usecase">
+                    <div class="card-badge">C12</div>
+                    <h3>Monitoring, revize a timeline tracker</h3>
+                    <p>AI regulace i nástroje se mění. Timeline tracker hlídá důležité termíny — účinnost částí AI Actu, interní revize, povinnosti k high-risk systémům. Součástí je kvartální revize inventáře a přehodnocení systémů, u kterých se změnil účel, data, dodavatel nebo způsob použití.</p>
+                </div>
+                <div class="info-card is-usecase">
+                    <div class="card-badge">C13</div>
+                    <h3>Role-specific právní školení</h3>
+                    <p>Některé týmy potřebují hlubší právní povědomí než běžný uživatel — právní, pohledávky, finance, HR. Tato školení dodává vzdělávací větev ve spolupráci s právním týmem; compliance větev nastavuje obsahové mantinely a témata, která musí být pokryta.</p>
+                </div>
+                <div class="info-card is-usecase">
+                    <div class="card-badge">C14</div>
+                    <h3>ISO/IEC 42001 jako volitelný rámec</h3>
+                    <p>Může sloužit jako zastřešující standard pro řízení AI. Není nutné ho zavádět hned, ale může být užitečný jako budoucí rámec, pokud bude firma chtít řízení AI více formalizované, auditovatelné a srovnatelné s mezinárodní praxí. Zatím volitelná cesta, ne okamžitá povinnost.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B6. Červené vlajky -->
+    <section class="section section--gray">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Červené vlajky</h2>
+            </div>
+
+            <div class="flags-grid">
+                <div class="flag-card">
+                    <h3><span class="flag-ico">⚠</span> HR nábor</h3>
+                    <p>AI je v tuto chvíli vědomě nenasazená, dokud nebude oblast právně a metodicky prozkoumaná. To je správný preventivní přístup — důležité je rozhodnutí zaznamenat, aby bylo dohledatelné, že firma riziko identifikovala a vědomě se rozhodla AI zatím nepoužívat.</p>
+                </div>
+                <div class="flag-card">
+                    <h3><span class="flag-ico">⚠</span> Credit scoring a bonita fyzických osob</h3>
+                    <p>Je potřeba prověřit, zda některý systém (Raynet, TNS, Domsys, Rancetta či jiné interní řešení) nepoužívá AI scoring jednotlivců. Pokud by AI vstupovala do posuzování bonity fyzických osob, může jít o high-risk oblast — nutné nastavit odpovídající povinnosti, dohled a dokumentaci.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B7. Známé systémy do inventáře -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Známé systémy do inventáře</h2>
+            </div>
+
+            <p class="section-lead">Do počátečního inventáře je vhodné zařadit všechny známé nástroje a systémy, u kterých se buď používá AI, nebo je potřeba ověřit, zda AI prvek obsahují. U každého se doplní účel použití, vlastník, typ dat, způsob zpracování, dodavatel a výsledek klasifikace rizik.</p>
+
+            <div class="chips">
+                <span class="chip">Raynet</span>
+                <span class="chip">Freelo</span>
+                <span class="chip">TNS</span>
+                <span class="chip">Domsys</span>
+                <span class="chip">Rancetta</span>
+                <span class="chip">Sloneek</span>
+                <span class="chip">Pohoda</span>
+                <span class="chip">Microsoft 365 a Copilot</span>
+                <span class="chip">Claude</span>
+                <span class="chip">NotebookLM</span>
+                <span class="chip">Canva</span>
+                <span class="chip">ChatGPT</span>
+                <span class="chip">Ecomail</span>
+                <span class="chip">Nonverbia</span>
+                <span class="chip">Teamio</span>
+                <span class="chip">Digisign</span>
+                <span class="chip">Realman</span>
+                <span class="chip">Perplexity</span>
+                <span class="chip">Miro</span>
+                <span class="chip">Make</span>
+                <span class="chip">Basecamp</span>
+                <span class="chip">Grok</span>
+                <span class="chip">weflow</span>
+                <span class="chip">bookolo</span>
+                <a class="chip chip--ref" href="/produkcni-vetev">interní AI agenti z produkční větve</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- B8. Operační model — od systému k souladu -->
+    <section class="section section--gray">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Operační model — od systému k souladu</h2>
+            </div>
+
+            <p class="section-lead">Compliance služba potřebuje jednoduchý, opakovatelný provozní model. Každý systém nebo use-case projde stejnou cestou: Inventář → Klasifikace → Rozhodnutí → Ošetření → Monitoring.</p>
+
+            <div class="journey">
+                <div class="journey-step">
+                    <div class="journey-num">1</div>
+                    <div class="journey-content">
+                        <h3>Inventář</h3>
+                        <p>Zaznamená se každý AI systém nebo nástroj, který firma používá nebo plánuje používat. Prakticky např. jako SharePoint list propojený s katalogem nástrojů v AI Hubu. Cílem je jedno místo, kde firma vidí, jaké AI nástroje existují, kdo je vlastní a v jakém jsou stavu.</p>
+                    </div>
+                </div>
+                <div class="journey-step">
+                    <div class="journey-num">2</div>
+                    <div class="journey-content">
+                        <h3>Klasifikace</h3>
+                        <p>Každý systém se zařadí podle rizika. Posuzuje se účel, typ dat, dopad na lidi, míra automatizace, role člověka v rozhodování a citlivé oblasti. Může probíhat přes jednoduchý checklist ve Forms. Výsledkem je jasné zařazení: zakázané, high-risk, limited-risk nebo minimal-risk.</p>
+                    </div>
+                </div>
+                <div class="journey-step">
+                    <div class="journey-num">3</div>
+                    <div class="journey-content">
+                        <h3>Rozhodnutí</h3>
+                        <p>Podle klasifikace se rozhodne, co dál. High-risk → přísnější právní a provozní režim. Limited-risk → hlavní povinností bývá transparentnost. Minimal-risk → může stačit evidence a základní pravidla. Podpořeno jednoduchým rozhodovacím stromem, aby se podobné případy řešily podobně.</p>
+                    </div>
+                </div>
+                <div class="journey-step">
+                    <div class="journey-num">4</div>
+                    <div class="journey-content">
+                        <h3>Ošetření</h3>
+                        <p>Nastaví se opatření odpovídající riziku — např. lidský dohled, dokumentace, označení AI obsahu, DPIA, smluvní doložky, omezení práce s daty, technické či organizační kontroly, schválení právním týmem. Cílem je, aby se use-case mohl bezpečně používat, nebo aby bylo jasně rozhodnuto, že se používat nemá.</p>
+                    </div>
+                </div>
+                <div class="journey-step is-final">
+                    <div class="journey-num">5</div>
+                    <div class="journey-content">
+                        <h3>Monitoring</h3>
+                        <p>Průběžně sleduje změny nástrojů, regulace, nové způsoby použití a důležité termíny. Součástí je kvartální revize inventáře a přehodnocení systémů, u kterých se něco změnilo. Bez této fáze compliance postupně zastará.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B9. Compliance brána v produkční větvi -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Compliance brána v produkční větvi</h2>
+            </div>
+
+            <p class="section-lead">Každý nový AI use-case z produkčního intake musí projít compliance klasifikací ještě před nasazením. Už při příjmu požadavku se ověří:</p>
+
+            <div class="openitems">
+                <ul>
+                    <li>zda jde o AI nebo automatizaci</li>
+                    <li>jaký je účel řešení</li>
+                    <li>jaká data se budou používat</li>
+                    <li>zda jde o osobní nebo klientská data</li>
+                    <li>zda je potřeba právní posouzení</li>
+                    <li>zda use-case nespadá do vyšší rizikové kategorie</li>
+                </ul>
+            </div>
+
+            <div class="cycle-summary">Právo a bezpečnost nejsou kontrola až na konci — jsou součást návrhu od začátku.</div>
+        </div>
+    </section>
+
+    <!-- B10. Doporučená „udělátka" na start -->
+    <section class="section section--gray">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Doporučená „udělátka" na start</h2>
+            </div>
+
+            <div class="grid-2">
+                <div class="info-card">
+                    <div class="card-badge">1</div>
+                    <h3>Inventář AI systémů</h3>
+                    <p>Ideálně jako SharePoint list. Zapíšou se známé systémy a postupně se doplní účel, vlastník, data, dodavatel a klasifikace.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-badge">2</div>
+                    <h3>Klasifikační checklist</h3>
+                    <p>Jednoduchý checklist (např. ve Forms). Projde každý systém stejně a určí jeho rizikovou kategorii. Praktický, ne příliš právnický — musí ho umět použít AI tým i vlastník use-casu.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-badge">3</div>
+                    <h3>Compliance brána ve Freelu</h3>
+                    <p>Povinný krok klasifikace v intake procesu před nasazením. Nové nápady se nezastaví, ale neztratí se právní a bezpečnostní kontrola.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-badge">4</div>
+                    <h3>Timeline tracker</h3>
+                    <p>Pro termíny AI Actu, interní revize, povinnosti k high-risk systémům a další milníky. Hlídá, co už je účinné, co se blíží a na co se připravit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B11. SMART cíl k 16. 7. -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">SMART cíl k 16. 7.</h2>
+            </div>
+            <div class="smart-block">
+                <p>Do 16. 7. bude hotový základní inventář AI systémů, proběhne první klasifikace rizik, bude jasné, zda ve firmě existuje high-risk oblast typu credit scoring, a vznikne první draft interní AI směrnice.</p>
+                <p>Cíl je praktický, měřitelný a zaměřený na nejdůležitější rizika. Neřeší všechno najednou, ale vytváří základ, na kterém se dá bezpečně stavět.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- B12. Otevřené body -->
+    <section class="section section--gray">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Otevřené body</h2>
+            </div>
+            <div class="openitems">
+                <ul>
+                    <li>kapacita a rozpočet na externí advokátní kancelář</li>
+                    <li>rozhodnutí, zda a kdy se zabývat ISO/IEC 42001</li>
+                    <li>určení relevantních českých regulátorů podle typu use-casů</li>
+                    <li>potvrzení role ČNB u finančních oblastí</li>
+                    <li>prověření, zda někde nevzniká AI scoring bonity fyzických osob</li>
+                    <li>finální vlastnictví inventáře a odpovědnost za jeho kvartální aktualizaci</li>
+                    <li>návaznost compliance brány na produkční intake ve Freelu</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- B13. Shrnutí compliance služby -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Shrnutí compliance služby</h2>
+            </div>
+            <div class="summary-text">
+                <p>Compliance větev AI Adopce @ Salutem zajišťuje, aby firma mohla používat AI bezpečně, legálně a s jasnou odpovědností.</p>
+                <p>Jejím úkolem není AI brzdit. Naopak — dobře nastavená compliance pomáhá firmě rychleji rozhodovat, protože jasně říká, co je povolené, co vyžaduje kontrolu a co je příliš rizikové.</p>
+                <p>Úspěch se neměří počtem právních dokumentů. Měří se tím, jestli firma ví, jaké AI systémy používá, jaká nesou rizika, kdo za ně odpovídá a zda existují důkazy pro případ auditu nebo kontroly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- B14. Závěrečný banner -->
+    <section class="closing-banner">
+        <div class="closing-banner-inner">
+            <p class="lead">Směrnice nastaví pravidla.</p>
+            <p>Služba zajistí, že podle nich firma opravdu funguje.</p>
+            <a class="closing-back" href="/">← Zpět na hlavní stránku</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">Salutem Group AI Hub</div>
+        <p>© 2026 Salutem Group. Interní dokument.</p>
+    </footer>
+
+    <script>
+        const navEl = document.querySelector('.nav');
+        const navToggleBtn = document.querySelector('.nav-toggle');
+        const navBackdrop = document.getElementById('navBackdrop');
+
+        function openNav() {
+            navEl.classList.add('open');
+            navBackdrop.classList.add('active');
+            navToggleBtn.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeNav() {
+            navEl.classList.remove('open');
+            navBackdrop.classList.remove('active');
+            navToggleBtn.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = 'auto';
+        }
+        if (navToggleBtn) {
+            navToggleBtn.addEventListener('click', () => {
+                if (navEl.classList.contains('open')) closeNav();
+                else openNav();
+            });
+        }
+        if (navBackdrop) {
+            navBackdrop.addEventListener('click', closeNav);
+        }
+    </script>
+</body>
+</html>
