@@ -372,6 +372,51 @@
         .footer { background: var(--gray-900); color: var(--gray-400); padding: 3rem 2rem; text-align: center; }
         .footer-logo { font-size: 1.5rem; font-weight: 700; color: var(--white); margin-bottom: 1rem; }
 
+        /* Hero mindset + buttons */
+        .hero-mindset { font-size: 1.5rem; font-weight: 700; color: var(--orange); margin-bottom: 1.5rem; }
+        .hero-buttons { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .hero-btn--primary { background: var(--orange); color: var(--white); }
+        .hero-btn--primary:hover { background: var(--orange-dark); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+        .hero-btn--secondary { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.6); }
+        .hero-btn--secondary:hover { background: var(--white); color: var(--blue); border-color: var(--white); }
+
+        /* Assessment block */
+        .assessment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .assessment-card {
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-top: 5px solid var(--orange);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s;
+        }
+        .assessment-card:hover { border-color: var(--orange); transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
+        .assessment-card h3 { font-size: 1.2rem; color: var(--gray-800); margin-bottom: 0.75rem; }
+        .assessment-card p { color: var(--gray-600); margin-bottom: 1.5rem; flex-grow: 1; }
+        .assessment-card .link-btn { align-self: flex-start; }
+        @media (max-width: 768px) {
+            .assessment-grid { grid-template-columns: 1fr; }
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .card-grid { grid-template-columns: repeat(2, 1fr); }
@@ -436,7 +481,12 @@
             <a class="back-link" href="/">← Zpět na hlavní stránku</a>
             <span class="hero-badge">Vzdělávací větev · služba AI Adopce @ Salutem</span>
             <h1>Pomáháme lidem přejít od povědomí o AI k pravidelnému používání v praxi</h1>
+            <p class="hero-mindset">AI gramotnost není o nástrojích. Je o přístupu.</p>
             <p class="hero-intro">Vzdělávací větev pomáhá lidem ve firmě pochopit, osvojit si a bezpečně používat AI v běžné práci. Cílem není jen proškolit zaměstnance nebo splnit formální povinnost — cílem je změnit pracovní návyky tak, aby se AI stala přirozenou součástí každodenní práce.</p>
+            <div class="hero-buttons">
+                <a class="hero-btn hero-btn--primary" href="https://forms.office.com/Pages/ResponsePage.aspx?id=uLTBrmum40-UPWmHfTzSgHJpid13tINHp_x_-a1h_O5UQlFBVUhPUEs3WFdaRU82RTNOQVpSRVRFUy4u" target="_blank" rel="noopener noreferrer">Zjisti svůj AI profil</a>
+                <a class="hero-btn hero-btn--secondary" href="#assessment">Jak na to →</a>
+            </div>
             <p class="hero-meta">Vlastník Martina Habová · Realizace Jakub Hovorka · Garant metodiky Petr Suchý</p>
         </div>
     </section>
@@ -449,6 +499,30 @@
             </div>
             <div class="intro-block">
                 V produkční větvi lidé přicházejí s viditelnou potřebou — něco je zdržuje, něco chtějí zrychlit. U vzdělávání je to jinak: mnoho lidí zatím žádnou potřebu necítí. Proto nestačí „udělat kurz". Jádrem služby je change management — postupná změna chování, motivace a návyků. A školení nekončí absolvováním kurzu: pokud se dovednosti nepoužívají, rychle se ztratí. Proto každý formát pokračuje do fáze Udržuj.
+            </div>
+        </div>
+    </section>
+
+    <!-- Assessment blok -->
+    <section class="section section--gray" id="assessment">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Kde jsi a co ti pomůže</h2>
+            </div>
+
+            <p class="section-lead">Začni tím, že zjistíš svou výchozí úroveň. Dotazník ti ukáže, kde právě jsi, kompetenční matice popisuje, co která úroveň znamená a kam se posunout. Není to známkování — je to mapa cesty.</p>
+
+            <div class="assessment-grid">
+                <div class="assessment-card">
+                    <h3>Dotazník — zjisti svou úroveň</h3>
+                    <p>Krátký assessment „AI ve tvojí práci". Vyplníš za pár minut, výstupem je tvůj AI profil.</p>
+                    <a class="link-btn link-btn--orange" href="https://forms.office.com/Pages/ResponsePage.aspx?id=uLTBrmum40-UPWmHfTzSgHJpid13tINHp_x_-a1h_O5UQlFBVUhPUEs3WFdaRU82RTNOQVpSRVRFUy4u" target="_blank" rel="noopener noreferrer">Vyplnit dotazník</a>
+                </div>
+                <div class="assessment-card">
+                    <h3>Kompetenční matice — co která úroveň znamená</h3>
+                    <p>Referenční popis úrovní 0–3 napříč oblastmi: mindset, prompting, data, workflow, kritické myšlení.</p>
+                    <a class="link-btn" href="https://pjcapital-my.sharepoint.com/:u:/g/personal/martina_habova_pj-capital_cz/IQCTDcaI-pPJTrSpwYziwzyyAdGOVK4rbP4tTNbSMzt9pRY?e=jhieZS" target="_blank" rel="noopener noreferrer">Otevřít matici</a>
+                </div>
             </div>
         </div>
     </section>
