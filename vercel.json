@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/produkcni-vetev", "destination": "/produkcni-vetev.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

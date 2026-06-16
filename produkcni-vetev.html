@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produkční větev | AI Hub Salutem Group</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #F36C2B;
+            --orange-light: #FF8A50;
+            --orange-dark: #D55A1F;
+            --blue: #0D3579;
+            --blue-light: #1E4A9A;
+            --blue-dark: #082451;
+            --white: #FFFFFF;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 0 2rem;
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            position: relative;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            text-decoration: none;
+        }
+        .nav-logo img { height: 40px; }
+        .nav-logo span {
+            font-weight: 700;
+            font-size: 1.55rem;
+            color: var(--blue);
+        }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover,
+        .nav-links a.active { color: var(--orange); }
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            width: 44px;
+            height: 44px;
+            padding: 10px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 18px;
+            height: 2px;
+            background: var(--gray-700);
+            border-radius: 2px;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .nav.open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+        .nav.open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .nav-backdrop {
+            display: none;
+            position: fixed;
+            top: 70px; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.35);
+            z-index: 999;
+        }
+        .nav-backdrop.active { display: block; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            padding: 140px 2rem 100px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -20%;
+            width: 80%; height: 200%;
+            background: var(--orange);
+            opacity: 0.1;
+            transform: rotate(-15deg);
+            border-radius: 50%;
+        }
+        .hero-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.12;
+            margin-bottom: 1.5rem;
+        }
+        .hero-intro {
+            font-size: 1.2rem;
+            opacity: 0.92;
+            max-width: 760px;
+        }
+        .hero-meta {
+            font-size: 0.85rem;
+            opacity: 0.78;
+            margin-top: 1.75rem;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--white);
+            opacity: 0.85;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            transition: opacity 0.2s, color 0.2s;
+        }
+        .back-link:hover { opacity: 1; color: var(--orange); }
+
+        /* Sections */
+        .section { padding: 80px 2rem; }
+        .section-container { max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 3.5rem; }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray-500);
+            max-width: 760px;
+            margin: 0 auto;
+        }
+        .section--white { background: var(--white); }
+        .section--gray { background: var(--gray-50); }
+
+        /* Intro framing block */
+        .intro-block {
+            max-width: 880px;
+            margin: 0 auto;
+            background: var(--gray-50);
+            border-left: 4px solid var(--orange);
+            border-radius: 0 12px 12px 0;
+            padding: 1.75rem 2rem;
+            color: var(--gray-700);
+            font-size: 1.1rem;
+        }
+        .section--white .intro-block { background: var(--gray-50); }
+
+        /* 9 areas */
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .area-card {
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-top: 5px solid var(--blue);
+            border-radius: 16px;
+            padding: 1.75rem;
+            transition: all 0.3s;
+        }
+        .area-card:hover {
+            border-color: var(--orange);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+        }
+        .area-num {
+            width: 38px; height: 38px;
+            border-radius: 10px;
+            background: var(--blue);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .area-card h3 {
+            font-size: 1.1rem;
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
+        }
+        .area-intro { color: var(--gray-600); font-size: 0.92rem; margin-bottom: 1rem; }
+        .area-card ul { margin-left: 1.1rem; color: var(--gray-600); font-size: 0.9rem; }
+        .area-card li { margin-bottom: 0.4rem; }
+
+        /* Operating model intro */
+        .opmodel-intro {
+            max-width: 880px;
+            margin: 0 auto 3rem;
+            color: var(--gray-600);
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        /* Journey (7 phases) */
+        .journey { max-width: 880px; margin: 0 auto; }
+        .journey-step {
+            position: relative;
+            padding-left: 72px;
+            padding-bottom: 2.5rem;
+        }
+        .journey-step:last-child { padding-bottom: 0; }
+        .journey-step::before {
+            content: '';
+            position: absolute;
+            left: 23px;
+            top: 50px;
+            bottom: 0;
+            width: 2px;
+            background: var(--gray-200);
+        }
+        .journey-step:last-child::before { display: none; }
+        .journey-num {
+            position: absolute;
+            left: 0; top: 0;
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: var(--blue);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            z-index: 1;
+        }
+        .journey-step.is-final .journey-num {
+            background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%);
+        }
+        .journey-content {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 14px;
+            padding: 1.5rem 1.75rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .journey-step.is-final .journey-content {
+            border: 2px solid var(--orange);
+        }
+        .journey-content h3 {
+            font-size: 1.2rem;
+            color: var(--blue);
+            margin-bottom: 0.25rem;
+        }
+        .journey-tag {
+            display: block;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--orange);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        .journey-content p { color: var(--gray-600); margin-bottom: 1rem; }
+        .journey-content p:last-child { margin-bottom: 0; }
+
+        /* Boxes inside phases */
+        .phase-box {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-left: 4px solid var(--orange);
+            border-radius: 0 12px 12px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.25rem 0;
+        }
+        .phase-box h4 { color: var(--blue); margin-bottom: 0.75rem; font-size: 1rem; }
+        .phase-box ul, .phase-box ol { margin-left: 1.2rem; color: var(--gray-600); font-size: 0.95rem; }
+        .phase-box li { margin-bottom: 0.45rem; }
+        .phase-box li:last-child { margin-bottom: 0; }
+
+        /* 12 use-cases */
+        .usecase-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .usecase-card {
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-top: 5px solid var(--orange);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .usecase-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+        .usecase-num { font-size: 0.8rem; font-weight: 800; color: var(--orange); }
+        .usecase-card h3 { font-size: 1.05rem; color: var(--gray-800); margin: 0.25rem 0 0.5rem; }
+        .usecase-meta { font-size: 0.8rem; color: var(--gray-500); margin-bottom: 1rem; flex-grow: 1; }
+        .usecase-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-200);
+        }
+        .usecase-metric { text-align: center; }
+        .usecase-metric-value { font-size: 0.95rem; font-weight: 700; color: var(--blue); }
+        .usecase-metric-label { font-size: 0.7rem; color: var(--gray-500); }
+
+        .summary-strip {
+            margin-top: 2.5rem;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            border-radius: 16px;
+            padding: 2.25rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            color: var(--white);
+            text-align: center;
+        }
+        .summary-strip .num { font-size: 2.2rem; font-weight: 800; color: var(--orange); }
+        .summary-strip .lbl { font-size: 0.9rem; opacity: 0.85; margin-top: 0.25rem; }
+
+        /* Summary text */
+        .summary-text { max-width: 860px; margin: 0 auto; }
+        .summary-text p { color: var(--gray-600); font-size: 1.08rem; margin-bottom: 1.1rem; }
+        .summary-text p:last-child { margin-bottom: 0; }
+
+        /* Closing banner */
+        .closing-banner {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 80px 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .closing-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -20%;
+            width: 70%; height: 200%;
+            background: var(--orange);
+            opacity: 0.1;
+            transform: rotate(-15deg);
+            border-radius: 50%;
+        }
+        .closing-banner-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+        .closing-banner p { font-size: 1.35rem; margin-bottom: 0.5rem; opacity: 0.95; }
+        .closing-banner p.lead {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--orange);
+            margin-bottom: 1.25rem;
+            opacity: 1;
+        }
+        .closing-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 2rem;
+            padding: 12px 28px;
+            background: var(--white);
+            color: var(--blue);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .closing-back:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-900);
+            color: var(--gray-400);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .areas-grid { grid-template-columns: repeat(2, 1fr); }
+            .usecase-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .section { padding: 64px 1.25rem; }
+            .nav { padding: 0 1.25rem; }
+            .hero { padding: 120px 1.25rem 80px; }
+            .hero h1 { font-size: 2.2rem; }
+            .nav-toggle { display: inline-flex; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px; left: 0; right: 0;
+                background: var(--white);
+                border-bottom: 1px solid var(--gray-200);
+                box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+                padding: 0.75rem 1.25rem 1.25rem;
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            .nav.open .nav-links { display: flex; }
+            .nav-links a { padding: 10px 12px; border-radius: 10px; background: var(--gray-50); }
+        }
+        @media (max-width: 700px) {
+            .areas-grid { grid-template-columns: 1fr; }
+            .usecase-grid { grid-template-columns: 1fr; }
+            .summary-strip { grid-template-columns: 1fr; gap: 1.5rem; }
+            .section-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a class="nav-logo" href="/">
+                <img src="logo.png" alt="Salutem Group" onerror="this.style.display='none'">
+                <span>AI Hub</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <a href="/#service">Služba</a>
+                <a href="/#howitworks">Jak funguje</a>
+                <a href="/#dashboard">Stav služby</a>
+                <a href="/#projects">Portfolio</a>
+                <a href="/produkcni-vetev" class="active">Produkční větev</a>
+                <a href="/#governance">Řízení</a>
+                <a href="/#resources">Zdroje</a>
+            </div>
+        </div>
+    </nav>
+    <div class="nav-backdrop" id="navBackdrop"></div>
+
+    <!-- B1. Hero -->
+    <section class="hero">
+        <div class="hero-container">
+            <a class="back-link" href="/">← Zpět na hlavní stránku</a>
+            <span class="hero-badge">Produkční větev · služba AI Adopce @ Salutem</span>
+            <h1>Dodáváme a provozujeme AI řešení, která lidem berou rutinu</h1>
+            <p class="hero-intro">Cílem není jen spustit nový nástroj, ale dostat užitečná řešení do reálného provozu, starat se o ně, zlepšovat je a měřit, jestli skutečně pomáhají. Produkční služba dodává a provozuje AI řešení, která pomáhají firmě zvládnout více práce na stávající kapacitě.</p>
+            <p class="hero-meta">Vlastník Martina Habová · Realizace Jakub Hovorka · Schvaluje Jaroslav Ton</p>
+        </div>
+    </section>
+
+    <!-- B2. Úvodní rámující blok -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="intro-block">
+                Práce nekončí spuštěním use-casu. Každý use-case po zavedení přechází do provozní fáze, kde má svého vlastníka, podporu, dokumentaci a prostor pro zlepšování. Tím se produkční větev liší od projektu Alfa — zajišťuje nejen vytvoření řešení, ale i jeho dlouhodobý provoz.
+            </div>
+        </div>
+    </section>
+
+    <!-- B3. Definice služby v devíti oblastech -->
+    <section class="section section--gray">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Definice služby v devíti oblastech</h2>
+            </div>
+
+            <div class="areas-grid">
+                <div class="area-card">
+                    <div class="area-num">1</div>
+                    <h3>Zákazník a uživatelé</h3>
+                    <p class="area-intro">Služba je určena celé firmě, napříč ~16 odděleními — podle toho, kde use-case vzniká a komu má pomoci.</p>
+                    <ul>
+                        <li>typicky Obchod, Reality, Finance, Právní, IT, Marketing, Back office, HR, Management…</li>
+                        <li>uživatelé se vždy určují podle konkrétního use-casu</li>
+                        <li>externí sítě zůstávají mimo rozsah služby</li>
+                    </ul>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-num">2</div>
+                    <h3>Hodnota služby</h3>
+                    <p class="area-intro">Hodnota nevzniká počtem nástrojů, ale když se lidem zjednoduší práce a firma zvládne víc na stejné kapacitě.</p>
+                    <ul>
+                        <li>AI přebírá rutinu, přepisování, dohledávání a opakovanou administrativu</li>
+                        <li>očekávaný přínos ~2,5 mil. Kč ročně napříč 12 use-casy</li>
+                        <li>podmínka: soulad s pravidly a adopce nad 50 %</li>
+                        <li>každý use-case má vlastní SMART cíl</li>
+                    </ul>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-num">3</div>
+                    <h3>Rozsah služby</h3>
+                    <p class="area-intro">Jednoduchá hranice, co do služby patří a co ne.</p>
+                    <ul>
+                        <li>patří sem osobní, týmová, strategická i datová řešení</li>
+                        <li>podmínka: jasná AI nebo automatizační komponenta</li>
+                        <li>čistě procesní změny bez AI patří do projektu Alfa</li>
+                    </ul>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-num">4</div>
+                    <h3>Vlastnictví a RACI</h3>
+                    <p class="area-intro">Za službu odpovídá AI tým, který drží směr a provozní logiku.</p>
+                    <ul>
+                        <li><strong>Vlastník služby:</strong> Martina Habová</li>
+                        <li><strong>Realizace:</strong> Martina Habová a Jakub Hovorka, u IT use-casů také Langer</li>
+                        <li><strong>Konzultace:</strong> dle potřeby Šustr, Mazuch, Právní</li>
+                        <li><strong>Sponzor a schvalovatel:</strong> Jaroslav Ton (zároveň informován)</li>
+                    </ul>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-num">5</div>
+                    <h3>SLO a SLA</h3>
+                    <p class="area-intro">Měříme hlavně to, jak službu zažívá uživatel — jestli se mu někdo ozve a dá se na ni spolehnout.</p>
+                    <ul>
+                        <li>reakce na požadavek do 5 pracovních dní u alespoň 90 %</li>
+                        <li>dostupnost agenta alespoň 99 %</li>
+                        <li>kvalita a přesnost výstupu nad stanoveným prahem</li>
+                        <li>počítáme s přijatelnou mírou chyb (rozpočet chyb) — víme, kolik výpadků je ještě v pořádku a kdy už je nutné zasáhnout; formální SLA se zatím neřeší</li>
+                    </ul>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-num">6</div>
+                    <h3>Support model</h3>
+                    <p class="area-intro">Tři úrovně podpory — jasné, kam se obrátit, když něco nefunguje.</p>
+                    <ul>
+                        <li>L1 — superuser nebo AI helpdesk, z velké části automatizovaný</li>
+                        <li>L2 — AI tým: složitější problémy, úpravy agentů a automatizací</li>
+                        <li>L3 — IT nebo dodavatel: integrace, systémové chyby</li>
+                        <li>cíl: ~80 % běžných dotazů vyřešit už na úrovni L1</li>
+                    </ul>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-num">7</div>
+                    <h3>Change model</h3>
+                    <p class="area-intro">Každá změna má jasné zadání, schválení a dohledatelnost.</p>
+                    <ul>
+                        <li>nová verze nebo větší změna se zadává přes úkol ve Freelu</li>
+                        <li>schvaluje ji vlastník konkrétního use-casu</li>
+                        <li>u ostrých klientských dat povinná compliance kontrola</li>
+                        <li>vždy dohledatelné, kdo změnu navrhl, schválil a jaký má dopad</li>
+                    </ul>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-num">8</div>
+                    <h3>Metriky</h3>
+                    <p class="area-intro">Metriky navazují na logiku hodnota → cíl → metrika.</p>
+                    <ul>
+                        <li>podíl aktivních uživatelů, cílově nad 50 %</li>
+                        <li>ušetřené hodiny</li>
+                        <li>realizovaná finanční úspora, cílově ~2,5 mil. Kč ročně</li>
+                        <li>počet use-casů už ve fázi provozu a udržování</li>
+                    </ul>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-num">9</div>
+                    <h3>Rizika a kontinuita</h3>
+                    <p class="area-intro">Čtyři hlavní rizika služby a způsob, jak je držet pod kontrolou.</p>
+                    <ul>
+                        <li>roztříštěná data snižují kvalitu AI řešení</li>
+                        <li>ostrá klientská data v neschválených nástrojích</li>
+                        <li>závislost na jednom až dvou lidech</li>
+                        <li>nízká adopce — i dobré řešení bez používání nemá hodnotu</li>
+                        <li>mitigace: zastupitelnost, dokumentace, datový sklad, support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B4. Operační model — od poptávky k hodnotě -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Operační model — od poptávky k hodnotě</h2>
+            </div>
+
+            <p class="opmodel-intro">Produkční služba musí mít jasný provozní tok. Nestačí sbírat nápady. Každý požadavek musí projít cestou, na jejímž konci je buď funkční řešení v provozu, nebo vědomé rozhodnutí, že se daný nápad zatím nerealizuje.</p>
+
+            <div class="journey">
+                <!-- Fáze 1 -->
+                <div class="journey-step">
+                    <div class="journey-num">1</div>
+                    <div class="journey-content">
+                        <h3>Zadání požadavku</h3>
+                        <span class="journey-tag">jedno vstupní místo, ze kterého se nic neztratí</span>
+                        <p>Cílem je mít jedno vstupní místo, takzvaný Front Door, i když lidé mohou požadavek poslat různými cestami: formulář ve Freelu, Microsoft Forms napojený na Freelo, Teams agent „AI poptávka" v Copilot Studiu, e-mail převedený na úkol, hlasové zadání nebo zápis z porady, ze kterého rovnou vznikne úkol. Ať už požadavek přijde odkudkoli, má skončit v jednom backlogu ve Freelu — díky tomu se požadavky neztrácejí, nedublují a lze je dál řídit.</p>
+                    </div>
+                </div>
+
+                <!-- Fáze 2 -->
+                <div class="journey-step">
+                    <div class="journey-num">2</div>
+                    <div class="journey-content">
+                        <h3>Kvalifikace požadavku</h3>
+                        <span class="journey-tag">patří to k nám a máme vše potřebné?</span>
+                        <p>Ve druhé fázi se ověřuje, jestli požadavek skutečně patří do AI Adopce a jestli máme dost informací, abychom s ním mohli pracovat. K tomu slouží checklist, cheat sheet a triage agent. Smyslem checklistu není brzdit dobré nápady, ale rychle poznat, jestli je požadavek připravený k dalšímu kroku, nebo jestli je potřeba něco doplnit.</p>
+
+                        <div class="phase-box">
+                            <h4>Checklist u každého požadavku</h4>
+                            <ul>
+                                <li>Má požadavek AI nebo automatizační komponentu? Pokud ne, patří spíš do Alfy.</li>
+                                <li>Je zadavatel uvnitř hranice služby, tedy nejde o externí síť?</li>
+                                <li>Neexistuje už podobné řešení?</li>
+                                <li>Máme zadavatele, oddělení, popis problému a popis současného ručního procesu?</li>
+                                <li>Víme, jaká data a systémy jsou potřeba?</li>
+                                <li>Víme, kdo budou uživatelé a kdo řešení schvaluje?</li>
+                                <li>Pracuje se s ostrými klientskými daty? Pokud ano, požadavek dostává compliance flag.</li>
+                                <li>Máme alespoň hrubý odhad přínosu a investice?</li>
+                            </ul>
+                        </div>
+
+                        <div class="phase-box">
+                            <h4>Cheat sheet — devět otázek AI týmu</h4>
+                            <ol>
+                                <li>Jaký problém řešíme a komu vadí?</li>
+                                <li>Jak často se problém opakuje a kolika lidí se týká?</li>
+                                <li>Jak dnes vypadá ruční proces krok za krokem?</li>
+                                <li>Jaká data a systémy jsou potřeba? Jsou mezi nimi ostrá klientská data?</li>
+                                <li>Jaký je očekávaný dopad a jak složité bude řešení?</li>
+                                <li>Neexistuje už podobné řešení?</li>
+                                <li>Kdo je vlastník a kdo schvalovatel?</li>
+                                <li>Dá se udělat malý PoC?</li>
+                                <li>Je řešení vratné a jaké nese riziko?</li>
+                            </ol>
+                        </div>
+
+                        <p>Triage agent: přečte vstupní zadání, předvyplní checklist, upozorní na chybějící informace, navrhne doplňující otázky, odhadne poměr dopadu a složitosti a doporučí, jakou dráhou má požadavek pokračovat. Může být postavený například v Copilot Studiu, Claude nebo n8n. Jeho cílem není rozhodovat místo lidí — má AI týmu ušetřit čas a připravit kvalitnější podklad.</p>
+                    </div>
+                </div>
+
+                <!-- Fáze 3 -->
+                <div class="journey-step">
+                    <div class="journey-num">3</div>
+                    <div class="journey-content">
+                        <h3>Rozhodnutí o další dráze</h3>
+                        <span class="journey-tag">fast lane vs. standardní/strategická dráha</span>
+                        <p>Fast lane je určená pro malé, rychlé a nízkorizikové use-casy: mají jasnou AI nebo automatizační složku, nevyžadují žádnou nebo jen nízkou investici, týkají se osobní úrovně práce, nemají složité mezioddělenové vazby, jsou vratné a nepracují rizikově s ostrými daty. Tyto věci nemají čekat na velký schvalovací cyklus — dělají se rychle, protože budují důvěru v AI a ukazují konkrétní přínos.</p>
+                        <p>Standardní nebo strategická dráha je pro větší požadavky, které vyžadují investici, zasahují více oddělení, mají strategický dopad, pracují s citlivými daty nebo mají spornou prioritu. Připravují se jako podklad pro Evolution, kde se jednou měsíčně rozhoduje. Platí pravidlo: malé quick-winy nečekají, velké a rizikovější věci se rozhodují vědomě. U každého požadavku se zároveň dělá přiměřená analýza podílníků.</p>
+                    </div>
+                </div>
+
+                <!-- Fáze 4 -->
+                <div class="journey-step">
+                    <div class="journey-num">4</div>
+                    <div class="journey-content">
+                        <h3>Prioritizace</h3>
+                        <span class="journey-tag">podle poměru dopadu a složitosti</span>
+                        <p>Požadavky se prioritizují podle poměru dopadu a složitosti. Zjednodušeně: čím větší dopad a menší složitost, tím vyšší priorita. Priorita se počítá podle principu skóre = dopad × 1 / složitost. Backlog ve Freelu pracuje se stavem požadavku: Nové → Kvalifikováno → Čeká na Evolution → Schváleno → V realizaci → Provoz. Přehled má být viditelný také v Hubu, aby bylo jasné, co je nové, co se řeší, co čeká na rozhodnutí a co už běží v provozu.</p>
+                    </div>
+                </div>
+
+                <!-- Fáze 5 -->
+                <div class="journey-step">
+                    <div class="journey-num">5</div>
+                    <div class="journey-content">
+                        <h3>Realizace</h3>
+                        <span class="journey-tag">princip „lego kostiček" a malý PoC</span>
+                        <p>Realizace stojí na principu „lego kostiček". Nehledáme vždy jedno velké řešení — skládáme vhodné nástroje podle toho, co má use-case udělat, jaká data potřebuje, jaké riziko nese a jak rychle ho potřebujeme ověřit. Nejdřív se má vždy hledat malý PoC, aby se rychle ověřilo, jestli řešení dává smysl, než se do něj investuje větší čas nebo peníze.</p>
+
+                        <div class="phase-box">
+                            <h4>Paleta nástrojů</h4>
+                            <ul>
+                                <li><strong>No-code / low-code:</strong> Copilot Studio, Power Automate, Power Apps, Microsoft Forms</li>
+                                <li><strong>Integrace:</strong> Make, n8n, Logic Apps</li>
+                                <li><strong>RPA:</strong> Power Automate Desktop</li>
+                                <li><strong>Pro-code:</strong> Claude, Python, Azure AI</li>
+                                <li><strong>Znalostní a datová řešení:</strong> NotebookLM, SharePoint s Copilotem, Power BI</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fáze 6 -->
+                <div class="journey-step">
+                    <div class="journey-num">6</div>
+                    <div class="journey-content">
+                        <h3>Provoz a support</h3>
+                        <span class="journey-tag">po zavedení se o řešení staráme</span>
+                        <p>Po zavedení přechází řešení do provozu. Musí být jasné, kdo řešení vlastní, kdo ho podporuje, jak se hlásí problémy a jak se pozná, že přestává fungovat správně. Produkční služba proto počítá s několika provozními vrstvami:</p>
+                        <div class="phase-box">
+                            <ul>
+                                <li><strong>L1 self-service</strong> — pomáhá s běžnými otázkami (jak použít agenta, kde najdu návod, co dělat, když výstup nevypadá správně). Může ji zajišťovat Teams agent „AI podpora" v Copilot Studiu, napojený na SharePoint nebo NotebookLM.</li>
+                                <li><strong>Znalostní báze</strong> — jednoduché návody, prompty a ukázky použití na SharePointu, doplněné krátkými Loom AI videi. Praktické návody, ne složitá dokumentace.</li>
+                                <li><strong>Pravidelné kontroly funkčnosti</strong> — denní testy ověřují, jestli agent odpovídá a běží napojení. Při problému Power Automate automaticky upozorní L2.</li>
+                                <li><strong>Status page</strong> — v Hubu je vidět, co běží, co má výpadek a u čeho se něco řeší.</li>
+                                <li><strong>Ticketing</strong> — provozní dotazy a chyby se řeší přes Freelo jako jednoduchý helpdesk, s automatickým směrováním podle typu problému.</li>
+                                <li><strong>Eskalace</strong> — nevyřešený požadavek se automaticky eskaluje (SLA časovač v Power Automate), aby nezapadl.</li>
+                                <li><strong>Feedback</strong> — palec nahoru/dolů, krátký komentář nebo feedback bot v Teams. Ukládá se a vyhodnocuje.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fáze 7 -->
+                <div class="journey-step is-final">
+                    <div class="journey-num">7</div>
+                    <div class="journey-content">
+                        <h3>Zlepšování</h3>
+                        <span class="journey-tag">cesta nikdy nekončí</span>
+                        <p>AI řešení nejsou hotová jednou provždy — mění se potřeby lidí, data, procesy i nástroje. Proto služba sleduje adopci, zpětnou vazbu a provozní problémy a výsledky propisuje do Hubu, aby bylo vidět, co se používá, co má dopad a co potřebuje pozornost. Zpětná vazba se zároveň vrací zpět jako nové intake: pokud uživatelé opakovaně hlásí stejný problém nebo navrhují podobné zlepšení, vzniká z toho nový požadavek. Součástí pravidelného zlepšování je měsíční otázka: Co nám ještě uniká?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B5. Dvanáct use-casů produkční větve -->
+    <section class="section section--gray">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Dvanáct use-casů produkční větve</h2>
+            </div>
+
+            <div class="usecase-grid">
+                <div class="usecase-card">
+                    <span class="usecase-num">01</span>
+                    <h3>Rychlejší práce s e-maily</h3>
+                    <div class="usecase-meta">Osobní · všichni s Copilotem</div>
+                    <div class="usecase-metrics">
+                        <div class="usecase-metric"><div class="usecase-metric-value">0 Kč</div><div class="usecase-metric-label">Investice</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">400 tis.</div><div class="usecase-metric-label">Přínos/rok</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">okamžitá</div><div class="usecase-metric-label">Návratnost</div></div>
+                    </div>
+                </div>
+
+                <div class="usecase-card">
+                    <span class="usecase-num">02</span>
+                    <h3>Přehled z 20 Teams skupin</h3>
+                    <div class="usecase-meta">Osobní · uživatelé Teams</div>
+                    <div class="usecase-metrics">
+                        <div class="usecase-metric"><div class="usecase-metric-value">0 Kč</div><div class="usecase-metric-label">Investice</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">175 tis.</div><div class="usecase-metric-label">Přínos/rok</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">okamžitá</div><div class="usecase-metric-label">Návratnost</div></div>
+                    </div>
+                </div>
+
+                <div class="usecase-card">
+                    <span class="usecase-num">03</span>
+                    <h3>Zadávej úkoly hlasem</h3>
+                    <div class="usecase-meta">Osobní · Reality tým</div>
+                    <div class="usecase-metrics">
+                        <div class="usecase-metric"><div class="usecase-metric-value">40 tis.</div><div class="usecase-metric-label">Investice</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">120 tis.</div><div class="usecase-metric-label">Přínos/rok</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">~4 měsíce</div><div class="usecase-metric-label">Návratnost</div></div>
+                    </div>
+                </div>
+
+                <div class="usecase-card">
+                    <span class="usecase-num">04</span>
+                    <h3>Z porady rovnou úkoly</h3>
+                    <div class="usecase-meta">Osobní · týmy s poradami</div>
+                    <div class="usecase-metrics">
+                        <div class="usecase-metric"><div class="usecase-metric-value">0 Kč</div><div class="usecase-metric-label">Investice</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">90 tis.</div><div class="usecase-metric-label">Přínos/rok</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">okamžitá</div><div class="usecase-metric-label">Návratnost</div></div>
+                    </div>
+                </div>
+
+                <div class="usecase-card">
+                    <span class="usecase-num">05</span>
+                    <h3>Rychlejší analýza smluv</h3>
+                    <div class="usecase-meta">Osobní · Právní + vedení</div>
+                    <div class="usecase-metrics">
+                        <div class="usecase-metric"><div class="usecase-metric-value">5 tis.</div><div class="usecase-metric-label">Investice</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">110 tis.</div><div class="usecase-metric-label">Přínos/rok</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">&lt;1 měsíc</div><div class="usecase-metric-label">Návratnost</div></div>
+                    </div>
+                </div>
+
+                <div class="usecase-card">
+                    <span class="usecase-num">06</span>
+                    <h3>Chytřejší práce s tabulkami</h3>
+                    <div class="usecase-meta">Osobní · finance, reporting</div>
+                    <div class="usecase-metrics">
+                        <div class="usecase-metric"><div class="usecase-metric-value">25 tis.</div><div class="usecase-metric-label">Investice</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">280 tis.</div><div class="usecase-metric-label">Přínos/rok</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">~1 měsíc</div><div class="usecase-metric-label">Návratnost</div></div>
+                    </div>
+                </div>
+
+                <div class="usecase-card">
+                    <span class="usecase-num">07</span>
+                    <h3>Méně manuálního přepisování</h3>
+                    <div class="usecase-meta">Týmová · Obchod</div>
+                    <div class="usecase-metrics">
+                        <div class="usecase-metric"><div class="usecase-metric-value">200 tis.</div><div class="usecase-metric-label">Investice</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">175 tis.</div><div class="usecase-metric-label">Přínos/rok</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">~14 měsíců</div><div class="usecase-metric-label">Návratnost</div></div>
+                    </div>
+                </div>
+
+                <div class="usecase-card">
+                    <span class="usecase-num">08</span>
+                    <h3>Z nákupu do prodeje rychleji</h3>
+                    <div class="usecase-meta">Týmová · Reality + Obchod</div>
+                    <div class="usecase-metrics">
+                        <div class="usecase-metric"><div class="usecase-metric-value">100 tis.</div><div class="usecase-metric-label">Investice</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">60 tis.+</div><div class="usecase-metric-label">Přínos/rok</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">~20 měsíců</div><div class="usecase-metric-label">Návratnost</div></div>
+                    </div>
+                </div>
+
+                <div class="usecase-card">
+                    <span class="usecase-num">09</span>
+                    <h3>Upozornění na změny v katastru</h3>
+                    <div class="usecase-meta">Strategická · Back office + Finance</div>
+                    <div class="usecase-metrics">
+                        <div class="usecase-metric"><div class="usecase-metric-value">700 tis.</div><div class="usecase-metric-label">Investice</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">500 tis.</div><div class="usecase-metric-label">Přínos/rok</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">~17 měsíců</div><div class="usecase-metric-label">Návratnost</div></div>
+                    </div>
+                </div>
+
+                <div class="usecase-card">
+                    <span class="usecase-num">10</span>
+                    <h3>Predikce cash flow</h3>
+                    <div class="usecase-meta">Strategická · Finance</div>
+                    <div class="usecase-metrics">
+                        <div class="usecase-metric"><div class="usecase-metric-value">500 tis.</div><div class="usecase-metric-label">Investice</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">350 tis.</div><div class="usecase-metric-label">Přínos/rok</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">~17 měsíců</div><div class="usecase-metric-label">Návratnost</div></div>
+                    </div>
+                </div>
+
+                <div class="usecase-card">
+                    <span class="usecase-num">11</span>
+                    <h3>Jeden zdroj pravdy dat</h3>
+                    <div class="usecase-meta">Datová základna · IT + celá firma</div>
+                    <div class="usecase-metrics">
+                        <div class="usecase-metric"><div class="usecase-metric-value">200 tis.</div><div class="usecase-metric-label">Investice</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">150 tis.</div><div class="usecase-metric-label">Přínos/rok</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">~16 měsíců</div><div class="usecase-metric-label">Návratnost</div></div>
+                    </div>
+                </div>
+
+                <div class="usecase-card">
+                    <span class="usecase-num">12</span>
+                    <h3>Jeden report místo čtyř</h3>
+                    <div class="usecase-meta">Datová základna · AM, Obchod, Finance, Provoz</div>
+                    <div class="usecase-metrics">
+                        <div class="usecase-metric"><div class="usecase-metric-value">50 tis.</div><div class="usecase-metric-label">Investice</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">100 tis.</div><div class="usecase-metric-label">Přínos/rok</div></div>
+                        <div class="usecase-metric"><div class="usecase-metric-value">~6 měsíců</div><div class="usecase-metric-label">Návratnost</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-strip">
+                <div><div class="num">12</div><div class="lbl">use-casů</div></div>
+                <div><div class="num">~1,8 mil. Kč</div><div class="lbl">celková investice</div></div>
+                <div><div class="num">~2,5 mil. Kč</div><div class="lbl">přínos ročně</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B6. Shrnutí produkční služby -->
+    <section class="section section--white">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Shrnutí produkční služby</h2>
+            </div>
+            <div class="summary-text">
+                <p>Produkční větev AI Adopce @ Salutem je praktická část celé služby. Převádí nápady na konkrétní řešení, která lidem pomáhají v každodenní práci.</p>
+                <p>Její smysl je jasný: najít rutinu, navrhnout řešení, rychle ho ověřit, bezpečně zavést, provozovat a dál zlepšovat.</p>
+                <p>Úspěch se neměří tím, kolik řešení vzniklo. Úspěch se měří tím, kolik lidí je skutečně používá, kolik času ušetří a jaký dopad mají na fungování firmy.</p>
+                <p>Celkově produkční větev pracuje s investicí přibližně 1,8 mil. Kč a očekávaným přínosem kolem 2,5 mil. Kč ročně. Tento přínos ale vznikne jen tehdy, pokud služba nezůstane u technického dodání a opravdu dovede lidi ke každodennímu používání.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- B7. Závěrečný banner -->
+    <section class="closing-banner">
+        <div class="closing-banner-inner">
+            <p class="lead">To je hlavní rozdíl mezi nástrojem a službou.</p>
+            <p>Nástroj se spustí.</p>
+            <p>Služba se stará o to, aby se používal a přinášel hodnotu.</p>
+            <a class="closing-back" href="/">← Zpět na hlavní stránku</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">Salutem Group AI Hub</div>
+        <p>© 2026 Salutem Group. Interní dokument.</p>
+    </footer>
+
+    <script>
+        // Mobile navigation
+        const navEl = document.querySelector('.nav');
+        const navToggleBtn = document.querySelector('.nav-toggle');
+        const navBackdrop = document.getElementById('navBackdrop');
+
+        function openNav() {
+            navEl.classList.add('open');
+            navBackdrop.classList.add('active');
+            navToggleBtn.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeNav() {
+            navEl.classList.remove('open');
+            navBackdrop.classList.remove('active');
+            navToggleBtn.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = 'auto';
+        }
+        if (navToggleBtn) {
+            navToggleBtn.addEventListener('click', () => {
+                if (navEl.classList.contains('open')) closeNav();
+                else openNav();
+            });
+        }
+        if (navBackdrop) {
+            navBackdrop.addEventListener('click', closeNav);
+        }
+    </script>
+</body>
+</html>
