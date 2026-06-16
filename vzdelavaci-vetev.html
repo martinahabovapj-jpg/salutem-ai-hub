@@ -61,12 +61,13 @@
         .nav-logo { display: flex; align-items: center; gap: 24px; text-decoration: none; }
         .nav-logo img { height: 40px; }
         .nav-logo span { font-weight: 700; font-size: 1.55rem; color: var(--blue); }
-        .nav-links { display: flex; gap: 2rem; }
+        .nav-links { display: flex; gap: 1rem; }
         .nav-links a {
             text-decoration: none;
             color: var(--gray-600);
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.82rem;
+            white-space: nowrap;
             transition: color 0.2s;
         }
         .nav-links a:hover, .nav-links a.active { color: var(--orange); }
@@ -564,10 +565,13 @@
             </button>
             <div class="nav-links">
                 <a href="/#service">Služba</a>
+                <a href="/produkcni-vetev">Produkční</a>
+                <a href="/vzdelavaci-vetev" class="active">Vzdělávací</a>
+                <a href="/#service">Compliance</a>
                 <a href="/#howitworks">Jak funguje</a>
                 <a href="/#dashboard">Stav služby</a>
                 <a href="/#projects">Portfolio</a>
-                <a href="/vzdelavaci-vetev" class="active">Vzdělávací větev</a>
+                <a href="/#timeline">Harmonogram</a>
                 <a href="/#governance">Řízení</a>
                 <a href="/#resources">Zdroje</a>
             </div>
