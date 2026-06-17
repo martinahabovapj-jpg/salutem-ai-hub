@@ -2635,6 +2635,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
+            align-items: stretch;
         }
         .service-card {
             background: var(--gray-50);
@@ -2645,28 +2646,61 @@
             transition: all 0.3s;
             display: flex;
             flex-direction: column;
+            cursor: pointer;
         }
         .service-card:hover {
-            border-color: var(--orange);
             transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
         }
-        .service-card.is-production { border-top-color: var(--orange); }
         .service-card h3 {
             font-size: 1.35rem;
             font-weight: 700;
             color: var(--gray-800);
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.25rem;
         }
-        .service-card p {
+        .service-card-sub {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .service-card-desc {
             color: var(--gray-600);
             margin-bottom: 1.5rem;
-            flex-grow: 1;
+        }
+        .service-whatfits { margin-bottom: 1.5rem; }
+        .service-whatfits-label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--gray-500);
+            margin-bottom: 0.6rem;
+        }
+        .service-whatfits ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .service-whatfits li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.4rem;
+            color: var(--gray-700);
+            font-size: 0.95rem;
+        }
+        .service-whatfits li::before {
+            content: "›";
+            position: absolute;
+            left: 0;
+            font-weight: 700;
         }
         .service-link {
             display: inline-flex;
             align-items: center;
             gap: 6px;
             align-self: flex-start;
+            margin-top: auto;
             padding: 10px 20px;
             background: var(--blue);
             color: var(--white);
@@ -2674,9 +2708,28 @@
             border-radius: 50px;
             font-weight: 600;
             font-size: 0.95rem;
-            transition: background 0.2s;
+            transition: opacity 0.2s, background 0.2s;
         }
-        .service-link:hover { background: var(--orange); }
+        .service-link:hover { opacity: 0.88; }
+
+        /* Akcenty větví */
+        .service-card.branch-prod { border-top-color: var(--success); }
+        .service-card.branch-prod:hover { border-color: var(--success); }
+        .service-card.branch-prod .service-card-sub,
+        .service-card.branch-prod .service-whatfits li::before { color: var(--success); }
+        .service-card.branch-prod .service-link { background: var(--success); }
+
+        .service-card.branch-edu { border-top-color: #378ADD; }
+        .service-card.branch-edu:hover { border-color: #378ADD; }
+        .service-card.branch-edu .service-card-sub,
+        .service-card.branch-edu .service-whatfits li::before { color: #378ADD; }
+        .service-card.branch-edu .service-link { background: #378ADD; }
+
+        .service-card.branch-comp { border-top-color: #BA7517; }
+        .service-card.branch-comp:hover { border-color: #BA7517; }
+        .service-card.branch-comp .service-card-sub,
+        .service-card.branch-comp .service-whatfits li::before { color: #BA7517; }
+        .service-card.branch-comp .service-link { background: #BA7517; }
         .service-soon {
             align-self: flex-start;
             padding: 6px 16px;
@@ -2808,7 +2861,6 @@
                 <a href="/compliance-vetev">Compliance</a>
                 <a href="#howitworks">Jak funguje</a>
                 <a href="#dashboard">Stav služby</a>
-                <a href="#projects">Portfolio</a>
                 <a href="/produkcni-vetev#timeline">Harmonogram</a>
                 <a href="#governance">Řízení</a>
                 <a href="#resources">Zdroje</a>
@@ -2852,7 +2904,7 @@
         </div>
     </section>
 
-    <!-- NOVÁ sekce: Co je AI Adopce -->
+    <!-- Sekce: AI Adopce @ Salutem (mapa tří větví) -->
     <section class="section service-section" id="service">
         <div class="section-container">
             <div class="section-header">
@@ -2860,21 +2912,50 @@
                 <p class="section-subtitle">Interní služba, která má firmě pomoci používat AI opravdu v praxi. Cílem je provést lidi změnou tak, aby AI začala přirozeně patřit do jejich každodenní práce.</p>
             </div>
 
+            <p class="section-intro">Služba má tři větve. Produkce přináší hodnotu, vzdělávání zajišťuje, že ji lidé využijí, compliance ji drží bezpečnou a legální. Není to seznam jednotlivých nástrojů — je to mapa toho, co služba pokrývá a kde se o každé části dozvíte víc.</p>
+
             <div class="service-cards">
-                <div class="service-card is-production">
-                    <h3>Produkční větev</h3>
-                    <p>Konkrétní automatizace, AI agenti a řešení nasazená do provozu.</p>
-                    <a class="service-link" href="/produkcni-vetev">Detail větve →</a>
+                <div class="service-card branch-prod" onclick="location.href='/produkcni-vetev'">
+                    <h3>Produkce</h3>
+                    <p class="service-card-sub">nasazujeme AI</p>
+                    <p class="service-card-desc">Vyrábíme a provozujeme AI automatizace a agenty, aby lidé zvládli víc práce na stávající kapacitě.</p>
+                    <div class="service-whatfits">
+                        <span class="service-whatfits-label">Co sem patří</span>
+                        <ul>
+                            <li>konkrétní automatizace a AI agenti</li>
+                            <li>portfolio nasazených use-casů</li>
+                            <li>provoz, podpora a zlepšování</li>
+                        </ul>
+                    </div>
+                    <a class="service-link" href="/produkcni-vetev">Více o produkci →</a>
                 </div>
-                <div class="service-card">
-                    <h3>Vzdělávací větev</h3>
-                    <p>Pomáhá lidem pochopit, kde a jak AI používat, aby pro ně byla užitečná. <em>AI gramotnost není o nástrojích, je o přístupu.</em></p>
-                    <a class="service-link" href="/vzdelavaci-vetev">Detail větve →</a>
+                <div class="service-card branch-edu" onclick="location.href='/vzdelavaci-vetev'">
+                    <h3>Vzdělávání</h3>
+                    <p class="service-card-sub">rozvíjíme lidi</p>
+                    <p class="service-card-desc">Měníme návyky a budujeme AI gramotnost, aby lidé uměli AI bezpečně a prakticky používat. Zákonná povinnost podle AI Actu, čl. 4.</p>
+                    <div class="service-whatfits">
+                        <span class="service-whatfits-label">Co sem patří</span>
+                        <ul>
+                            <li>základ AI gramotnosti a školení podle role</li>
+                            <li>mapa schopností a koučink s champions</li>
+                            <li>plnění povinnosti podle AI Actu</li>
+                        </ul>
+                    </div>
+                    <a class="service-link" href="/vzdelavaci-vetev">Více o vzdělávání →</a>
                 </div>
-                <div class="service-card">
-                    <h3>Compliance větev</h3>
-                    <p>Nastavuje bezpečné mantinely, pravidla a kontrolní body.</p>
-                    <a class="service-link" href="/compliance-vetev">Detail větve →</a>
+                <div class="service-card branch-comp" onclick="location.href='/compliance-vetev'">
+                    <h3>Compliance</h3>
+                    <p class="service-card-sub">bezpečně a legálně</p>
+                    <p class="service-card-desc">Držíme AI v bezpečných mantinelech — aby firma věděla, jakou AI používá, jaká nese rizika a uměla to doložit.</p>
+                    <div class="service-whatfits">
+                        <span class="service-whatfits-label">Co sem patří</span>
+                        <ul>
+                            <li>inventář AI systémů a klasifikace rizik</li>
+                            <li>interní pravidla a schvalovací brána</li>
+                            <li>soulad s AI Actem a GDPR</li>
+                        </ul>
+                    </div>
+                    <a class="service-link" href="/compliance-vetev">Více o compliance →</a>
                 </div>
             </div>
 
@@ -2943,362 +3024,6 @@
             </div>
 
             <p class="dash-updated" id="dashUpdated"></p>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="section projects-section" id="projects">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">Portfolio služby</h2>
-                <p class="section-subtitle">12 use-casů. Každý řeší konkrétní problém z praxe.</p>
-            </div>
-
-            <p class="section-intro">Aktuální obsah služby. Portfolio se průběžně mění: co dožije, odejde; co se objeví jako nový pain point, přibude.</p>
-
-            <div class="project-filters">
-                <button class="filter-btn active" onclick="filterProjects('all')">Všechny</button>
-                <button class="filter-btn" onclick="filterProjects('l3')">Osobní úroveň</button>
-                <button class="filter-btn" onclick="filterProjects('l2')">Týmová úroveň</button>
-                <button class="filter-btn" onclick="filterProjects('l1')">Strategická úroveň</button>
-                <button class="filter-btn" onclick="filterProjects('l0')">Datová základna</button>
-                <span style="margin: 0 1rem; color: var(--gray-300);">|</span>
-                <button class="filter-btn" onclick="filterByFocus('internal')">Dovnitř</button>
-                <button class="filter-btn" onclick="filterByFocus('external')">Ven</button>
-            </div>
-            
-            <div class="projects-grid">
-                <!-- L3 #1: Email Triage -->
-                <div class="project-card" data-level="l3" data-focus="internal" onclick="openModal('modal-project-email')">
-                    <div class="project-header">
-                        <span class="project-level l3">Osobní úroveň</span>
-                        <span class="project-status active"></span>
-                    </div>
-                    <h3 class="project-title">Rychlejší práce s emaily</h3>
-                    <p class="project-desc"><strong>Problém:</strong> Vedoucí tráví 2–3 hodiny denně čtením 100+ emailů. <strong>Řešení:</strong> Copilot automaticky shrne konverzace, označí urgentní zprávy a navrhne odpovědi. <strong>Kdo:</strong> Všichni s Copilot licencí (vedení, obchod, správa).</p>
-                    <div class="project-metrics">
-                        <div class="project-metric">
-                            <div class="project-metric-value">0 Kč</div>
-                            <div class="project-metric-label">Investice</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">400 tis.</div>
-                            <div class="project-metric-label">Benefit/rok</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">okamžitá</div>
-                            <div class="project-metric-label">Návratnost</div>
-                        </div>
-                    </div>
-                    <div class="project-focus-tags">
-                        <span class="focus-tag internal">Dovnitř</span>
-                    </div>
-                </div>
-
-                <!-- L3 #2: Teams Digest -->
-                <div class="project-card" data-level="l3" data-focus="internal" onclick="openModal('modal-project-teams')">
-                    <div class="project-header">
-                        <span class="project-level l3">Osobní úroveň</span>
-                        <span class="project-status active"></span>
-                    </div>
-                    <h3 class="project-title">Přehled z 20 Teams skupin</h3>
-                    <p class="project-desc"><strong>Problém:</strong> Informace se ztrácejí ve 20+ Teams kanálech, nikdo nestíhá číst vše. <strong>Řešení:</strong> Copilot denně shrne důležité zprávy ze všech kanálů do jednoho přehledu. <strong>Kdo:</strong> Všichni uživatelé Teams.</p>
-                    <div class="project-metrics">
-                        <div class="project-metric">
-                            <div class="project-metric-value">0 Kč</div>
-                            <div class="project-metric-label">Investice</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">175 tis.</div>
-                            <div class="project-metric-label">Benefit/rok</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">okamžitá</div>
-                            <div class="project-metric-label">Návratnost</div>
-                        </div>
-                    </div>
-                    <div class="project-focus-tags">
-                        <span class="focus-tag internal">Dovnitř</span>
-                    </div>
-                </div>
-
-                <!-- L3 #3: Voice-to-Task -->
-                <div class="project-card" data-level="l3" data-focus="internal" onclick="openModal('modal-project-voice')">
-                    <div class="project-header">
-                        <span class="project-level l3">Osobní úroveň</span>
-                        <span class="project-status planned"></span>
-                    </div>
-                    <h3 class="project-title">Zadávej úkoly hlasem</h3>
-                    <p class="project-desc"><strong>Problém:</strong> Makléři a PM tráví hodiny v autě, ale nemohou efektivně pracovat. <strong>Řešení:</strong> Hlasové nahrávání po prohlídce → AI vytvoří zápis, úkoly a termíny automaticky v systému. <strong>Kdo:</strong> Reality tým (Petřek, Smyčka, Vondráček).</p>
-                    <div class="project-metrics">
-                        <div class="project-metric">
-                            <div class="project-metric-value">40 tis.</div>
-                            <div class="project-metric-label">Investice</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">120 tis.</div>
-                            <div class="project-metric-label">Benefit/rok</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">4 měsíce</div>
-                            <div class="project-metric-label">Návratnost</div>
-                        </div>
-                    </div>
-                    <div class="project-focus-tags">
-                        <span class="focus-tag internal">Dovnitř</span>
-                    </div>
-                </div>
-
-                <!-- L3 #4: Zápisy z porad -->
-                <div class="project-card" data-level="l3" data-focus="internal" onclick="openModal('modal-project-zapisy')">
-                    <div class="project-header">
-                        <span class="project-level l3">Osobní úroveň</span>
-                        <span class="project-status active"></span>
-                    </div>
-                    <h3 class="project-title">Z porady rovnou úkoly</h3>
-                    <p class="project-desc"><strong>Problém:</strong> Porady končí bez jasného zápisu, úkoly se ztrácejí. <strong>Řešení:</strong> Copilot automaticky vytvoří strukturovaný zápis s action items a deadliny přímo z Teams meetingu. <strong>Kdo:</strong> Všechny týmy s pravidelnými poradami.</p>
-                    <div class="project-metrics">
-                        <div class="project-metric">
-                            <div class="project-metric-value">0 Kč</div>
-                            <div class="project-metric-label">Investice</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">90 tis.</div>
-                            <div class="project-metric-label">Benefit/rok</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">okamžitá</div>
-                            <div class="project-metric-label">Návratnost</div>
-                        </div>
-                    </div>
-                    <div class="project-focus-tags">
-                        <span class="focus-tag internal">Dovnitř</span>
-                    </div>
-                </div>
-
-                <!-- L3 #5: NotebookLM právní -->
-                <div class="project-card" data-level="l3" data-focus="internal" onclick="openModal('modal-project-notebook')">
-                    <div class="project-header">
-                        <span class="project-level l3">Osobní úroveň</span>
-                        <span class="project-status planned"></span>
-                    </div>
-                    <h3 class="project-title">Rychlejší analýza smluv</h3>
-                    <p class="project-desc"><strong>Problém:</strong> Právní oddělení tráví hodiny čtením úvěrových smluv a rozsudků. <strong>Řešení:</strong> NotebookLM umožní ptát se dokumentu – „jaké jsou rizika?", „co říká článek 7?". <strong>Kdo:</strong> Právní (Kopejtko, Svatošová) + vedení.</p>
-                    <div class="project-metrics">
-                        <div class="project-metric">
-                            <div class="project-metric-value">5 tis.</div>
-                            <div class="project-metric-label">Investice</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">110 tis.</div>
-                            <div class="project-metric-label">Benefit/rok</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">&lt;1 měsíc</div>
-                            <div class="project-metric-label">Návratnost</div>
-                        </div>
-                    </div>
-                    <div class="project-focus-tags">
-                        <span class="focus-tag internal">Dovnitř</span>
-                    </div>
-                </div>
-
-                <!-- L3 #6: Chytřejší práce s tabulkami -->
-                <div class="project-card" data-level="l3" data-focus="internal" onclick="openModal('modal-project-tabulky')">
-                    <div class="project-header">
-                        <span class="project-level l3">Osobní úroveň</span>
-                        <span class="project-status planned"></span>
-                    </div>
-                    <h3 class="project-title">Chytřejší práce s tabulkami</h3>
-                    <p class="project-desc"><strong>Problém:</strong> Měsíční uzávěrky, exporty z Pohody do Excelu, 15 000 řádků ručně kategorizovaných. 12+ h/týden manuální práce. <strong>Řešení:</strong> Copilot v Excelu + AI kategorizace dat. <strong>Kdo:</strong> Dvořák (Finance), Kosová (reporting), vedení.</p>
-                    <div class="project-metrics">
-                        <div class="project-metric">
-                            <div class="project-metric-value">25 tis.</div>
-                            <div class="project-metric-label">Investice</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">280 tis.</div>
-                            <div class="project-metric-label">Benefit/rok</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">1 měsíc</div>
-                            <div class="project-metric-label">Návratnost</div>
-                        </div>
-                    </div>
-                    <div class="project-focus-tags">
-                        <span class="focus-tag internal">Dovnitř</span>
-                    </div>
-                </div>
-
-                <!-- L2 #1: Obchodní tabulka -->
-                <div class="project-card" data-level="l2" data-focus="both" onclick="openModal('modal-project-chobotnice')">
-                    <div class="project-header">
-                        <span class="project-level l2">Týmová úroveň</span>
-                        <span class="project-status planned"></span>
-                    </div>
-                    <h3 class="project-title">Méně manuálního přepisování</h3>
-                    <p class="project-desc"><strong>Problém:</strong> Data o obchodech se přepisují mezi Raynetem, Excelem a TNS. Chyby, duplicity, ztracené hodiny. <strong>Řešení:</strong> Automatická synchronizace dat mezi systémy + jeden dashboard. <strong>Kdo:</strong> Obchod (Jurča, Šiška, Varga, Sekanina).</p>
-                    <div class="project-metrics">
-                        <div class="project-metric">
-                            <div class="project-metric-value">200 tis.</div>
-                            <div class="project-metric-label">Investice</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">175 tis.</div>
-                            <div class="project-metric-label">Benefit/rok</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">~14 měsíců</div>
-                            <div class="project-metric-label">Návratnost</div>
-                        </div>
-                    </div>
-                    <div class="project-focus-tags">
-                        <span class="focus-tag internal">Dovnitř</span>
-                        <span class="focus-tag external">Ven</span>
-                    </div>
-                </div>
-
-                <!-- L2 #2: Akviziční Kick-off -->
-                <div class="project-card" data-level="l2" data-focus="both" onclick="openModal('modal-project-kickoff')">
-                    <div class="project-header">
-                        <span class="project-level l2">Týmová úroveň</span>
-                        <span class="project-status planned"></span>
-                    </div>
-                    <h3 class="project-title">Z nákupu do prodeje rychleji</h3>
-                    <p class="project-desc"><strong>Problém:</strong> Po akvizici nemovitosti trvá týdny, než jsou data v Raynetu, složky správně pojmenované, než může prodej začít. <strong>Řešení:</strong> Jedno tlačítko spustí workflow: data z nákupu → Raynet → SharePoint složky → prodejní materiály. <strong>Kdo:</strong> Reality + Obchod.</p>
-                    <div class="project-metrics">
-                        <div class="project-metric">
-                            <div class="project-metric-value">100 tis.</div>
-                            <div class="project-metric-label">Investice</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">60 tis.+</div>
-                            <div class="project-metric-label">Benefit/rok</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">~20 měsíců</div>
-                            <div class="project-metric-label">Návratnost</div>
-                        </div>
-                    </div>
-                    <div class="project-focus-tags">
-                        <span class="focus-tag internal">Dovnitř</span>
-                        <span class="focus-tag external">Ven</span>
-                    </div>
-                </div>
-
-                <!-- L1 #1: Katastrální agent -->
-                <div class="project-card" data-level="l1" data-focus="external" onclick="openModal('modal-project-katastr')">
-                    <div class="project-header">
-                        <span class="project-level l1">Strategická úroveň</span>
-                        <span class="project-status planned"></span>
-                    </div>
-                    <h3 class="project-title">Upozornění na změny v katastru</h3>
-                    <p class="project-desc"><strong>Problém:</strong> Manuální kontrola katastru stojí hodiny a zdržuje uvolnění peněz z úschov („cink"). <strong>Řešení:</strong> AI agent sleduje katastr 24/7 – jakmile je zapsán vklad, automaticky notifikuje a spouští další kroky. <strong>Kdo:</strong> Back Office (Holečková, Hlaváček) + Finance.</p>
-                    <div class="project-metrics">
-                        <div class="project-metric">
-                            <div class="project-metric-value">700 tis.</div>
-                            <div class="project-metric-label">Investice</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">500 tis.</div>
-                            <div class="project-metric-label">Benefit/rok</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">~17 měsíců</div>
-                            <div class="project-metric-label">Návratnost</div>
-                        </div>
-                    </div>
-                    <div class="project-focus-tags">
-                        <span class="focus-tag external">Ven</span>
-                    </div>
-                </div>
-
-                <!-- L1 #2: Predikce Cash Flow -->
-                <div class="project-card" data-level="l1" data-focus="internal" onclick="openModal('modal-project-cashflow')">
-                    <div class="project-header">
-                        <span class="project-level l1">Strategická úroveň</span>
-                        <span class="project-status planned"></span>
-                    </div>
-                    <h3 class="project-title">Predikce Cash Flow</h3>
-                    <p class="project-desc"><strong>Problém:</strong> Řízení likvidity je manuální – Excel, odhady, nejistota. Finance nemají přehled o očekávaných příjmech z CRM. <strong>Řešení:</strong> AI propojí bankovní data s CRM (termíny „cinku") a simuluje scénáře likvidity. <strong>Kdo:</strong> Finance (Kosová, Šamalíková).</p>
-                    <div class="project-metrics">
-                        <div class="project-metric">
-                            <div class="project-metric-value">500 tis.</div>
-                            <div class="project-metric-label">Investice</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">350 tis.</div>
-                            <div class="project-metric-label">Benefit/rok</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">~17 měsíců</div>
-                            <div class="project-metric-label">Návratnost</div>
-                        </div>
-                    </div>
-                    <div class="project-focus-tags">
-                        <span class="focus-tag internal">Dovnitř</span>
-                    </div>
-                </div>
-
-                <!-- L0 #1: Sjednocení dat -->
-                <div class="project-card" data-level="l0" data-focus="internal" onclick="openModal('modal-project-sharepoint')">
-                    <div class="project-header">
-                        <span class="project-level l0">Datová základna</span>
-                        <span class="project-status planned"></span>
-                    </div>
-                    <h3 class="project-title">Jeden zdroj pravdy dat</h3>
-                    <p class="project-desc"><strong>Problém:</strong> Dokumenty roztříštěné mezi starý SharePoint, nový SharePoint a OneDrive – nikdo neví, kde je aktuální verze. <strong>Řešení:</strong> TNS zůstává zdrojem pravdy pro data, dokumenty sjednotíme na jeden SharePoint. <strong>Kdo:</strong> IT (Langer, Hovorka) + všichni.</p>
-                    <div class="project-metrics">
-                        <div class="project-metric">
-                            <div class="project-metric-value">200 tis.</div>
-                            <div class="project-metric-label">Investice</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">150 tis.</div>
-                            <div class="project-metric-label">Benefit/rok</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">~16 měsíců</div>
-                            <div class="project-metric-label">Návratnost</div>
-                        </div>
-                    </div>
-                    <div class="project-focus-tags">
-                        <span class="focus-tag internal">Dovnitř</span>
-                    </div>
-                </div>
-
-                <!-- L0 #2: Sjednocení reportingu -->
-                <div class="project-card" data-level="l0" data-focus="internal" onclick="openModal('modal-project-kvalita')">
-                    <div class="project-header">
-                        <span class="project-level l0">Datová základna</span>
-                        <span class="project-status planned"></span>
-                    </div>
-                    <h3 class="project-title">Jeden report místo čtyř</h3>
-                    <p class="project-desc"><strong>Problém:</strong> Čtyři oddělení dělají podobné reporty v různých formátech → duplicitní práce, nekonzistentní čísla. <strong>Řešení:</strong> Jeden datový zdroj a sdílené reportovací šablony v Power BI. <strong>Kdo:</strong> Asset management, Obchod, Finance, Provoz.</p>
-                    <div class="project-metrics">
-                        <div class="project-metric">
-                            <div class="project-metric-value">50 tis.</div>
-                            <div class="project-metric-label">Investice</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">100 tis.</div>
-                            <div class="project-metric-label">Benefit/rok</div>
-                        </div>
-                        <div class="project-metric">
-                            <div class="project-metric-value">6 měsíců</div>
-                            <div class="project-metric-label">Návratnost</div>
-                        </div>
-                    </div>
-                    <div class="project-focus-tags">
-                        <span class="focus-tag internal">Dovnitř</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="cta-inline">
-                <p>Kliknutím na kartu zobrazíte detailní rozpracování use-casu včetně procesního náčrtu.</p>
-                <a href="#" class="btn" onclick="openModal('modal-businesscase'); return false;">Zobrazit souhrnný rozpad všech use-casů</a>
-            </div>
         </div>
     </section>
 
