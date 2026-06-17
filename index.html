@@ -2773,6 +2773,18 @@
             gap: 16px;
             margin-top: 0.5rem;
         }
+
+        /* Lifecycle fáze – popisky */
+        .howitworks-section .process-step { flex-direction: column; gap: 0.4rem; }
+        .process-step .step-name { font-size: 1.05rem; font-weight: 700; }
+        .process-step .step-desc { font-weight: 500; font-size: 0.85rem; color: var(--gray-600); line-height: 1.4; }
+        .process-step.is-last .step-desc { color: rgba(255,255,255,0.9); }
+
+        /* Governance karty – textový obsah (Záruka služby, Přínosy) */
+        .governance-card p { color: var(--gray-600); margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.7; }
+        .governance-card p:last-child { margin-bottom: 0; }
+        .governance-card ul { margin: 0 0 1rem 1.2rem; color: var(--gray-600); font-size: 0.95rem; }
+        .governance-card ul li { margin-bottom: 0.4rem; }
     </style>
 </head>
 <body>
@@ -2797,7 +2809,7 @@
                 <a href="#howitworks">Jak funguje</a>
                 <a href="#dashboard">Stav služby</a>
                 <a href="#projects">Portfolio</a>
-                <a href="#timeline">Harmonogram</a>
+                <a href="/produkcni-vetev#timeline">Harmonogram</a>
                 <a href="#governance">Řízení</a>
                 <a href="#resources">Zdroje</a>
             </div>
@@ -2812,6 +2824,31 @@
             <p class="hero-subtitle">Objem práce už manuální procesy neudrží.</p>
 
             <p class="hero-closing">Chceme růst i nadále. Proto neřešíme jednorázový projekt, ale zavádíme trvalou interní službu — AI Adopci — která firmě průběžně pomáhá zvládat víc práce na stávající kapacitě.</p>
+        </div>
+    </section>
+
+    <!-- NOVÁ sekce: Jak služba funguje (lifecycle) -->
+    <section class="section howitworks-section" id="howitworks">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Jak služba funguje</h2>
+            </div>
+
+            <div class="process-band">
+                <div class="process-step"><span class="step-name">Najdi</span><span class="step-desc">Mapujeme, kde se ztrácí čas</span></div>
+                <div class="process-arrow">→</div>
+                <div class="process-step"><span class="step-name">Navrhni</span><span class="step-desc">Vybereme řešení s business casem</span></div>
+                <div class="process-arrow">→</div>
+                <div class="process-step"><span class="step-name">Ukaž</span><span class="step-desc">Ukážeme v praxi</span></div>
+                <div class="process-arrow">→</div>
+                <div class="process-step"><span class="step-name">Zaveď</span><span class="step-desc">Provázíme lidi k reálnému používání</span></div>
+                <div class="process-arrow">→</div>
+                <div class="process-step is-last"><span class="step-name">Udržuj</span><span class="step-desc">Hlídáme, opravujeme, zlepšujeme</span></div>
+            </div>
+
+            <div class="howitworks-text">
+                <p>Každý use-case prochází všemi fázemi. Fáze Udržuj odlišuje službu od jednorázového projektu — nasazená věc se dál provozuje, měří a zlepšuje.</p>
+            </div>
         </div>
     </section>
 
@@ -2847,70 +2884,12 @@
         </div>
     </section>
 
-    <!-- NOVÁ sekce: Jak služba funguje -->
-    <section class="section howitworks-section" id="howitworks">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">Jak služba funguje v praxi</h2>
-            </div>
-
-            <div class="process-band">
-                <div class="process-step">Najdi</div>
-                <div class="process-arrow">→</div>
-                <div class="process-step">Navrhni</div>
-                <div class="process-arrow">→</div>
-                <div class="process-step">Ukaž</div>
-                <div class="process-arrow">→</div>
-                <div class="process-step">Zaveď do praxe</div>
-                <div class="process-arrow">→</div>
-                <div class="process-step is-last">Udržuj</div>
-            </div>
-
-            <div class="howitworks-text">
-                <p>Nejdřív se hledají smysluplné příležitosti. Poté se navrhne řešení, ověří se na konkrétním příkladu, zavede se do běžné práce a nakonec se dlouhodobě udržuje a zlepšuje.</p>
-                <p>Priorita se určuje podle dopadu. Reporting probíhá jednou měsíčně v rámci Evolution. Průběžně se sleduje adopce, zpětná vazba i otázka, kde firmě ještě uniká potenciál pro zjednodušení práce.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Problem Section -->
-    <section class="section problem-section" id="problem">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">Tohle nepůjde zvládat při dalším růstu</h2>
-                <p class="section-subtitle">Experti tráví čas přepisováním, noví lidé se ztrácejí v chaosu.</p>
-            </div>
-            
-            <div class="problem-cards">
-                <div class="problem-card">
-                    <div class="problem-icon"></div>
-                    <div class="problem-value">3 oblasti</div>
-                    <div class="problem-label">monitoring katastru, predikce cash flow, interní efektivita</div>
-                </div>
-                <div class="problem-card">
-                    <div class="problem-icon"></div>
-                    <div class="problem-value">6–8 mio/rok</div>
-                    <div class="problem-label">potenciál – musíme ověřit</div>
-                </div>
-                <div class="problem-card">
-                    <div class="problem-icon"></div>
-                    <div class="problem-value">60 dní pilot</div>
-                    <div class="problem-label">otestujeme, jestli funguje, nebo stopneme</div>
-                </div>
-            </div>
-
-            <div class="problem-footer" style="margin-top: 2rem; text-align: center; color: var(--gray-600); font-size: 1.1rem; max-width: 700px; margin-left: auto; margin-right: auto;">
-                Stavíme na tom, co už máme (Microsoft). Není to zázračné řešení, ale může odblokovat růst – a to se vyplatí ověřit.
-            </div>
-        </div>
-    </section>
-
     <!-- Dashboard Section -->
     <section class="section dashboard-section" id="dashboard">
         <div class="section-container">
             <div class="section-header">
                 <h2 class="section-title">Stav služby</h2>
-                <p class="section-subtitle">Živý přehled AI projektů — co právě běží, co se povedlo a co to přináší.</p>
+                <p class="section-subtitle">Živý přehled AI use-casů — co právě běží, co se povedlo a co to přináší.</p>
             </div>
 
             <p class="section-intro">Skutečný úspěch není v tom, že se něco technicky spustí. Úspěch nastává až tehdy, když to lidé začnou používat.</p>
@@ -2919,7 +2898,7 @@
             <div class="dash-kpi-row" id="dashKpiRow">
                 <div class="dash-kpi">
                     <div class="dash-kpi-value" id="kpiActive">—</div>
-                    <div class="dash-kpi-label">projektů v běhu</div>
+                    <div class="dash-kpi-label">use-casů v běhu</div>
                 </div>
                 <div class="dash-kpi dash-kpi--highlight">
                     <div class="dash-kpi-value" id="kpiHodin">—</div>
@@ -2967,67 +2946,12 @@
         </div>
     </section>
 
-    <!-- Focus Section: Dovnitř vs. Ven -->
-    <section class="section focus-section" id="focus">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">Dva směry, jeden cíl</h2>
-                <p class="section-subtitle">Efektivnější provoz uvnitř. Lepší služby navenek.</p>
-            </div>
-            
-            <div class="focus-grid">
-                <div class="focus-card internal">
-                    <div class="focus-icon"></div>
-                    <h3 class="focus-title">Dovnitř</h3>
-                    <p class="focus-subtitle">Méně ruční práce, více času na to důležité</p>
-                    <div class="focus-stats">
-                        <div class="focus-stat">
-                            <div class="focus-stat-value">11</div>
-                            <div class="focus-stat-label">projektů</div>
-                        </div>
-                        <div class="focus-stat">
-                            <div class="focus-stat-value">~2 mio</div>
-                            <div class="focus-stat-label">úspora/rok</div>
-                        </div>
-                    </div>
-                    <ul class="focus-benefits">
-                        <li>Méně času v emailech</li>
-                        <li>Méně manuálního přepisování</li>
-                        <li>Lepší přehled o cash flow</li>
-                        <li>Pořádek v datech a složkách</li>
-                    </ul>
-                </div>
-
-                <div class="focus-card external">
-                    <div class="focus-icon"></div>
-                    <h3 class="focus-title">Ven</h3>
-                    <p class="focus-subtitle">Rychlejší a přesnější služby pro klienty</p>
-                    <div class="focus-stats">
-                        <div class="focus-stat">
-                            <div class="focus-stat-value">3</div>
-                            <div class="focus-stat-label">projekty</div>
-                        </div>
-                        <div class="focus-stat">
-                            <div class="focus-stat-value">~600 tis.</div>
-                            <div class="focus-stat-label">hodnota/rok</div>
-                        </div>
-                    </div>
-                    <ul class="focus-benefits">
-                        <li>Rychlejší „cink" – klient ví o vkladu dřív</li>
-                        <li>Dříve na trhu s novou nabídkou</li>
-                        <li>Z akvizice do prodeje rychleji</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Projects Section -->
     <section class="section projects-section" id="projects">
         <div class="section-container">
             <div class="section-header">
                 <h2 class="section-title">Portfolio služby</h2>
-                <p class="section-subtitle">12 projektů. Každý řeší konkrétní problém z praxe.</p>
+                <p class="section-subtitle">12 use-casů. Každý řeší konkrétní problém z praxe.</p>
             </div>
 
             <p class="section-intro">Aktuální obsah služby. Portfolio se průběžně mění: co dožije, odejde; co se objeví jako nový pain point, přibude.</p>
@@ -3372,44 +3296,31 @@
             </div>
             
             <div class="cta-inline">
-                <p>Kliknutím na kartu zobrazíte detailní rozpracování projektu včetně procesního náčrtu.</p>
-                <a href="#" class="btn" onclick="openModal('modal-businesscase'); return false;">Zobrazit souhrnný rozpad všech projektů</a>
+                <p>Kliknutím na kartu zobrazíte detailní rozpracování use-casu včetně procesního náčrtu.</p>
+                <a href="#" class="btn" onclick="openModal('modal-businesscase'); return false;">Zobrazit souhrnný rozpad všech use-casů</a>
             </div>
         </div>
     </section>
 
-    <!-- Governance Section -->
+    <!-- Řízení a záruka -->
     <section class="section governance-section" id="governance">
         <div class="section-container">
             <div class="section-header">
-                <h2 class="section-title">Řízení a provoz služby</h2>
-                <p class="section-subtitle">Kdo rozhoduje, jak poznáme, že to funguje, a kdy stopneme</p>
+                <h2 class="section-title">Řízení a záruka</h2>
+                <p class="section-subtitle">Kdo za co odpovídá a co služba garantuje</p>
             </div>
-            
-            <div class="governance-grid">
-                <!-- Rozhodovací body -->
-                <div class="governance-card">
-                    <h3>Rozhodovací body</h3>
-                    <div class="governance-row">
-                        <span class="governance-label">Po pilotu (60 dní)</span>
-                        <span class="governance-value">Funguje to? Ušetřilo to čas? Jsou kolegové spokojení? Pokud ano, pokračujeme. Pokud ne, stopneme.</span>
-                    </div>
-                    <div class="governance-row">
-                        <span class="governance-label">Po 6 měsících</span>
-                        <span class="governance-value">Vrací se investice podle plánu? Používají to lidé? Rozšiřujeme, nebo upravujeme směr.</span>
-                    </div>
-                </div>
 
-                <!-- Odpovědnosti -->
+            <div class="governance-grid">
+                <!-- Governance -->
                 <div class="governance-card">
-                    <h3>Kdo za co odpovídá</h3>
+                    <h3>Governance</h3>
                     <div class="governance-row">
                         <span class="governance-label">Rozhodnutí</span>
                         <span class="governance-value"><strong>Pan Ton</strong> – dává zelenou / červenou</span>
                     </div>
                     <div class="governance-row">
                         <span class="governance-label">Koordinace</span>
-                        <span class="governance-value"><strong>AI tým</strong> – vedení projektu, prioritizace</span>
+                        <span class="governance-value"><strong>AI tým</strong> – vedení use-casů, prioritizace</span>
                     </div>
                     <div class="governance-row">
                         <span class="governance-label">Infrastruktura</span>
@@ -3421,52 +3332,9 @@
                     </div>
                 </div>
 
-                <!-- Ochrana proti riziku -->
+                <!-- Záruka služby (warranty) -->
                 <div class="governance-card">
-                    <h3>Jak se chráníme</h3>
-                    <div class="governance-row">
-                        <span class="governance-label">Začínáme pilotem</span>
-                        <span class="governance-value">60 dní, max 300 tis. – otestujeme, jestli to funguje</span>
-                    </div>
-                    <div class="governance-row">
-                        <span class="governance-label">Pojistka</span>
-                        <span class="governance-value">Pokud po pilotu nevidíme přínos, stopneme, než utratíme víc</span>
-                    </div>
-                    <div class="governance-row">
-                        <span class="governance-label">Využíváme, co máme</span>
-                        <span class="governance-value">Microsoft stack, TNS – nebudujeme od nuly</span>
-                    </div>
-                    <div class="governance-row">
-                        <span class="governance-label">Člověk rozhoduje</span>
-                        <span class="governance-value">AI navrhuje, člověk schvaluje</span>
-                    </div>
-                </div>
-
-                <!-- KPIs -->
-                <div class="governance-card">
-                    <h3>Jak poznáme, že to funguje</h3>
-                    <div class="governance-row">
-                        <span class="governance-label">Katastr</span>
-                        <span class="governance-value">Změny vidíme okamžitě (v momentě provedení vkladu)</span>
-                    </div>
-                    <div class="governance-row">
-                        <span class="governance-label">Dokumenty</span>
-                        <span class="governance-value">Najdeme, co potřebujeme, pod 5 minut</span>
-                    </div>
-                    <div class="governance-row">
-                        <span class="governance-label">Cash Flow</span>
-                        <span class="governance-value">Predikce sedí na 85 %+</span>
-                    </div>
-                    <div class="governance-row">
-                        <span class="governance-label">Celkově</span>
-                        <span class="governance-value">Očekávaná úspora 2,5–3 mio/rok</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="gov-extra">
-                <div class="governance-card">
-                    <h3>Na čem služba stojí</h3>
+                    <h3>Záruka služby (warranty)</h3>
                     <p>Aby měla AI Adopce smysl dlouhodobě, musí být nejen užitečná, ale také spolehlivá a bezpečná. Proto služba počítá s:</p>
                     <ul>
                         <li>pravidelnými kontrolami funkčnosti AI agentů,</li>
@@ -3476,194 +3344,27 @@
                     </ul>
                     <p>Kapacitně službu zajišťují dva lidé. Aby to bylo udržitelné, součástí modelu je i vlastní automatizovaný provoz — zejména příjem požadavků, jejich třídění a základní podpora.</p>
                 </div>
-
-                <div class="governance-card">
-                    <h3>Přínosy, náklady a závislosti</h3>
-                    <p>Odhadovaná investice do služby je přibližně 1,8 mil. Kč. Očekávaný přínos je zhruba 2,5 mil. Kč ročně.</p>
-                    <div class="gov-kpis">
-                        <div class="dash-kpi">
-                            <div class="dash-kpi-value">~1,8 mil. Kč</div>
-                            <div class="dash-kpi-label">odhadovaná investice</div>
-                        </div>
-                        <div class="dash-kpi dash-kpi--highlight">
-                            <div class="dash-kpi-value">~2,5 mil. Kč</div>
-                            <div class="dash-kpi-label">očekávaný přínos / rok</div>
-                        </div>
-                    </div>
-                    <p>Mezi hlavní rizika patří roztříštěná data, omezená kapacita AI týmu a nízká adopce ze strany uživatelů. Úspěch služby závisí také na spolupráci s IT/Alfa, kvalitě dat a dostupnosti potřebných nástrojů.</p>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Timeline Section - Gantt Chart -->
-    <section class="section timeline-section" id="timeline">
+    <!-- Přínosy, náklady a závislosti (u návratnosti) -->
+    <section class="section" style="background: var(--white);">
         <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">Kdy co spustíme</h2>
-                <p class="section-subtitle">Všech 12 projektů v čase. Nejdřív rychlé výhry, pak větší věci.</p>
-            </div>
-            
-            <div class="gantt-container">
-                <div class="gantt-chart">
-                    <!-- Header s měsíci -->
-                    <div class="gantt-header">
-                        <div class="gantt-month"></div>
-                        <div class="gantt-month">Únor</div>
-                        <div class="gantt-month">Březen</div>
-                        <div class="gantt-month">Duben</div>
-                        <div class="gantt-month">Květen</div>
-                        <div class="gantt-month">Červen</div>
-                        <div class="gantt-month">Červenec</div>
+            <div class="governance-card" style="max-width: 760px; margin: 0 auto;">
+                <h3>Přínosy, náklady a závislosti</h3>
+                <p>Odhadovaná investice do služby je přibližně 1,8 mil. Kč. Očekávaný přínos je zhruba 2,5 mil. Kč ročně.</p>
+                <div class="gov-kpis">
+                    <div class="dash-kpi">
+                        <div class="dash-kpi-value">~1,8 mil. Kč</div>
+                        <div class="dash-kpi-label">odhadovaná investice</div>
                     </div>
-
-                    <!-- L3 - Rychlé výhry -->
-                    <div class="gantt-section">
-                        <div class="gantt-section-title">Rychlé výhry (L3)</div>
-                        <div class="gantt-row">
-                            <div class="gantt-project">Rychlejší práce s emaily</div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container gate-col"></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"></div>
-                            <div class="gantt-bar-container mvp-col"></div>
-                        </div>
-                        <div class="gantt-row">
-                            <div class="gantt-project">Přehled z Teams skupin</div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container gate-col"></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"></div>
-                            <div class="gantt-bar-container mvp-col"></div>
-                        </div>
-                        <div class="gantt-row">
-                            <div class="gantt-project">Zadávej úkoly hlasem</div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container gate-col"></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"></div>
-                            <div class="gantt-bar-container mvp-col"></div>
-                        </div>
-                        <div class="gantt-row">
-                            <div class="gantt-project">Z porady rovnou úkoly</div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container gate-col"></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"></div>
-                            <div class="gantt-bar-container mvp-col"></div>
-                        </div>
-                        <div class="gantt-row">
-                            <div class="gantt-project">Rychlejší analýza smluv</div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container gate-col"></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"></div>
-                            <div class="gantt-bar-container mvp-col"></div>
-                        </div>
-                        <div class="gantt-row">
-                            <div class="gantt-project">Chytřejší práce s tabulkami</div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container gate-col"></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"></div>
-                            <div class="gantt-bar-container mvp-col"></div>
-                        </div>
-                    </div>
-
-                    <!-- L2 - Týmové procesy -->
-                    <div class="gantt-section">
-                        <div class="gantt-section-title">Týmové procesy (L2)</div>
-                        <div class="gantt-row">
-                            <div class="gantt-project">Méně manuálního přepisování</div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 50%;"></div></div>
-                            <div class="gantt-bar-container"></div>
-                            <div class="gantt-bar-container mvp-col"></div>
-                        </div>
-                        <div class="gantt-row">
-                            <div class="gantt-project">Z nákupu do prodeje rychleji</div>
-                            <div class="gantt-bar-container"></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container mvp-col"><div class="gantt-bar l2" style="left: 0; width: 50%;"></div></div>
-                        </div>
-                    </div>
-
-                    <!-- L0 - Datová základna -->
-                    <div class="gantt-section">
-                        <div class="gantt-section-title">Datová základna (L0)</div>
-                        <div class="gantt-row">
-                            <div class="gantt-project">Jeden report místo čtyř</div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"></div>
-                            <div class="gantt-bar-container"></div>
-                            <div class="gantt-bar-container mvp-col"></div>
-                        </div>
-                        <div class="gantt-row">
-                            <div class="gantt-project">Jeden zdroj pravdy dat</div>
-                            <div class="gantt-bar-container"></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container mvp-col"><div class="gantt-bar l0" style="left: 0; width: 50%;"></div></div>
-                        </div>
-                    </div>
-
-                    <!-- L1 - Strategické iniciativy -->
-                    <div class="gantt-section">
-                        <div class="gantt-section-title">Strategické iniciativy (L1)</div>
-                        <div class="gantt-row">
-                            <div class="gantt-project">Predikce Cash Flow</div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 50%;"></div></div>
-                            <div class="gantt-bar-container"></div>
-                            <div class="gantt-bar-container mvp-col"></div>
-                        </div>
-                        <div class="gantt-row">
-                            <div class="gantt-project">Změny v katastru</div>
-                            <div class="gantt-bar-container"></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
-                            <div class="gantt-bar-container mvp-col"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
-                        </div>
-                    </div>
-
-                    <!-- Milníky -->
-                    <div class="gantt-milestones">
-                        <div class="gantt-milestone-label"></div>
-                        <div class="gantt-milestone-label"></div>
-                        <div class="gantt-milestone-label"></div>
-                        <div class="gantt-milestone-label gate">Gate 1</div>
-                        <div class="gantt-milestone-label"></div>
-                        <div class="gantt-milestone-label"></div>
-                        <div class="gantt-milestone-label mvp">MVP</div>
+                    <div class="dash-kpi dash-kpi--highlight">
+                        <div class="dash-kpi-value">~2,5 mil. Kč</div>
+                        <div class="dash-kpi-label">očekávaný přínos / rok</div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Legenda -->
-            <div class="gantt-legend">
-                <div class="legend-item"><div class="legend-color l3"></div> Rychlé výhry</div>
-                <div class="legend-item"><div class="legend-color l2"></div> Týmové procesy</div>
-                <div class="legend-item"><div class="legend-color l0"></div> Datová základna</div>
-                <div class="legend-item"><div class="legend-color l1"></div> Strategické</div>
+                <p>Mezi hlavní rizika patří roztříštěná data, omezená kapacita AI týmu a nízká adopce ze strany uživatelů. Úspěch služby závisí také na spolupráci s IT/Alfa, kvalitě dat a dostupnosti potřebných nástrojů.</p>
             </div>
         </div>
     </section>
@@ -6429,7 +6130,7 @@ Méně práce
             const grid = document.getElementById(gridId);
             if (!grid) return;
             if (!items || items.length === 0) {
-                grid.innerHTML = '<div class="dash-empty">Žádné projekty v tomto stavu.</div>';
+                grid.innerHTML = '<div class="dash-empty">Žádné use-casy v tomto stavu.</div>';
                 return;
             }
             grid.innerHTML = items.map(renderCard).join('');

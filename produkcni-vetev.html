@@ -580,6 +580,274 @@
         @media (max-width: 1024px) {
             .pyramid-container { flex-direction: column; }
         }
+
+        /* Problem Section */
+        .problem-section { background: var(--white); }
+        .problem-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .problem-card {
+            background: var(--gray-50);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid var(--gray-200);
+            transition: all 0.3s;
+        }
+        .problem-card:hover {
+            border-color: var(--orange);
+            transform: translateY(-4px);
+        }
+        .problem-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--orange);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+        }
+        .problem-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--blue);
+        }
+        .problem-label {
+            color: var(--gray-600);
+            margin-top: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            .problem-cards { grid-template-columns: 1fr; }
+        }
+
+        /* Focus Section */
+        .focus-section { background: var(--white); }
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        .focus-card {
+            background: var(--gray-50);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 2px solid var(--gray-200);
+            transition: all 0.3s;
+        }
+        .focus-card:hover {
+            border-color: var(--orange);
+            transform: translateY(-4px);
+        }
+        .focus-card.internal { border-left: 6px solid var(--blue); }
+        .focus-card.external { border-left: 6px solid var(--orange); }
+        .focus-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        .focus-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
+        }
+        .focus-subtitle {
+            font-size: 1rem;
+            color: var(--gray-500);
+            margin-bottom: 1.5rem;
+        }
+        .focus-stats {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .focus-stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--blue);
+        }
+        .focus-card.external .focus-stat-value { color: var(--orange); }
+        .focus-stat-label {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+        }
+        .focus-benefits { list-style: none; }
+        .focus-benefits li {
+            padding: 0.5rem 0;
+            color: var(--gray-600);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .focus-benefits li::before {
+            content: '';
+            color: var(--success);
+            font-weight: 700;
+        }
+        @media (max-width: 768px) {
+            .focus-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Governance Section */
+        .governance-section { background: var(--gray-50); }
+        .governance-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        @media (max-width: 900px) {
+            .governance-grid { grid-template-columns: 1fr; }
+        }
+        .governance-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .governance-card h3 {
+            color: var(--blue);
+            font-size: 1.15rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .governance-row {
+            display: flex;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .governance-row:last-child { margin-bottom: 0; }
+        .governance-label {
+            font-weight: 600;
+            color: var(--gray-700);
+            min-width: 160px;
+            flex-shrink: 0;
+        }
+        .governance-value {
+            color: var(--gray-600);
+            flex: 1;
+        }
+        .governance-value strong { color: var(--gray-800); }
+
+        /* Timeline Section - Gantt Chart */
+        .timeline-section { background: var(--white); }
+        .gantt-container {
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+        .gantt-chart {
+            min-width: 900px;
+            position: relative;
+        }
+        .gantt-header {
+            display: grid;
+            grid-template-columns: 200px repeat(6, 1fr);
+            gap: 0;
+            margin-bottom: 12px;
+            padding-left: 0;
+        }
+        .gantt-month {
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.8rem;
+            color: var(--gray-400);
+            padding: 6px 4px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .gantt-section { margin-bottom: 20px; }
+        .gantt-section-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 0;
+            margin-bottom: 8px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .gantt-row {
+            display: grid;
+            grid-template-columns: 200px repeat(6, 1fr);
+            gap: 0;
+            margin-bottom: 6px;
+            align-items: center;
+            height: 32px;
+        }
+        .gantt-project {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            padding: 0 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .gantt-level { display: none; }
+        .gantt-bar-container {
+            position: relative;
+            height: 24px;
+            background: transparent;
+            border-left: 1px solid var(--gray-100);
+        }
+        .gantt-bar-container.gate-col { border-left: 2px dashed var(--orange); }
+        .gantt-bar-container.mvp-col { border-left: 2px dashed var(--success); }
+        .gantt-bar {
+            position: absolute;
+            height: 100%;
+            border-radius: 3px;
+            opacity: 0.85;
+        }
+        .gantt-bar.l3 { background: #F59E0B; }
+        .gantt-bar.l2 { background: #3B82F6; }
+        .gantt-bar.l1 { background: #10B981; }
+        .gantt-bar.l0 { background: #9CA3AF; }
+        .gantt-milestones {
+            display: grid;
+            grid-template-columns: 200px repeat(6, 1fr);
+            gap: 0;
+            margin-top: 16px;
+            padding-top: 8px;
+        }
+        .gantt-milestone-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-align: center;
+            padding: 4px;
+        }
+        .gantt-milestone-label.gate { color: var(--orange); }
+        .gantt-milestone-label.mvp { color: var(--success); }
+        .gantt-legend {
+            display: flex;
+            gap: 24px;
+            margin-top: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+        .legend-color.l3 { background: #F59E0B; }
+        .legend-color.l2 { background: #3B82F6; }
+        .legend-color.l1 { background: #10B981; }
+        .legend-color.l0 { background: #6B7280; }
     </style>
 </head>
 <body>
@@ -628,6 +896,38 @@
         <div class="section-container">
             <div class="intro-block">
                 Práce nekončí spuštěním use-casu. Každý use-case po zavedení přechází do provozní fáze, kde má svého vlastníka, podporu, dokumentaci a prostor pro zlepšování. Tím se produkční větev liší od projektu Alfa — zajišťuje nejen vytvoření řešení, ale i jeho dlouhodobý provoz.
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem (přesunuto z homepage) -->
+    <section class="section problem-section" id="problem">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Tohle nepůjde zvládat při dalším růstu</h2>
+                <p class="section-subtitle">Experti tráví čas přepisováním, noví lidé se ztrácejí v chaosu.</p>
+            </div>
+
+            <div class="problem-cards">
+                <div class="problem-card">
+                    <div class="problem-icon"></div>
+                    <div class="problem-value">3 oblasti</div>
+                    <div class="problem-label">monitoring katastru, predikce cash flow, interní efektivita</div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon"></div>
+                    <div class="problem-value">6–8 mio/rok</div>
+                    <div class="problem-label">potenciál – musíme ověřit</div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon"></div>
+                    <div class="problem-value">60 dní pilot</div>
+                    <div class="problem-label">otestujeme, jestli funguje, nebo stopneme</div>
+                </div>
+            </div>
+
+            <div class="problem-footer" style="margin-top: 2rem; text-align: center; color: var(--gray-600); font-size: 1.1rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+                Stavíme na tom, co už máme (Microsoft). Není to zázračné řešení, ale může odblokovat růst – a to se vyplatí ověřit.
             </div>
         </div>
     </section>
@@ -1132,6 +1432,300 @@
                 <div><div class="num">12</div><div class="lbl">use-casů</div></div>
                 <div><div class="num">~1,8 mil. Kč</div><div class="lbl">celková investice</div></div>
                 <div><div class="num">~2,5 mil. Kč</div><div class="lbl">přínos ročně</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Focus: Dovnitř vs. Ven (přesunuto z homepage) -->
+    <section class="section focus-section" id="focus">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Dva směry, jeden cíl</h2>
+                <p class="section-subtitle">Efektivnější provoz uvnitř. Lepší služby navenek.</p>
+            </div>
+
+            <div class="focus-grid">
+                <div class="focus-card internal">
+                    <div class="focus-icon"></div>
+                    <h3 class="focus-title">Dovnitř</h3>
+                    <p class="focus-subtitle">Méně ruční práce, více času na to důležité</p>
+                    <div class="focus-stats">
+                        <div class="focus-stat">
+                            <div class="focus-stat-value">11</div>
+                            <div class="focus-stat-label">use-casů</div>
+                        </div>
+                        <div class="focus-stat">
+                            <div class="focus-stat-value">~2 mio</div>
+                            <div class="focus-stat-label">úspora/rok</div>
+                        </div>
+                    </div>
+                    <ul class="focus-benefits">
+                        <li>Méně času v emailech</li>
+                        <li>Méně manuálního přepisování</li>
+                        <li>Lepší přehled o cash flow</li>
+                        <li>Pořádek v datech a složkách</li>
+                    </ul>
+                </div>
+
+                <div class="focus-card external">
+                    <div class="focus-icon"></div>
+                    <h3 class="focus-title">Ven</h3>
+                    <p class="focus-subtitle">Rychlejší a přesnější služby pro klienty</p>
+                    <div class="focus-stats">
+                        <div class="focus-stat">
+                            <div class="focus-stat-value">3</div>
+                            <div class="focus-stat-label">use-casy</div>
+                        </div>
+                        <div class="focus-stat">
+                            <div class="focus-stat-value">~600 tis.</div>
+                            <div class="focus-stat-label">hodnota/rok</div>
+                        </div>
+                    </div>
+                    <ul class="focus-benefits">
+                        <li>Rychlejší „cink" – klient ví o vkladu dřív</li>
+                        <li>Dříve na trhu s novou nabídkou</li>
+                        <li>Z akvizice do prodeje rychleji</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline - Gantt Chart (přesunuto z homepage) -->
+    <section class="section timeline-section" id="timeline">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Kdy co spustíme</h2>
+                <p class="section-subtitle">Všech 12 use-casů v čase. Nejdřív rychlé výhry, pak větší věci.</p>
+            </div>
+
+            <div class="gantt-container">
+                <div class="gantt-chart">
+                    <!-- Header s měsíci -->
+                    <div class="gantt-header">
+                        <div class="gantt-month"></div>
+                        <div class="gantt-month">Únor</div>
+                        <div class="gantt-month">Březen</div>
+                        <div class="gantt-month">Duben</div>
+                        <div class="gantt-month">Květen</div>
+                        <div class="gantt-month">Červen</div>
+                        <div class="gantt-month">Červenec</div>
+                    </div>
+
+                    <!-- L3 - Rychlé výhry -->
+                    <div class="gantt-section">
+                        <div class="gantt-section-title">Rychlé výhry (L3)</div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Rychlejší práce s emaily</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Přehled z Teams skupin</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Zadávej úkoly hlasem</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Z porady rovnou úkoly</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Rychlejší analýza smluv</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Chytřejší práce s tabulkami</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l3" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                    </div>
+
+                    <!-- L2 - Týmové procesy -->
+                    <div class="gantt-section">
+                        <div class="gantt-section-title">Týmové procesy (L2)</div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Méně manuálního přepisování</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 50%;"></div></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Z nákupu do prodeje rychleji</div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l2" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container mvp-col"><div class="gantt-bar l2" style="left: 0; width: 50%;"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- L0 - Datová základna -->
+                    <div class="gantt-section">
+                        <div class="gantt-section-title">Datová základna (L0)</div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Jeden report místo čtyř</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Jeden zdroj pravdy dat</div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l0" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container mvp-col"><div class="gantt-bar l0" style="left: 0; width: 50%;"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- L1 - Strategické iniciativy -->
+                    <div class="gantt-section">
+                        <div class="gantt-section-title">Strategické iniciativy (L1)</div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Predikce Cash Flow</div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 50%;"></div></div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container mvp-col"></div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-project">Změny v katastru</div>
+                            <div class="gantt-bar-container"></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container gate-col"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                            <div class="gantt-bar-container mvp-col"><div class="gantt-bar l1" style="left: 0; width: 100%;"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Milníky -->
+                    <div class="gantt-milestones">
+                        <div class="gantt-milestone-label"></div>
+                        <div class="gantt-milestone-label"></div>
+                        <div class="gantt-milestone-label"></div>
+                        <div class="gantt-milestone-label gate">Gate 1</div>
+                        <div class="gantt-milestone-label"></div>
+                        <div class="gantt-milestone-label"></div>
+                        <div class="gantt-milestone-label mvp">MVP</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legenda -->
+            <div class="gantt-legend">
+                <div class="legend-item"><div class="legend-color l3"></div> Rychlé výhry</div>
+                <div class="legend-item"><div class="legend-color l2"></div> Týmové procesy</div>
+                <div class="legend-item"><div class="legend-color l0"></div> Datová základna</div>
+                <div class="legend-item"><div class="legend-color l1"></div> Strategické</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Řízení a provoz produkční větve (přesunuto z homepage) -->
+    <section class="section governance-section" id="rizeni-provoz">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Řízení a provoz produkční větve</h2>
+                <p class="section-subtitle">Kdy rozhodujeme, jak se chráníme a jak poznáme, že to funguje</p>
+            </div>
+
+            <div class="governance-grid">
+                <!-- Rozhodovací body -->
+                <div class="governance-card">
+                    <h3>Rozhodovací body</h3>
+                    <div class="governance-row">
+                        <span class="governance-label">Po pilotu (60 dní)</span>
+                        <span class="governance-value">Funguje to? Ušetřilo to čas? Jsou kolegové spokojení? Pokud ano, pokračujeme. Pokud ne, stopneme.</span>
+                    </div>
+                    <div class="governance-row">
+                        <span class="governance-label">Po 6 měsících</span>
+                        <span class="governance-value">Vrací se investice podle plánu? Používají to lidé? Rozšiřujeme, nebo upravujeme směr.</span>
+                    </div>
+                </div>
+
+                <!-- Ochrana proti riziku -->
+                <div class="governance-card">
+                    <h3>Jak se chráníme</h3>
+                    <div class="governance-row">
+                        <span class="governance-label">Začínáme pilotem</span>
+                        <span class="governance-value">60 dní, max 300 tis. – otestujeme, jestli to funguje</span>
+                    </div>
+                    <div class="governance-row">
+                        <span class="governance-label">Pojistka</span>
+                        <span class="governance-value">Pokud po pilotu nevidíme přínos, stopneme, než utratíme víc</span>
+                    </div>
+                    <div class="governance-row">
+                        <span class="governance-label">Využíváme, co máme</span>
+                        <span class="governance-value">Microsoft stack, TNS – nebudujeme od nuly</span>
+                    </div>
+                    <div class="governance-row">
+                        <span class="governance-label">Člověk rozhoduje</span>
+                        <span class="governance-value">AI navrhuje, člověk schvaluje</span>
+                    </div>
+                </div>
+
+                <!-- KPIs -->
+                <div class="governance-card">
+                    <h3>Jak poznáme, že to funguje</h3>
+                    <div class="governance-row">
+                        <span class="governance-label">Katastr</span>
+                        <span class="governance-value">Změny vidíme okamžitě (v momentě provedení vkladu)</span>
+                    </div>
+                    <div class="governance-row">
+                        <span class="governance-label">Dokumenty</span>
+                        <span class="governance-value">Najdeme, co potřebujeme, pod 5 minut</span>
+                    </div>
+                    <div class="governance-row">
+                        <span class="governance-label">Cash Flow</span>
+                        <span class="governance-value">Predikce sedí na 85 %+</span>
+                    </div>
+                    <div class="governance-row">
+                        <span class="governance-label">Celkově</span>
+                        <span class="governance-value">Očekávaná úspora 2,5–3 mio/rok</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
