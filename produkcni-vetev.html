@@ -478,6 +478,108 @@
             .summary-strip { grid-template-columns: 1fr; gap: 1.5rem; }
             .section-title { font-size: 2rem; }
         }
+
+        /* Pyramid Section */
+        .pyramid-section {
+            background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
+        }
+        .pyramid-container {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+        }
+        .pyramid-visual {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .pyramid-level {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 8px;
+        }
+        .pyramid-level:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .pyramid-level.active {
+            box-shadow: 0 0 0 4px var(--orange);
+        }
+        .pyramid-l1 {
+            width: 200px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+        }
+        .pyramid-l2 {
+            width: 280px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--blue-light) 0%, #2563EB 100%);
+        }
+        .pyramid-l3 {
+            width: 360px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%);
+        }
+        .pyramid-l0 {
+            width: 440px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--gray-600) 0%, var(--gray-500) 100%);
+        }
+        .pyramid-details {
+            flex: 1;
+        }
+        .pyramid-detail {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .pyramid-detail.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pyramid-detail h3 {
+            font-size: 1.5rem;
+            color: var(--blue);
+            margin-bottom: 1rem;
+        }
+        .pyramid-detail p {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+        }
+        .pyramid-projects {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .pyramid-project {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--gray-200);
+        }
+        .pyramid-project-name {
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+        .pyramid-project-roi {
+            font-weight: 700;
+            color: var(--success);
+        }
+        @media (max-width: 1024px) {
+            .pyramid-container { flex-direction: column; }
+        }
     </style>
 </head>
 <body>
@@ -527,6 +629,106 @@
             <div class="intro-block">
                 Práce nekončí spuštěním use-casu. Každý use-case po zavedení přechází do provozní fáze, kde má svého vlastníka, podporu, dokumentaci a prostor pro zlepšování. Tím se produkční větev liší od projektu Alfa — zajišťuje nejen vytvoření řešení, ale i jeho dlouhodobý provoz.
             </div>
+        </div>
+    </section>
+
+    <!-- Pyramid Section (přesunuto z homepage) -->
+    <section class="section pyramid-section" id="roadmap">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Od rychlých výher po velké změny</h2>
+                <p class="section-subtitle">Začínáme tím, co hned ušetří čas. Klikněte na úroveň pro detail.</p>
+            </div>
+
+            <div class="pyramid-container">
+                <div class="pyramid-visual">
+                    <div class="pyramid-level pyramid-l1 active" data-level="l1" onclick="showLevel('l1')">Strategická úroveň</div>
+                    <div class="pyramid-level pyramid-l2" data-level="l2" onclick="showLevel('l2')">Týmová úroveň</div>
+                    <div class="pyramid-level pyramid-l3" data-level="l3" onclick="showLevel('l3')">Osobní úroveň</div>
+                    <div class="pyramid-level pyramid-l0" data-level="l0" onclick="showLevel('l0')">Datová základna</div>
+                </div>
+
+                <div class="pyramid-details">
+                    <div class="pyramid-detail" id="detail-l3">
+                        <h3>Osobní úroveň</h3>
+                        <p>Ušetří hodiny denně. Copilot už máme, stačí zapnout. Lze začít okamžitě.</p>
+                        <div class="pyramid-projects">
+                            <div class="pyramid-project">
+                                <span class="pyramid-project-name">Rychlejší práce s emaily</span>
+                                <span class="pyramid-project-roi">400 tis./rok</span>
+                            </div>
+                            <div class="pyramid-project">
+                                <span class="pyramid-project-name">Přehled z 20 Teams skupin</span>
+                                <span class="pyramid-project-roi">175 tis./rok</span>
+                            </div>
+                            <div class="pyramid-project">
+                                <span class="pyramid-project-name">Zadávej úkoly hlasem</span>
+                                <span class="pyramid-project-roi">120 tis./rok</span>
+                            </div>
+                            <div class="pyramid-project">
+                                <span class="pyramid-project-name">Z porady rovnou úkoly</span>
+                                <span class="pyramid-project-roi">90 tis./rok</span>
+                            </div>
+                            <div class="pyramid-project">
+                                <span class="pyramid-project-name">Rychlejší analýza smluv</span>
+                                <span class="pyramid-project-roi">110 tis./rok</span>
+                            </div>
+                            <div class="pyramid-project">
+                                <span class="pyramid-project-name">Chytřejší práce s tabulkami</span>
+                                <span class="pyramid-project-roi">280 tis./rok</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pyramid-detail" id="detail-l2">
+                        <h3>Týmová úroveň</h3>
+                        <p>Méně přepisování z Raynetu do Excelu a zpátky. Automatizace datových toků.</p>
+                        <div class="pyramid-projects">
+                            <div class="pyramid-project">
+                                <span class="pyramid-project-name">Méně manuálního přepisování</span>
+                                <span class="pyramid-project-roi">175 tis./rok</span>
+                            </div>
+                            <div class="pyramid-project">
+                                <span class="pyramid-project-name">Z nákupu do prodeje rychleji</span>
+                                <span class="pyramid-project-roi">60 tis./rok</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pyramid-detail active" id="detail-l1">
+                        <h3>Strategická úroveň</h3>
+                        <p>AI hlídá katastr 24/7 pro rychlejší „cink". Predikce cash flow pro lepší přehled o likviditě.</p>
+                        <div class="pyramid-projects">
+                            <div class="pyramid-project">
+                                <span class="pyramid-project-name">Upozornění na změny v katastru</span>
+                                <span class="pyramid-project-roi">500 tis./rok</span>
+                            </div>
+                            <div class="pyramid-project">
+                                <span class="pyramid-project-name">Predikce Cash Flow</span>
+                                <span class="pyramid-project-roi">350 tis./rok</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pyramid-detail" id="detail-l0">
+                        <h3>Datová základna</h3>
+                        <p>TNS jako základ pro strukturovaná data, SharePoint pro dokumenty. Dotahujeme, co už máme.</p>
+                        <div class="pyramid-projects">
+                            <div class="pyramid-project">
+                                <span class="pyramid-project-name">Jeden zdroj pravdy dat</span>
+                                <span class="pyramid-project-roi">150 tis./rok</span>
+                            </div>
+                            <div class="pyramid-project">
+                                <span class="pyramid-project-name">Jeden report místo čtyř</span>
+                                <span class="pyramid-project-roi">100 tis./rok</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align: center; font-size: 0.85rem; color: var(--neutral-300); margin-top: 24px; font-style: italic;">
+                Odhady vycházejí z interních rozhovorů. Kalkulace: hodinovka 500 Kč.
+            </p>
         </div>
     </section>
 
@@ -991,6 +1193,14 @@
         }
         if (navBackdrop) {
             navBackdrop.addEventListener('click', closeNav);
+        }
+
+        // Pyramida — přepínání úrovní
+        function showLevel(level) {
+            document.querySelectorAll('.pyramid-level').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.pyramid-detail').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.pyramid-${level}`).classList.add('active');
+            document.getElementById(`detail-${level}`).classList.add('active');
         }
     </script>
 </body>

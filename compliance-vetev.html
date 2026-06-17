@@ -400,6 +400,143 @@
             .card-grid { grid-template-columns: 1fr; }
             .section-title { font-size: 2rem; }
         }
+
+        /* Pyramid Section */
+        .pyramid-section {
+            background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
+        }
+        .pyramid-container {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+        }
+        .pyramid-visual {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .pyramid-level {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 1rem;
+            color: var(--white);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 8px;
+        }
+        .pyramid-level:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .pyramid-level.active {
+            box-shadow: 0 0 0 4px var(--orange);
+        }
+        .pyramid-l1 {
+            width: 200px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+        }
+        .pyramid-l2 {
+            width: 280px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--blue-light) 0%, #2563EB 100%);
+        }
+        .pyramid-l3 {
+            width: 360px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%);
+        }
+        .pyramid-l0 {
+            width: 440px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--gray-600) 0%, var(--gray-500) 100%);
+        }
+        .pyramid-details {
+            flex: 1;
+        }
+        .pyramid-detail {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .pyramid-detail.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pyramid-detail h3 {
+            font-size: 1.5rem;
+            color: var(--blue);
+            margin-bottom: 1rem;
+        }
+        .pyramid-detail ul {
+            margin: 0 0 1rem 1.25rem;
+            color: var(--gray-700);
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .pyramid-detail .pyramid-source {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+            font-style: italic;
+            margin-bottom: 0;
+        }
+        @media (max-width: 1024px) {
+            .pyramid-container { flex-direction: column; }
+        }
+
+        /* SMART cíle — víceúrovňové */
+        .smart-intro {
+            max-width: 880px;
+            margin: 0 auto 2.5rem;
+            font-size: 1.1rem;
+            color: var(--gray-700);
+            text-align: center;
+        }
+        .smart-levels {
+            max-width: 920px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+        .smart-level-title {
+            font-size: 1.3rem;
+            color: var(--blue);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gray-200);
+        }
+        .smart-goal {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-left: 4px solid var(--orange);
+            border-radius: 12px;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 1rem;
+        }
+        .smart-goal:last-child { margin-bottom: 0; }
+        .smart-goal-head {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .smart-goal-title { font-size: 1.1rem; font-weight: 700; color: var(--gray-800); }
+        .smart-goal-term { font-size: 0.9rem; font-weight: 600; color: var(--orange); white-space: nowrap; }
+        .smart-goal p { color: var(--gray-700); margin-bottom: 0.75rem; }
+        .smart-goal .smart-metric { font-size: 0.92rem; color: var(--gray-500); margin-bottom: 0; }
+        .smart-goal .smart-metric strong { color: var(--gray-700); }
     </style>
 </head>
 <body>
@@ -453,6 +590,76 @@
         <div class="section-container">
             <div class="intro-block">
                 Dobře nastavená pravidla firmu nezdržují — naopak jí dávají jistotu, co může dělat, kde jsou hranice a kdy je potřeba kontrola. AI se pak nemusí nasazovat opatrně „naslepo", ale řízeně, rychleji a s menším rizikem. Větev pokrývá i „neviditelnou díru" — evidenci, klasifikaci, pravidla, schválení, logování, revize a důkazy. Právní kotvou jsou zejména AI Act a GDPR.
+            </div>
+        </div>
+    </section>
+
+    <!-- Compliance pyramida -->
+    <section class="section pyramid-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Bezpečně a v souladu</h2>
+                <p class="section-subtitle">Klikněte na úroveň pro detail.</p>
+            </div>
+
+            <div class="pyramid-container">
+                <div class="pyramid-visual">
+                    <div class="pyramid-level pyramid-l1 active" data-level="l1" onclick="showLevel('l1')">Firemní úroveň</div>
+                    <div class="pyramid-level pyramid-l2" data-level="l2" onclick="showLevel('l2')">Týmová úroveň</div>
+                    <div class="pyramid-level pyramid-l3" data-level="l3" onclick="showLevel('l3')">Osobní úroveň</div>
+                    <div class="pyramid-level pyramid-l0" data-level="l0" onclick="showLevel('l0')">Právní základna</div>
+                </div>
+
+                <div class="pyramid-details">
+                    <div class="pyramid-detail active" id="detail-l1">
+                        <h3>Firemní úroveň — Celá firma je v souladu</h3>
+                        <ul>
+                            <li>% systémů v inventáři</li>
+                            <li>% s dokončenou klasifikací rizika</li>
+                            <li>stav interní směrnice</li>
+                            <li>počet otevřených compliance bodů</li>
+                            <li>zda byly identifikované high-risk systémy</li>
+                        </ul>
+                        <p class="pyramid-source">Data ze SharePoint / Power BI.</p>
+                    </div>
+
+                    <div class="pyramid-detail" id="detail-l2">
+                        <h3>Týmová úroveň — Váš tým má jasné procesy</h3>
+                        <ul>
+                            <li>Seznam schválených nástrojů pro tým</li>
+                            <li>stav compliance posouzení týmových use-casů</li>
+                            <li>co čeká na doplnění</li>
+                            <li>odkaz na odpovědnou osobu</li>
+                        </ul>
+                        <p class="pyramid-source">Stav z Freela (compliance brána v intake).</p>
+                    </div>
+
+                    <div class="pyramid-detail" id="detail-l3">
+                        <h3>Osobní úroveň — Víš, co smíš</h3>
+                        <ul>
+                            <li>Jednoduchý rozcestník pravidel</li>
+                            <li>přehled schválených nástrojů</li>
+                            <li>pravidla pro práci s daty</li>
+                            <li>oblast Data &amp; bezpečnost z mapy schopností</li>
+                            <li>odkaz na FAQ</li>
+                        </ul>
+                        <p class="pyramid-source">Statický odkaz na pravidla / směrnici.</p>
+                    </div>
+
+                    <div class="pyramid-detail" id="detail-l0">
+                        <h3>Právní základna</h3>
+                        <ul>
+                            <li>Inventář AI systémů</li>
+                            <li>AI Act timeline</li>
+                            <li>interní směrnice</li>
+                            <li>klasifikační checklist</li>
+                            <li>záznamy pro audit</li>
+                            <li>šablony transparentních sdělení</li>
+                            <li>incident postup</li>
+                        </ul>
+                        <p class="pyramid-source">Převážně statické, odkazy na SharePoint / Freelo / Power BI.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -825,15 +1032,66 @@
         </div>
     </section>
 
-    <!-- B11. SMART cíl k 16. 7. -->
+    <!-- B11. SMART cíle compliance větve -->
     <section class="section section--white">
         <div class="section-container">
             <div class="section-header">
-                <h2 class="section-title">SMART cíl k 16. 7.</h2>
+                <h2 class="section-title">SMART cíle compliance větve</h2>
             </div>
-            <div class="smart-block">
-                <p>Do 16. 7. bude hotový základní inventář AI systémů, proběhne první klasifikace rizik, bude jasné, zda ve firmě existuje high-risk oblast typu credit scoring, a vznikne první draft interní AI směrnice.</p>
-                <p>Cíl je praktický, měřitelný a zaměřený na nejdůležitější rizika. Neřeší všechno najednou, ale vytváří základ, na kterém se dá bezpečně stavět.</p>
+            <p class="smart-intro">Compliance větev má zajistit, aby firma používala AI legálně, bezpečně a dohledatelně. Cílem není složitá administrativa, ale jasná pravidla, přehled o tom, kde AI používáme a jaká nese rizika, a schopnost doložit odpovědný přístup.</p>
+
+            <div class="smart-levels">
+                <div class="smart-level">
+                    <h3 class="smart-level-title">Osobní úroveň</h3>
+                    <div class="smart-goal">
+                        <div class="smart-goal-head">
+                            <span class="smart-goal-title">Cíl 1 · Každý zná základní pravidla</span>
+                            <span class="smart-goal-term">termín do 31. 12. 2026</span>
+                        </div>
+                        <p>100 % zaměstnanců bude mít v evidenci absolvované základní compliance školení k datům a bezpečnosti — v mapě schopností minimálně úroveň 1 v oblasti Data &amp; bezpečnost. Záznamy na SharePointu slouží jako důkaz pro audit. Cíl: každý ví, co s AI smí, co nesmí a kdy se zeptat.</p>
+                        <p class="smart-metric"><strong>Měří se:</strong> počet zaměstnanců s dokončeným školením · úplnost evidence · dosažená úroveň.</p>
+                    </div>
+                </div>
+
+                <div class="smart-level">
+                    <h3 class="smart-level-title">Týmová úroveň</h3>
+                    <div class="smart-goal">
+                        <div class="smart-goal-head">
+                            <span class="smart-goal-title">Cíl 2 · Zavést compliance bránu pro nové use-casy</span>
+                            <span class="smart-goal-term">termín od 1. 10. 2026</span>
+                        </div>
+                        <p>100 % nových AI use-casů projde compliance bránou ještě před nasazením. Součástí je klasifikace rizika podle checklistu ve Freelu — bez ní se use-case neposune do ostrého provozu. Bezpečnost a právo se řeší už při návrhu.</p>
+                        <p class="smart-metric"><strong>Měří se:</strong> počet nových use-casů · počet s klasifikací · podíl, který prošel bránou.</p>
+                    </div>
+                    <div class="smart-goal">
+                        <div class="smart-goal-head">
+                            <span class="smart-goal-title">Cíl 3 · Připravit transparentní komunikaci</span>
+                            <span class="smart-goal-term">termín do 31. 8. 2026</span>
+                        </div>
+                        <p>Připravené a schválené šablony sdělení typu „jednáte s AI" pro všechny relevantní komunikační kanály — tam, kde je potřeba informovat, že člověk komunikuje s AI nebo že obsah vznikl s její pomocí. Transparentnost ne nahodile, ale jednotně.</p>
+                        <p class="smart-metric"><strong>Měří se:</strong> počet připravených · počet schválených · pokrytí kanálů.</p>
+                    </div>
+                </div>
+
+                <div class="smart-level">
+                    <h3 class="smart-level-title">Firemní úroveň</h3>
+                    <div class="smart-goal">
+                        <div class="smart-goal-head">
+                            <span class="smart-goal-title">Cíl 4 · Dokončit inventář a klasifikaci AI systémů</span>
+                            <span class="smart-goal-term">termín do 31. 7. 2026</span>
+                        </div>
+                        <p>Hotový inventář AI systémů — všechny známé systémy zapsané a u každého klasifikace rizika. Výsledkem je jasné rozlišení, zda firma používá jen nízko/omezeně rizikové systémy, nebo zda se někde objevuje high-risk oblast. Základ celé větve.</p>
+                        <p class="smart-metric"><strong>Měří se:</strong> počet zapsaných systémů · podíl s klasifikací · identifikace high-risk.</p>
+                    </div>
+                    <div class="smart-goal">
+                        <div class="smart-goal-head">
+                            <span class="smart-goal-title">Cíl 5 · Schválit interní směrnici pro používání AI</span>
+                            <span class="smart-goal-term">termín do 30. 9. 2026</span>
+                        </div>
+                        <p>Firma bude mít schválenou interní směrnici podepsanou vedením: jaké nástroje jsou schválené, jaká data se do nich smí vkládat, kdo co schvaluje a jak postupovat při nejistotě nebo incidentu. Praktický dokument pro lidi, ne text do šuplíku.</p>
+                        <p class="smart-metric"><strong>Měří se:</strong> návrh · připomínkování · schválení · podpis vedení · zveřejnění.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -912,6 +1170,14 @@
         }
         if (navBackdrop) {
             navBackdrop.addEventListener('click', closeNav);
+        }
+
+        // Pyramida — přepínání úrovní
+        function showLevel(level) {
+            document.querySelectorAll('.pyramid-level').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.pyramid-detail').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.pyramid-${level}`).classList.add('active');
+            document.getElementById(`detail-${level}`).classList.add('active');
         }
     </script>
 </body>

@@ -751,6 +751,143 @@
         @media (max-width: 700px) {
             .docs-grid { grid-template-columns: 1fr; }
         }
+
+        /* Pyramid Section */
+        .pyramid-section {
+            background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
+        }
+        .pyramid-container {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+        }
+        .pyramid-visual {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .pyramid-level {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 1rem;
+            color: var(--white);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 8px;
+        }
+        .pyramid-level:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .pyramid-level.active {
+            box-shadow: 0 0 0 4px var(--orange);
+        }
+        .pyramid-l1 {
+            width: 200px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+        }
+        .pyramid-l2 {
+            width: 280px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--blue-light) 0%, #2563EB 100%);
+        }
+        .pyramid-l3 {
+            width: 360px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%);
+        }
+        .pyramid-l0 {
+            width: 440px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--gray-600) 0%, var(--gray-500) 100%);
+        }
+        .pyramid-details {
+            flex: 1;
+        }
+        .pyramid-detail {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .pyramid-detail.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pyramid-detail h3 {
+            font-size: 1.5rem;
+            color: var(--blue);
+            margin-bottom: 1rem;
+        }
+        .pyramid-detail ul {
+            margin: 0 0 1rem 1.25rem;
+            color: var(--gray-700);
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .pyramid-detail .pyramid-source {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+            font-style: italic;
+            margin-bottom: 0;
+        }
+        @media (max-width: 1024px) {
+            .pyramid-container { flex-direction: column; }
+        }
+
+        /* SMART cíle — víceúrovňové */
+        .smart-intro {
+            max-width: 880px;
+            margin: 0 auto 2.5rem;
+            font-size: 1.1rem;
+            color: var(--gray-700);
+            text-align: center;
+        }
+        .smart-levels {
+            max-width: 920px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+        .smart-level-title {
+            font-size: 1.3rem;
+            color: var(--blue);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gray-200);
+        }
+        .smart-goal {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-left: 4px solid var(--orange);
+            border-radius: 12px;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 1rem;
+        }
+        .smart-goal:last-child { margin-bottom: 0; }
+        .smart-goal-head {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .smart-goal-title { font-size: 1.1rem; font-weight: 700; color: var(--gray-800); }
+        .smart-goal-term { font-size: 0.9rem; font-weight: 600; color: var(--orange); white-space: nowrap; }
+        .smart-goal p { color: var(--gray-700); margin-bottom: 0.75rem; }
+        .smart-goal .smart-metric { font-size: 0.92rem; color: var(--gray-500); margin-bottom: 0; }
+        .smart-goal .smart-metric strong { color: var(--gray-700); }
     </style>
 </head>
 <body>
@@ -807,6 +944,72 @@
             </div>
             <div class="intro-block">
                 V produkční větvi lidé přicházejí s viditelnou potřebou — něco je zdržuje, něco chtějí zrychlit. U vzdělávání je to jinak: mnoho lidí zatím žádnou potřebu necítí. Proto nestačí „udělat kurz". Jádrem služby je change management — postupná změna chování, motivace a návyků. A školení nekončí absolvováním kurzu: pokud se dovednosti nepoužívají, rychle se ztratí. Proto každý formát pokračuje do fáze Udržuj.
+            </div>
+        </div>
+    </section>
+
+    <!-- Vzdělávací pyramida -->
+    <section class="section pyramid-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Od povědomí po zvládnutí</h2>
+                <p class="section-subtitle">Klikněte na úroveň pro detail.</p>
+            </div>
+
+            <div class="pyramid-container">
+                <div class="pyramid-visual">
+                    <div class="pyramid-level pyramid-l1 active" data-level="l1" onclick="showLevel('l1')">Firemní úroveň</div>
+                    <div class="pyramid-level pyramid-l2" data-level="l2" onclick="showLevel('l2')">Týmová úroveň</div>
+                    <div class="pyramid-level pyramid-l3" data-level="l3" onclick="showLevel('l3')">Osobní úroveň</div>
+                    <div class="pyramid-level pyramid-l0" data-level="l0" onclick="showLevel('l0')">Znalostní základna</div>
+                </div>
+
+                <div class="pyramid-details">
+                    <div class="pyramid-detail active" id="detail-l1">
+                        <h3>Firemní úroveň — Celá firma se posouvá</h3>
+                        <ul>
+                            <li>Stav onboardingové brány</li>
+                            <li>% nových zaměstnanců se splněným základem</li>
+                            <li>% s doloženou AI gramotností</li>
+                            <li>celkový posun v mapě schopností</li>
+                        </ul>
+                        <p class="pyramid-source">Data ze SharePoint listu / Power BI.</p>
+                    </div>
+
+                    <div class="pyramid-detail" id="detail-l2">
+                        <h3>Týmová úroveň — Rosteme společně v týmu</h3>
+                        <ul>
+                            <li>Role-based moduly pro konkrétní roli</li>
+                            <li>jméno týmového championa</li>
+                            <li>termín dalšího sed-by-side koučinku</li>
+                            <li>stav dokončení modulů</li>
+                        </ul>
+                        <p class="pyramid-source">Stav z Freela.</p>
+                    </div>
+
+                    <div class="pyramid-detail" id="detail-l3">
+                        <h3>Osobní úroveň — Zjisti, kde jsi, a posuň se</h3>
+                        <ul>
+                            <li><a class="inline-link" href="https://forms.office.com/Pages/ResponsePage.aspx?id=uLTBrmum40-UPWmHfTzSgHJpid13tINHp_x_-a1h_O5UQlFBVUhPUEs3WFdaRU82RTNOQVpSRVRFUy4u" target="_blank" rel="noopener noreferrer">Tlačítko na sebehodnoticí dotazník</a></li>
+                            <li>odkaz na mapu schopností 0–3</li>
+                            <li>vlastní aktuální úroveň</li>
+                            <li>doporučený další krok</li>
+                        </ul>
+                        <p class="pyramid-source">Stav assessmentu z Freela / evidence.</p>
+                    </div>
+
+                    <div class="pyramid-detail" id="detail-l0">
+                        <h3>Znalostní základna</h3>
+                        <ul>
+                            <li>Knihovna reálných use-casů (kanál <a class="tlink" href="https://teams.microsoft.com/l/channel/19%3A433a5d4d41c54168abfb8b68bd86e69e%40thread.tacv2/U%C4%8D%C3%ADme%20se%20AI?groupId=44fbadd0-4e7a-40e1-b862-ebb3b40d52a9&tenantId=aec1b4b8-a66b-4fe3-943d-69877d3cd280" target="_blank" rel="noopener noreferrer">„Učíme se AI"</a>)</li>
+                            <li>prompt šablony</li>
+                            <li>návody pro běžné situace</li>
+                            <li>krátká videa a ukázky</li>
+                            <li>odkazy na doporučené kurzy</li>
+                        </ul>
+                        <p class="pyramid-source">Převážně statické, na SharePointu.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1466,15 +1669,65 @@
         </div>
     </section>
 
-    <!-- B12. SMART cíl -->
+    <!-- B12. SMART cíle vzdělávací větve -->
     <section class="section section--gray">
         <div class="section-container">
             <div class="section-header">
-                <h2 class="section-title">SMART cíl</h2>
+                <h2 class="section-title">SMART cíle vzdělávací větve</h2>
             </div>
-            <div class="smart-block">
-                <p>Do konce roku 2026 projde 100 % zaměstnanců základem AI gramotnosti a alespoň 50 % vybraných manažerů se posune o jeden stupeň v mapě schopností 0–3.</p>
-                <p>Cíl propojuje compliance, adopci i praktický rozvoj manažerů. Je měřitelný a dá se navázat na onboarding, HR evidenci a reporting adopce.</p>
+            <p class="smart-intro">Vzdělávací větev má dostat lidi od základního povědomí o AI k tomu, aby ji uměli bezpečně a prakticky používat. Nejde o absolvování kurzu — cílem je posun v dovednostech, návycích a reálném používání.</p>
+
+            <div class="smart-levels">
+                <div class="smart-level">
+                    <h3 class="smart-level-title">Osobní úroveň</h3>
+                    <div class="smart-goal">
+                        <div class="smart-goal-head">
+                            <span class="smart-goal-title">Cíl 1 · Zmapovat výchozí úroveň</span>
+                            <span class="smart-goal-term">termín do 31. 7. 2026</span>
+                        </div>
+                        <p>100 % zaměstnanců pilotního týmu (min. 10 lidí) vyplní sebehodnoticí dotazník. AI tým z odpovědí připraví heatmapu schopností — kde tým stojí, kde jsou silná místa a kde je potřeba podpora.</p>
+                        <p class="smart-metric"><strong>Měří se:</strong> počet vyplněných formulářů · dokončená heatmapa v Power BI.</p>
+                    </div>
+                    <div class="smart-goal">
+                        <div class="smart-goal-head">
+                            <span class="smart-goal-title">Cíl 2 · Povinný základ AI gramotnosti</span>
+                            <span class="smart-goal-term">termín do 31. 10. 2026</span>
+                        </div>
+                        <p>100 % nových zaměstnanců projde základním kurzem (např. Elements of AI) do 30 dní od nástupu. Absolvování se eviduje v SharePoint listu (jméno + datum) — slouží i jako důkaz k čl. 4 AI Actu.</p>
+                        <p class="smart-metric"><strong>Měří se:</strong> podíl nových zaměstnanců s včasným dokončením · úplnost záznamů.</p>
+                    </div>
+                </div>
+
+                <div class="smart-level">
+                    <h3 class="smart-level-title">Týmová úroveň</h3>
+                    <div class="smart-goal">
+                        <div class="smart-goal-head">
+                            <span class="smart-goal-title">Cíl 3 · Posun manažerů v AI schopnostech</span>
+                            <span class="smart-goal-term">termín do 31. 12. 2026</span>
+                        </div>
+                        <p>Alespoň 50 % zapojených manažerů se posune o jeden stupeň v mapě schopností 0–3. Ověří se re-assessmentem po 3 měsících od baseline (např. z úrovně 0–1 na 1–2). Pokud AI nepoužívá manažer, tým se většinou neposune.</p>
+                        <p class="smart-metric"><strong>Měří se:</strong> výchozí úroveň · úroveň po 3 měsících · % posunutých manažerů.</p>
+                    </div>
+                    <div class="smart-goal">
+                        <div class="smart-goal-head">
+                            <span class="smart-goal-title">Cíl 4 · Vytvořit první síť champions</span>
+                            <span class="smart-goal-term">termín do 30. 9. 2026</span>
+                        </div>
+                        <p>Identifikováni alespoň 3 lidé na úrovni 3, kteří převezmou roli AI champions. Každý bude mít týdenní blok alespoň 1 h na podporu a koučink kolegů. AI tým nemůže podporovat celou firmu sám.</p>
+                        <p class="smart-metric"><strong>Měří se:</strong> počet champions · jejich úroveň · blok v kalendáři · počet podpor.</p>
+                    </div>
+                </div>
+
+                <div class="smart-level">
+                    <h3 class="smart-level-title">Firemní úroveň</h3>
+                    <div class="smart-goal">
+                        <div class="smart-goal-head">
+                            <span class="smart-goal-title">Cíl 5 · Dosáhnout reálné adopce AI</span>
+                            <span class="smart-goal-term">termín do 31. 12. 2026</span>
+                        </div>
+                        <p>Alespoň 50 % cílových uživatelů (lidé s licencí Copilot) bude aktivně používat AI nástroje alespoň jednou týdně. Měří se telemetrií Microsoft 365, případně logy agentů a používáním šablon. Hodnota vzniká až tehdy, když lidé AI opravdu zapojí do práce — ne licencí ani školením.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1858,6 +2111,14 @@
                 document.body.style.overflow = 'auto';
             }
         });
+
+        // Pyramida — přepínání úrovní
+        function showLevel(level) {
+            document.querySelectorAll('.pyramid-level').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.pyramid-detail').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.pyramid-${level}`).classList.add('active');
+            document.getElementById(`detail-${level}`).classList.add('active');
+        }
     </script>
 </body>
 </html>
