@@ -2838,6 +2838,253 @@
         .governance-card p:last-child { margin-bottom: 0; }
         .governance-card ul { margin: 0 0 1rem 1.2rem; color: var(--gray-600); font-size: 0.95rem; }
         .governance-card ul li { margin-bottom: 0.4rem; }
+
+        /* ============================================================
+           ROADMAPA / PRVNÍ MILNÍK (progresivní odkrývání) — přidaná sekce
+           ============================================================ */
+        .roadmap-section { background: var(--white); }
+        .rm-eyebrow {
+            display: inline-block;
+            background: rgba(243,108,43,0.12);
+            color: var(--orange-dark);
+            font-weight: 700;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+        }
+
+        /* --- Horní fold: tři dlaždice prvního milníku --- */
+        .rm-milestones {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .rm-tile {
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: 18px;
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .rm-tile--now { border-top: 6px solid var(--orange); }
+        .rm-tile--build { border-top: 6px solid var(--blue); }
+        .rm-tile--next { border-top: 6px solid var(--success); }
+        .rm-tile-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--gray-500);
+            margin-bottom: 0.4rem;
+        }
+        .rm-tile h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 0.75rem;
+        }
+        .rm-tile p { color: var(--gray-700); font-size: 0.97rem; margin-bottom: 0.6rem; }
+        .rm-tile p:last-child { margin-bottom: 0; }
+        .rm-tile strong { color: var(--gray-800); }
+
+        .rm-headline {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            color: var(--white);
+            border-radius: 18px;
+            padding: 1.5rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 2.5rem;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .rm-headline-item { display: flex; flex-direction: column; }
+        .rm-headline-value { font-size: 1.5rem; font-weight: 800; color: var(--orange); line-height: 1.15; }
+        .rm-headline-label { font-size: 0.9rem; opacity: 0.88; margin-top: 2px; }
+
+        /* --- Vizuální roadmapa (stepper M0–M3) --- */
+        .rm-timeline {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            margin: 0 auto;
+        }
+        .rm-step {
+            flex: 1;
+            position: relative;
+            padding: 0 0.6rem;
+        }
+        .rm-step-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 4px solid var(--gray-300);
+            margin: 0 auto 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        .rm-step::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: -50%;
+            width: 100%;
+            height: 4px;
+            background: var(--gray-200);
+            z-index: 1;
+        }
+        .rm-step:first-child::before { display: none; }
+        .rm-step-card {
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: 14px;
+            padding: 1.25rem 1rem;
+            text-align: center;
+            height: 100%;
+        }
+        .rm-step-code { font-size: 1.05rem; font-weight: 800; color: var(--blue); }
+        .rm-step-name { font-weight: 700; color: var(--gray-800); font-size: 0.98rem; margin: 0.2rem 0 0.5rem; }
+        .rm-step-when { font-size: 0.85rem; color: var(--gray-500); margin-bottom: 0.75rem; }
+        .rm-maturity {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 50px;
+            background: rgba(13,53,121,0.08);
+            color: var(--blue);
+        }
+        /* Aktuální krok (M0) zvýrazněn */
+        .rm-step--current .rm-step-dot { border-color: var(--orange); background: var(--orange); }
+        .rm-step--current .rm-step-card { border-color: var(--orange); box-shadow: 0 8px 22px rgba(243,108,43,0.12); }
+        .rm-step--current .rm-maturity { background: rgba(243,108,43,0.14); color: var(--orange-dark); }
+
+        /* --- Tři větve v prvním milníku (kondenzované karty) --- */
+        .rm-branch-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .rm-branch {
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-top: 6px solid var(--blue);
+            border-radius: 18px;
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .rm-branch h3 { font-size: 1.15rem; font-weight: 700; color: var(--gray-800); margin-bottom: 0.75rem; }
+        .rm-branch ul { list-style: none; padding: 0; margin: 0 0 1.25rem; }
+        .rm-branch li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--gray-700);
+            font-size: 0.95rem;
+        }
+        .rm-branch li::before { content: "›"; position: absolute; left: 0; font-weight: 700; }
+        .rm-branch .service-link { align-self: flex-start; margin-top: auto; }
+        .rm-branch.branch-prod { border-top-color: var(--success); }
+        .rm-branch.branch-prod li::before { color: var(--success); }
+        .rm-branch.branch-prod .service-link { background: var(--success); }
+        .rm-branch.branch-edu { border-top-color: #378ADD; }
+        .rm-branch.branch-edu li::before { color: #378ADD; }
+        .rm-branch.branch-edu .service-link { background: #378ADD; }
+        .rm-branch.branch-comp { border-top-color: #BA7517; }
+        .rm-branch.branch-comp li::before { color: #BA7517; }
+        .rm-branch.branch-comp .service-link { background: #BA7517; }
+
+        /* --- Navrstvené detaily (rozbalovací <details>) --- */
+        .rm-block-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--blue);
+            margin: 3rem 0 1.25rem;
+            text-align: center;
+        }
+        .rm-acc {
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: 14px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        .rm-acc > summary {
+            cursor: pointer;
+            list-style: none;
+            padding: 1.1rem 1.5rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .rm-acc > summary::-webkit-details-marker { display: none; }
+        .rm-acc > summary::after {
+            content: "+";
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--orange);
+            flex-shrink: 0;
+            transition: transform 0.2s;
+        }
+        .rm-acc[open] > summary::after { content: "–"; }
+        .rm-acc > summary .rm-acc-hint { font-weight: 500; font-size: 0.88rem; color: var(--gray-500); margin-left: auto; }
+        .rm-acc-body { padding: 0 1.5rem 1.5rem; }
+        .rm-item {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1.1rem 1.25rem;
+            margin-bottom: 0.9rem;
+        }
+        .rm-item:last-child { margin-bottom: 0; }
+        .rm-item-head { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin-bottom: 0.5rem; }
+        .rm-item-code { font-weight: 800; color: var(--blue); font-size: 1rem; }
+        .rm-item-name { font-weight: 700; color: var(--gray-800); }
+        .rm-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            padding: 3px 10px;
+            border-radius: 50px;
+        }
+        .rm-badge--done { background: rgba(16,185,129,0.14); color: #0a7a56; }
+        .rm-badge--flag { background: rgba(243,108,43,0.14); color: var(--orange-dark); }
+        .rm-badge--win { background: rgba(13,53,121,0.1); color: var(--blue); }
+        .rm-badge--warn { background: rgba(245,158,11,0.16); color: #9a6a05; }
+        .rm-item p { color: var(--gray-600); font-size: 0.95rem; margin-bottom: 0.4rem; }
+        .rm-item p:last-child { margin-bottom: 0; }
+        .rm-item .rm-warn { color: #9a6a05; font-weight: 500; }
+        .rm-method {
+            max-width: 820px;
+            margin: 1rem auto 0;
+            background: var(--gray-50);
+            border-left: 4px solid var(--orange);
+            border-radius: 0 12px 12px 0;
+            padding: 1.25rem 1.75rem;
+            color: var(--gray-700);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 900px) {
+            .rm-milestones, .rm-branch-cards { grid-template-columns: 1fr; }
+            .rm-timeline { flex-direction: column; gap: 1rem; }
+            .rm-step { padding: 0; }
+            .rm-step::before { display: none; }
+            .rm-step-dot { margin-bottom: 0.6rem; }
+        }
     </style>
 </head>
 <body>
@@ -2855,7 +3102,8 @@
                 <span></span>
             </button>
             <div class="nav-links">
-                <a href="#service" class="active">Služba</a>
+                <a href="#roadmap" class="active">Roadmapa</a>
+                <a href="#service">Služba</a>
                 <a href="/produkcni-vetev">Produkce</a>
                 <a href="/vzdelavaci-vetev">Vzdělávání</a>
                 <a href="/compliance-vetev">Compliance</a>
@@ -2876,6 +3124,274 @@
             <p class="hero-subtitle">Objem práce už manuální procesy neudrží.</p>
 
             <p class="hero-closing">Chceme růst i nadále. Proto neřešíme jednorázový projekt, ale zavádíme trvalou interní službu — AI Adopci — která firmě průběžně pomáhá zvládat víc práce na stávající kapacitě.</p>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         NOVÁ sekce: Roadmapa / První milník (progresivní odkrývání)
+         Přidáno NAD stávající obsah. Nic z větví se nemění.
+         ============================================================ -->
+    <section class="section roadmap-section" id="roadmap">
+        <div class="section-container">
+
+            <!-- 1) HORNÍ FOLD — První milník (stojí sám) -->
+            <div class="section-header">
+                <span class="rm-eyebrow">Kde teď jsme</span>
+                <h2 class="section-title">První milník AI adopce</h2>
+                <p class="section-subtitle">Firma je na začátku digitalizace. Cílem teď není celá vize, ale první realistický krok. Zaměřujeme se na JEDEN pilotní tým — obchod — a měříme dopad.</p>
+            </div>
+
+            <div class="rm-milestones">
+                <div class="rm-tile rm-tile--now">
+                    <span class="rm-tile-tag">Kde jsme · M0 · 16. 7. (Evolution)</span>
+                    <h3>Mandát a start</h3>
+                    <p>Schválit směr, ukázat hotové piloty a spustit měření.</p>
+                </div>
+                <div class="rm-tile rm-tile--build">
+                    <span class="rm-tile-tag">Co spouštíme</span>
+                    <h3>Kam jde nová kapacita</h3>
+                    <p>Nová kapacita jde na 2 věci:</p>
+                    <p><strong>Personalizovaný e-mail z hovoru</strong> (vlajka) a <strong>Chytřejší práce s tabulkami</strong> (technický quick-win).</p>
+                </div>
+                <div class="rm-tile rm-tile--next">
+                    <span class="rm-tile-tag">Co uvidíme · M1 · Q3 2026</span>
+                    <h3>Pilot žije</h3>
+                    <p>Pilotní tým obchod reálně používá AI, s prvním měřením.</p>
+                </div>
+            </div>
+
+            <div class="rm-headline">
+                <div class="rm-headline-item">
+                    <span class="rm-headline-value">3 hotové piloty</span>
+                    <span class="rm-headline-label">jeden šetří ~1,2 mil. Kč/rok</span>
+                </div>
+                <div class="rm-headline-item">
+                    <span class="rm-headline-value">Pilotní tým: obchod</span>
+                    <span class="rm-headline-label">jeden tým, měřený dopad</span>
+                </div>
+            </div>
+
+            <!-- 2) VIZUÁLNÍ ROADMAPA (M0–M3 s úrovní maturity) -->
+            <h3 class="rm-block-title">Roadmapa ve čtyřech krocích</h3>
+            <div class="rm-timeline">
+                <div class="rm-step rm-step--current">
+                    <div class="rm-step-dot"></div>
+                    <div class="rm-step-card">
+                        <div class="rm-step-code">M0</div>
+                        <div class="rm-step-name">Mandát + start</div>
+                        <div class="rm-step-when">16. 7. 2026 · Evolution</div>
+                        <span class="rm-maturity">Maturita: Level 1</span>
+                    </div>
+                </div>
+                <div class="rm-step">
+                    <div class="rm-step-dot"></div>
+                    <div class="rm-step-card">
+                        <div class="rm-step-code">M1</div>
+                        <div class="rm-step-name">Pilot žije</div>
+                        <div class="rm-step-when">Q3 2026 · ~konec září</div>
+                        <span class="rm-maturity">obchod → Level 2</span>
+                    </div>
+                </div>
+                <div class="rm-step">
+                    <div class="rm-step-dot"></div>
+                    <div class="rm-step-card">
+                        <div class="rm-step-code">M2</div>
+                        <div class="rm-step-name">Opakovatelnost</div>
+                        <div class="rm-step-when">Q4 2026 – Q1 2027</div>
+                        <span class="rm-maturity">Level 2 → 3</span>
+                    </div>
+                </div>
+                <div class="rm-step">
+                    <div class="rm-step-dot"></div>
+                    <div class="rm-step-card">
+                        <div class="rm-step-code">M3</div>
+                        <div class="rm-step-name">Rytmus firmy</div>
+                        <div class="rm-step-when">2027</div>
+                        <span class="rm-maturity">Level 3 → 4 (plná vize)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3) TŘI VĚTVE V PRVNÍM MILNÍKU (kondenzované, odkaz na plnou záložku) -->
+            <h3 class="rm-block-title">Tři větve v prvním milníku</h3>
+            <div class="rm-branch-cards">
+                <div class="rm-branch branch-prod">
+                    <h3>Produkční</h3>
+                    <ul>
+                        <li>Ukázat hotové (T9, T11, T4)</li>
+                        <li>Nová kapacita: T16 + P6</li>
+                        <li>Odložit mega-build</li>
+                    </ul>
+                    <a class="service-link" href="/produkcni-vetev">Detail v záložce Produkční →</a>
+                </div>
+                <div class="rm-branch branch-edu">
+                    <h3>Vzdělávací</h3>
+                    <ul>
+                        <li>1 pilotní tým (obchod)</li>
+                        <li>Sebehodnotící dotazník → první heatmapa</li>
+                        <li>Povinný základ AI gramotnosti (AI Act čl. 4)</li>
+                        <li>2–3 návyky přes Copilot</li>
+                        <li>1 vychovaný champion</li>
+                    </ul>
+                    <a class="service-link" href="/vzdelavaci-vetev">Detail v záložce Vzdělávací →</a>
+                </div>
+                <div class="rm-branch branch-comp">
+                    <h3>Compliance</h3>
+                    <ul>
+                        <li>Inventář AI systémů + klasifikace rizik</li>
+                        <li>Prověřit 2 červené vlajky (bonita: Raynet/TNS/Domsys/Rancetta; nábor: Sloneek)</li>
+                        <li>Brána pro nové use-casy</li>
+                        <li>Zpětné compliance záznamy pro běžící piloty</li>
+                    </ul>
+                    <a class="service-link" href="/compliance-vetev">Detail v záložce Compliance →</a>
+                </div>
+            </div>
+
+            <!-- 4) NAVRSTVENÉ DETAILY (nepovinná hloubka v rozbalovacích sekcích) -->
+            <h3 class="rm-block-title">Detaily prvního milníku</h3>
+
+            <details class="rm-acc">
+                <summary>Hotové <span class="rm-acc-hint">důkaz, že smyčka funguje</span></summary>
+                <div class="rm-acc-body">
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-code">T9</span>
+                            <span class="rm-item-name">Vytěžení historických smluv → Raynet</span>
+                            <span class="rm-badge rm-badge--done">Hotovo</span>
+                        </div>
+                        <p>Roční výnos ~1,2 mil. Kč (3 byty ročně navíc × marže ~800 tis. × 50 % pravděpodobnost) + JEDNORÁZOVĚ ušetřený placený externí člověk z Raynetu. Investice 0. Skóre 600. Sloučeno s dřívějším T13.</p>
+                        <p class="rm-warn">⚠ Compliance: pracuje s RČ a osobními údaji → doplnit compliance záznam (GDPR + AI Act).</p>
+                    </div>
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-code">T11</span>
+                            <span class="rm-item-name">Aplikace pro onboarding</span>
+                            <span class="rm-badge rm-badge--done">Hotovo</span>
+                        </div>
+                        <p>Power Apps. ~40 tis. Kč/rok (~80 h).</p>
+                    </div>
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-code">T4</span>
+                            <span class="rm-item-name">CuCa – vytěžit faktury → Raynet</span>
+                            <span class="rm-badge rm-badge--win">Do 16. 7.</span>
+                        </div>
+                        <p>Dokončí se do 16. 7. (~600 faktur).</p>
+                        <p class="rm-warn">⚠ Pracuje s RČ.</p>
+                    </div>
+                </div>
+            </details>
+
+            <details class="rm-acc">
+                <summary>Nová kapacita od 16. 7. <span class="rm-acc-hint">sem jdou 2 lidé</span></summary>
+                <div class="rm-acc-body">
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-code">T16</span>
+                            <span class="rm-item-name">Personalizovaný e-mail a nabídka z hovoru</span>
+                            <span class="rm-badge rm-badge--flag">Vlajka</span>
+                        </div>
+                        <p>Z přepisu hovoru AI navrhne e-mail i nabídku. ~30 obchodníků. Benefit ~960 tis. Kč/rok (konzervativně ~480 tis.), investice 30 tis., složitost 2, skóre 480 — nejvyšší z nových.</p>
+                        <p>Fáze 1 (červen): e-mailové šablony. Fáze 2 (červenec): nabídka „na 2 kliky". Realizace: AI tým (Martina, Kuba). Rychlá dráha.</p>
+                    </div>
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-code">P6</span>
+                            <span class="rm-item-name">Chytřejší práce s tabulkami</span>
+                            <span class="rm-badge rm-badge--win">Technický quick-win</span>
+                        </div>
+                        <p>Skript spojí exporty z Pohody, Copilot v Excelu kategorizuje. Finance (Dvořák — dnes 12 h/týden na uzávěrkách). 280 tis. Kč/rok, investice 25 tis., návratnost ~1 měsíc, skóre 140 — nejlepší tvrdá ROI.</p>
+                    </div>
+                </div>
+            </details>
+
+            <details class="rm-acc">
+                <summary>Další vlna <span class="rm-acc-hint">připravit, ne stavět teď</span></summary>
+                <div class="rm-acc-body">
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-code">T10</span>
+                            <span class="rm-item-name">Agent pro reporting z Raynetu</span>
+                        </div>
+                        <p>Potenciál ~800 tis. Kč/rok, ale chybí podklady → dopracovat zadání jako první kandidát další vlny.</p>
+                    </div>
+                </div>
+            </details>
+
+            <details class="rm-acc">
+                <summary>Nechat běžet <span class="rm-acc-hint">nízké riziko, veřejná data</span></summary>
+                <div class="rm-acc-body">
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-code">T14 + T15</span>
+                            <span class="rm-item-name">Ceny dle konkurence (nájemné / pokoje)</span>
+                        </div>
+                        <p>~145 tis. Kč/rok dohromady, nízké riziko (veřejná data).</p>
+                    </div>
+                </div>
+            </details>
+
+            <details class="rm-acc">
+                <summary>Enablement <span class="rm-acc-hint">patří do Vzdělávací větve, ne do produkční kapacity</span></summary>
+                <div class="rm-acc-body">
+                    <div class="rm-item">
+                        <p>Rychlejší e-maily (400 tis.), Přehled z Teams (175 tis.), Z porady rovnou úkoly (90 tis.) = zapnout Copilot + zaškolit pilotní tým.</p>
+                        <p>Není to stavba, je to změna návyků.</p>
+                    </div>
+                </div>
+            </details>
+
+            <details class="rm-acc">
+                <summary>Vědomě odkládáme <span class="rm-acc-hint">na 2–3 roky, M3</span></summary>
+                <div class="rm-acc-body">
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-name">Mega-build „nový obchodní systém"</span>
+                        </div>
+                        <p>Akvizice → Raynet → katastr → cash flow → jeden zdroj dat, ~1,7 mil. Kč. Teď max připravit společný business case.</p>
+                    </div>
+                </div>
+            </details>
+
+            <details class="rm-acc">
+                <summary>Compliance stop-list <span class="rm-acc-hint">souběžně, nutné</span></summary>
+                <div class="rm-acc-body">
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-code">T13 → T9</span>
+                            <span class="rm-item-name">Profilování dle pohlaví/věku + financování</span>
+                            <span class="rm-badge rm-badge--warn">Právní posouzení</span>
+                        </div>
+                        <p>Sloučeno do T9: blízko bonitě → povinně právní posouzení.</p>
+                    </div>
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-code">T9, T4</span>
+                            <span class="rm-item-name">Zpracování RČ, běží bez záznamu</span>
+                            <span class="rm-badge rm-badge--warn">Doplnit záznam</span>
+                        </div>
+                        <p>Doplnit compliance záznam zpětně.</p>
+                    </div>
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-name">Termíny AI Actu</span>
+                        </div>
+                        <p>Gramotnost (čl. 4) platí od 2/2025 · transparentnost 8/2026 · vysoce rizikové oblasti 12/2027.</p>
+                    </div>
+                </div>
+            </details>
+
+            <details class="rm-acc">
+                <summary>Metodika <span class="rm-acc-hint">jak počítáme skóre a dráhu</span></summary>
+                <div class="rm-acc-body">
+                    <div class="rm-method">
+                        <strong>Skóre</strong> = benefit/rok (v tis. Kč) ÷ složitost (1–5).<br>
+                        <strong>Dráha:</strong> rychlá = investice ≤ 50 tis. a složitost ≤ 2; jinak standardní (přes Evolution).<br>
+                        Benefity jsou odhady stejnou metodou (500 Kč/h, 50 týdnů, realistická adopce).
+                    </div>
+                </div>
+            </details>
+
         </div>
     </section>
 
