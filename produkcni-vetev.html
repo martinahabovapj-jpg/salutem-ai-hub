@@ -848,6 +848,711 @@
         .legend-color.l2 { background: #3B82F6; }
         .legend-color.l1 { background: #10B981; }
         .legend-color.l0 { background: #6B7280; }
+
+        /* ===== Detailni modaly use-casu (preneseno z homepage) ===== */
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 20px;
+            max-width: 1200px;
+            width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .modal-header {
+            background: var(--blue);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 20px 20px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-header p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-table th,
+        .modal-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .modal-table th {
+            background: var(--gray-50);
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .modal-table tr:hover {
+            background: var(--gray-50);
+        }
+
+        .modal-table tr.clickable {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-table tr.clickable:hover {
+            background: var(--gray-100);
+            transform: translateX(4px);
+        }
+
+        .modal-table tr.clickable td:first-child {
+            color: var(--blue);
+            font-weight: 500;
+        }
+
+        .modal-table tr.clickable td:first-child::after {
+            content: ' →';
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .modal-table tr.clickable:hover td:first-child::after {
+            opacity: 1;
+        }
+
+        .modal-section {
+            margin-bottom: 2rem;
+        }
+
+        .modal-section h3 {
+            font-size: 1.1rem;
+            color: var(--blue);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--orange);
+        }
+
+        .modal-card {
+            background: var(--gray-50);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-card h4 {
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-card p {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .tag-l3 { background: #FEF3C7; color: #92400E; }
+        .tag-l2 { background: #DBEAFE; color: #1E40AF; }
+        .tag-l1 { background: #E0E7FF; color: #3730A3; }
+        .tag-l0 { background: #F3F4F6; color: #374151; }
+
+        /* Project Detail Modal Styles */
+        .modal-content {
+            max-width: 1200px;
+        }
+
+        .modal-body {
+            padding: 2.5rem 3rem;
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .detail-level {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .detail-level.l3 { background: rgba(255,255,255,0.25); }
+        .detail-level.l2 { background: rgba(255,255,255,0.25); }
+        .detail-level.l1 { background: rgba(255,255,255,0.25); }
+        .detail-level.l0 { background: rgba(255,255,255,0.25); }
+
+        .detail-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--gray-200);
+        }
+
+        .detail-stat {
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .detail-stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--blue);
+            line-height: 1.2;
+        }
+
+        .detail-stat-value.highlight {
+            color: var(--orange);
+        }
+
+        .detail-stat-label {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 700px) {
+            .detail-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .modal-body {
+                padding: 1.5rem;
+            }
+        }
+
+        .modal-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .modal-section h3 {
+            font-size: 1.15rem;
+            color: var(--blue);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--orange);
+        }
+
+        .system-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+            border-radius: 12px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .system-tags::before {
+            content: 'Systémy a nástroje:';
+            display: block;
+            width: 100%;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-500);
+            margin-bottom: 0.5rem;
+        }
+
+        .system-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: white;
+            color: var(--gray-700);
+            border: 2px solid var(--gray-300);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .system-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .system-tag.primary {
+            background: linear-gradient(135deg, var(--blue) 0%, #2563EB 100%);
+            color: white;
+            border-color: var(--blue);
+            box-shadow: 0 2px 8px rgba(13, 53, 121, 0.3);
+        }
+
+        .system-tag.raynet {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            border-color: #10B981;
+        }
+
+        .system-tag.excel {
+            background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+            color: white;
+            border-color: #22C55E;
+        }
+
+        .system-tag.teams {
+            background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+            color: white;
+            border-color: #6366F1;
+        }
+
+        .system-tag.outlook {
+            background: linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%);
+            color: white;
+            border-color: #0EA5E9;
+        }
+
+        .system-tag.sharepoint {
+            background: linear-gradient(135deg, #14B8A6 0%, #0D9488 100%);
+            color: white;
+            border-color: #14B8A6;
+        }
+
+        .system-tag.tns {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+            border-color: #F59E0B;
+        }
+
+        .system-tag.pohoda {
+            background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+            color: white;
+            border-color: #8B5CF6;
+        }
+
+        .system-tag.domsys {
+            background: linear-gradient(135deg, #EC4899 0%, #DB2777 100%);
+            color: white;
+            border-color: #EC4899;
+        }
+
+        .system-tag.katastr {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+            border-color: #EF4444;
+        }
+
+        .pain-quote {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border-left: 5px solid var(--orange);
+            padding: 1.75rem 2rem;
+            border-radius: 0 16px 16px 0;
+            margin-bottom: 1.25rem;
+            font-style: italic;
+            color: var(--gray-800);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .pain-quote .source {
+            display: block;
+            margin-top: 1rem;
+            font-style: normal;
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .pain-quotes-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .pain-quote-mini {
+            background: var(--gray-50);
+            border-left: 3px solid var(--gray-300);
+            padding: 1rem 1.25rem;
+            border-radius: 0 10px 10px 0;
+            font-size: 0.95rem;
+            color: var(--gray-700);
+        }
+
+        .pain-quote-mini .source {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            margin-top: 0.5rem;
+            display: block;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 700px) {
+            .impact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .impact-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .impact-card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-card-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        .impact-card-label {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        /* Process Flow Visualization */
+        .process-flow {
+            background: #FAFBFC;
+            border-radius: 20px;
+            padding: 2rem 2.5rem 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--gray-200);
+        }
+
+        .process-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--gray-600);
+            margin-bottom: 1.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .process-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .process-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .process-box {
+            background: white;
+            border: 2px solid var(--gray-300);
+            border-radius: 14px;
+            padding: 1rem 1.25rem;
+            min-width: 120px;
+            max-width: 160px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .process-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        }
+
+        .process-box.pain {
+            border-color: #EF4444;
+            background: linear-gradient(135deg, #FEF2F2 0%, #FECACA 100%);
+        }
+
+        .process-box.manual {
+            border-color: var(--orange);
+            background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
+        }
+
+        .process-box .time-badge {
+            display: block;
+            margin-top: 0.75rem;
+            background: #EF4444;
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 12px;
+            border-radius: 12px;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .process-arrow {
+            color: var(--gray-400);
+            font-size: 1.25rem;
+            margin-top: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .process-divider {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .process-divider::before,
+        .process-divider::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--success), transparent);
+        }
+
+        .process-divider span {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35);
+        }
+
+        .process-box.solution {
+            border-color: var(--success);
+            background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+            border-width: 2px;
+        }
+
+        .process-box.ai {
+            border-color: var(--blue);
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            border-width: 2px;
+        }
+
+        .process-box .ai-badge {
+            display: block;
+            margin-top: 0.75rem;
+            background: var(--success);
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 12px;
+            border-radius: 12px;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .result-highlight {
+            background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+            border: 2px solid var(--success);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .result-highlight .value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        .result-highlight .label {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            margin-top: 0.5rem;
+        }
+
+        .stakeholder-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .stakeholder-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+
+        .stakeholder-badge .dept {
+            font-size: 0.7rem;
+            color: var(--gray-500);
+        }
+        .usecase-card { cursor: pointer; }
+
+
+        /* ===== Sekce 'Nas pristup' v modalech ===== */
+        .approach-section {
+            background: linear-gradient(135deg, #1E3A5F 0%, #0D3579 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .approach-section h3 {
+            color: white;
+            border-bottom-color: var(--orange);
+            margin-bottom: 1.5rem;
+        }
+
+        .approach-section p {
+            color: rgba(255,255,255,0.9);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .approach-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .approach-highlight {
+            background: rgba(255,255,255,0.1);
+            border-left: 4px solid var(--orange);
+            padding: 1rem 1.5rem;
+            border-radius: 0 10px 10px 0;
+            margin: 1.5rem 0;
+        }
+
+        .approach-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .approach-compare {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .approach-box {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+        .approach-box.old {
+            border: 2px solid rgba(239, 68, 68, 0.5);
+        }
+
+        .approach-box.new {
+            border: 2px solid var(--success);
+        }
+
+        .approach-box h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .approach-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .approach-box ul li {
+            padding: 0.25rem 0;
+            font-size: 0.95rem;
+        }
+
+        .approach-box.old ul li::before {
+            content: '- ';
+            color: #EF4444;
+        }
+
+        .approach-box.new ul li::before {
+            content: '+ ';
+            color: var(--success);
+        }
+
     </style>
 </head>
 <body>
@@ -1295,7 +2000,7 @@
             </div>
 
             <div class="usecase-grid">
-                <div class="usecase-card">
+                <div class="usecase-card" role="button" tabindex="0" onclick="openModal('modal-project-email')">
                     <span class="usecase-num">01</span>
                     <h3>Rychlejší práce s e-maily</h3>
                     <div class="usecase-meta">Osobní · všichni s Copilotem</div>
@@ -1306,7 +2011,7 @@
                     </div>
                 </div>
 
-                <div class="usecase-card">
+                <div class="usecase-card" role="button" tabindex="0" onclick="openModal('modal-project-teams')">
                     <span class="usecase-num">02</span>
                     <h3>Přehled z 20 Teams skupin</h3>
                     <div class="usecase-meta">Osobní · uživatelé Teams</div>
@@ -1317,7 +2022,7 @@
                     </div>
                 </div>
 
-                <div class="usecase-card">
+                <div class="usecase-card" role="button" tabindex="0" onclick="openModal('modal-project-voice')">
                     <span class="usecase-num">03</span>
                     <h3>Zadávej úkoly hlasem</h3>
                     <div class="usecase-meta">Osobní · Reality tým</div>
@@ -1328,7 +2033,7 @@
                     </div>
                 </div>
 
-                <div class="usecase-card">
+                <div class="usecase-card" role="button" tabindex="0" onclick="openModal('modal-project-zapisy')">
                     <span class="usecase-num">04</span>
                     <h3>Z porady rovnou úkoly</h3>
                     <div class="usecase-meta">Osobní · týmy s poradami</div>
@@ -1339,7 +2044,7 @@
                     </div>
                 </div>
 
-                <div class="usecase-card">
+                <div class="usecase-card" role="button" tabindex="0" onclick="openModal('modal-project-notebook')">
                     <span class="usecase-num">05</span>
                     <h3>Rychlejší analýza smluv</h3>
                     <div class="usecase-meta">Osobní · Právní + vedení</div>
@@ -1350,7 +2055,7 @@
                     </div>
                 </div>
 
-                <div class="usecase-card">
+                <div class="usecase-card" role="button" tabindex="0" onclick="openModal('modal-project-tabulky')">
                     <span class="usecase-num">06</span>
                     <h3>Chytřejší práce s tabulkami</h3>
                     <div class="usecase-meta">Osobní · finance, reporting</div>
@@ -1361,7 +2066,7 @@
                     </div>
                 </div>
 
-                <div class="usecase-card">
+                <div class="usecase-card" role="button" tabindex="0" onclick="openModal('modal-project-chobotnice')">
                     <span class="usecase-num">07</span>
                     <h3>Méně manuálního přepisování</h3>
                     <div class="usecase-meta">Týmová · Obchod</div>
@@ -1372,7 +2077,7 @@
                     </div>
                 </div>
 
-                <div class="usecase-card">
+                <div class="usecase-card" role="button" tabindex="0" onclick="openModal('modal-project-kickoff')">
                     <span class="usecase-num">08</span>
                     <h3>Z nákupu do prodeje rychleji</h3>
                     <div class="usecase-meta">Týmová · Reality + Obchod</div>
@@ -1383,7 +2088,7 @@
                     </div>
                 </div>
 
-                <div class="usecase-card">
+                <div class="usecase-card" role="button" tabindex="0" onclick="openModal('modal-project-katastr')">
                     <span class="usecase-num">09</span>
                     <h3>Upozornění na změny v katastru</h3>
                     <div class="usecase-meta">Strategická · Back office + Finance</div>
@@ -1394,7 +2099,7 @@
                     </div>
                 </div>
 
-                <div class="usecase-card">
+                <div class="usecase-card" role="button" tabindex="0" onclick="openModal('modal-project-cashflow')">
                     <span class="usecase-num">10</span>
                     <h3>Predikce cash flow</h3>
                     <div class="usecase-meta">Strategická · Finance</div>
@@ -1405,7 +2110,7 @@
                     </div>
                 </div>
 
-                <div class="usecase-card">
+                <div class="usecase-card" role="button" tabindex="0" onclick="openModal('modal-project-sharepoint')">
                     <span class="usecase-num">11</span>
                     <h3>Jeden zdroj pravdy dat</h3>
                     <div class="usecase-meta">Datová základna · IT + celá firma</div>
@@ -1416,7 +2121,7 @@
                     </div>
                 </div>
 
-                <div class="usecase-card">
+                <div class="usecase-card" role="button" tabindex="0" onclick="openModal('modal-project-kvalita')">
                     <span class="usecase-num">12</span>
                     <h3>Jeden report místo čtyř</h3>
                     <div class="usecase-meta">Datová základna · AM, Obchod, Finance, Provoz</div>
@@ -1761,6 +2466,2027 @@
         <p>© 2026 Salutem Group. Interní dokument.</p>
     </footer>
 
+
+    <!-- ===== Detailni modaly use-casu (preneseno z homepage) ===== -->
+    <div class="modal" id="modal-project-email">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%);">
+                <div class="detail-header">
+                    <div>
+                        <h2>Rychlejší práce s emaily</h2>
+                        <p>Copilot Email Triage – automatické třídění a prioritizace komunikace</p>
+                    </div>
+                    <span class="detail-level l3">Osobní úroveň</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-project-email')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-stats">
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">0 Kč</div>
+                        <div class="detail-stat-label">Investice</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value highlight">400 tis.</div>
+                        <div class="detail-stat-label">Benefit/rok</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">okamžitá</div>
+                        <div class="detail-stat-label">Návratnost</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">10+</div>
+                        <div class="detail-stat-label">Lidí se to týká</div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Pain Point – co říkají kolegové</h3>
+                    <div class="pain-quote">
+                        „Dostávám 100–150 emailů denně. Trávím 2–3 hodiny jen tím, že je procházím a hledám, co je důležité. Nemám čas na to, co opravdu potřebuju dělat."
+                        <span class="source">— Varga (Obchod)</span>
+                    </div>
+                    <div class="pain-quotes-grid">
+                        <div class="pain-quote-mini">
+                            „Než se proklikám ke všemu důležitému, je půl dne pryč. A to ještě nemluvím o Teams a Signalu."
+                            <span class="source">— Kleban (Vedení)</span>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „Bojím se, že něco přehlédnu. Takže čtu všechno – i to, co vůbec nemusím."
+                            <span class="source">— Smyčka (Reality)</span>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „50% času stráveného psaním rutinních e-mailů a dohledáváním vzorů v odeslané poště."
+                            <span class="source">— Kosová (Finance), UC-008</span>
+                        </div>
+                    </div>
+                    <div class="system-tags">
+                        <span class="system-tag primary">Outlook</span>
+                        <span class="system-tag outlook">Microsoft 365</span>
+                        <span class="system-tag primary">Copilot</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Koho se to týká</h3>
+                    <div class="impact-grid">
+                        <div class="impact-card">
+                            <div class="impact-card-icon"></div>
+                            <div class="impact-card-value">10+ lidí</div>
+                            <div class="impact-card-label">denně přetížených</div>
+                        </div>
+                        <div class="impact-card">
+                            <div class="impact-card-icon">⏱️</div>
+                            <div class="impact-card-value">30–40 h</div>
+                            <div class="impact-card-label">denně celkem</div>
+                        </div>
+                        <div class="impact-card">
+                            <div class="impact-card-icon"></div>
+                            <div class="impact-card-value">5 oddělení</div>
+                            <div class="impact-card-label">Obchod, Reality, Finance, Právní, Vedení</div>
+                        </div>
+                    </div>
+                    <div class="stakeholder-list">
+                        <span class="stakeholder-badge">Varga <span class="dept">Obchod</span></span>
+                        <span class="stakeholder-badge">Petřek <span class="dept">Reality</span></span>
+                        <span class="stakeholder-badge">Smyčka <span class="dept">Reality</span></span>
+                        <span class="stakeholder-badge">Kleban <span class="dept">Vedení</span></span>
+                        <span class="stakeholder-badge">Jurča <span class="dept">Obchod</span></span>
+                        <span class="stakeholder-badge">Kopejtko <span class="dept">Právní</span></span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Procesní náčrt: Jak to funguje dnes → Jak to bude</h3>
+                    <div class="process-flow">
+                        <div class="process-label">DNES – manuální procházení</div>
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box manual">
+100+ emailů
+                                    <span class="time-badge">příchozí/den</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Ruční čtení
+                                    <span class="time-badge">2–3 hodiny</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Hledání priorit
+                                    <span class="time-badge">v hlavě</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Odpovídání
+                                    <span class="time-badge">od nuly</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="process-divider">
+                            <span>S AI ŘEŠENÍM</span>
+                        </div>
+
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+100+ emailů
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box ai">
+Copilot třídí
+                                    <span class="ai-badge">automaticky</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+10 prioritních
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+Návrhy odpovědí
+                                    <span class="ai-badge">30 min</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-highlight">
+                            <div class="value">−1 hodina denně / člověk</div>
+                            <div class="label">Úspora času = 400 tis. Kč ročně (realisticky)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Business Case</h3>
+                    <table class="modal-table">
+                        <tr><td><strong>Investice</strong></td><td><strong>0 Kč</strong></td></tr>
+                        <tr><td><strong>Licence</strong></td><td>Už máme – Copilot M365</td></tr>
+                        <tr><td><strong>Čas ušetřený</strong></td><td>1h/den × 10 lidí = 10h/den</td></tr>
+                        <tr><td><strong>Roční benefit</strong></td><td>10h × 220 dní × 500 Kč/h × 35% adopce = <strong>400 tis. Kč</strong></td></tr>
+                        <tr><td><strong>Návratnost</strong></td><td><strong>okamžitá</strong></td></tr>
+                    </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: var(--gray-100); border-radius: 8px;">
+                        <strong>Proč 0 Kč investice:</strong>
+                        <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--gray-600);">
+                            <li>Copilot licence již máme v rámci M365</li>
+                            <li>Školení a rollout řešíme interně (AI tým na HPP)</li>
+                            <li>Dokumentace a best practices vytvoříme sami</li>
+                            <li>Žádné externí náklady</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Teams Digest -->
+    <div class="modal" id="modal-project-teams">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%);">
+                <div class="detail-header">
+                    <div>
+                        <h2>Přehled z 20 Teams skupin</h2>
+                        <p>Communication Digest – AI shrnutí důležitého z Teams kanálů</p>
+                    </div>
+                    <span class="detail-level l3">Osobní úroveň</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-project-teams')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-stats">
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">0 Kč</div>
+                        <div class="detail-stat-label">Investice</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value highlight">175 tis.</div>
+                        <div class="detail-stat-label">Benefit/rok</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">okamžitá</div>
+                        <div class="detail-stat-label">Návratnost</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">5+</div>
+                        <div class="detail-stat-label">Lidí se to týká</div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Pain Point – co říkají kolegové</h3>
+                    <div class="pain-quote">
+                        „Mám 20 skupin na Teams. Každé ráno 45 minut proklikávám kanály, abych viděl, co se včera dělo. Polovina je šum, ale bojím se něco přehlédnout."
+                        <span class="source">— Kleban (Vedení)</span>
+                    </div>
+                    <div class="pain-quotes-grid">
+                        <div class="pain-quote-mini">
+                            „Potřebuju digest – zkrácené shrnutí nejdůležitějších zpráv. Agent by dokázal rozpoznat urgence od pana Tona."
+                            <span class="source">— Petřek (Reality Morava), UC-033</span>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „Vytahovat úkoly z 20 kanálů a rozsáhlých zápisů z porad mi zabere víc času než samotná práce."
+                            <span class="source">— Šustr (Fond), UC-056</span>
+                        </div>
+                    </div>
+                    <div class="system-tags">
+                        <span class="system-tag primary">Microsoft Teams</span>
+                        <span class="system-tag primary">Copilot</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Koho se to týká</h3>
+                    <div class="impact-grid">
+                        <div class="impact-card">
+                            <div class="impact-card-icon"></div>
+                            <div class="impact-card-value">5+ lidí</div>
+                            <div class="impact-card-label">ve vedoucích rolích</div>
+                        </div>
+                        <div class="impact-card">
+                            <div class="impact-card-icon">⏱️</div>
+                            <div class="impact-card-value">10 h</div>
+                            <div class="impact-card-label">denně celkem</div>
+                        </div>
+                        <div class="impact-card">
+                            <div class="impact-card-icon"></div>
+                            <div class="impact-card-value">20+</div>
+                            <div class="impact-card-label">Teams kanálů</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Procesní náčrt: Jak to funguje dnes → Jak to bude</h3>
+                    <div class="process-flow">
+                        <div class="process-label">DNES – manuální proklikávání</div>
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box manual">
+20 kanálů
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Klik, klik, klik...
+                                    <span class="time-badge">45 min</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+                                    🤔 Co bylo důležité?
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Strach z přehlédnutí
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="process-divider">
+                            <span>S AI ŘEŠENÍM</span>
+                        </div>
+
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+20 kanálů
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box ai">
+Copilot čte
+                                    <span class="ai-badge">za vás</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+Ranní digest
+                                    <span class="ai-badge">5 min čtení</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+Nic nepřehlédnete
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-highlight">
+                            <div class="value">−20 minut denně / člověk</div>
+                            <div class="label">Úspora času = 175 tis. Kč ročně (realisticky)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Business Case</h3>
+                    <table class="modal-table">
+                        <tr><td><strong>Investice</strong></td><td><strong>0 Kč</strong></td></tr>
+                        <tr><td><strong>Licence</strong></td><td>Copilot M365 – už máme</td></tr>
+                        <tr><td><strong>Čas ušetřený</strong></td><td>20 min/den × 5 lidí × 50% adopce = 0,8h/den</td></tr>
+                        <tr><td><strong>Roční benefit</strong></td><td>0,8h × 220 dní × 500 Kč × 2 = <strong>175 tis. Kč</strong></td></tr>
+                        <tr><td><strong>Návratnost</strong></td><td><strong>okamžitá</strong></td></tr>
+                    </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: var(--gray-100); border-radius: 8px;">
+                        <strong>Proč 0 Kč investice:</strong>
+                        <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--gray-600);">
+                            <li>Copilot licence v Teams již součástí M365</li>
+                            <li>Konfigurace = pár kliknutí v admin centru</li>
+                            <li>Školení a dokumentace interně (AI tým)</li>
+                            <li>Žádné externí náklady</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Voice-to-Task -->
+    <div class="modal" id="modal-project-voice">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%);">
+                <div class="detail-header">
+                    <div>
+                        <h2>Zadávej úkoly hlasem</h2>
+                        <p>Voice-to-Task – využití času v autě pro produktivitu</p>
+                    </div>
+                    <span class="detail-level l3">Osobní úroveň</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-project-voice')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-stats">
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">40 tis.</div>
+                        <div class="detail-stat-label">Investice</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value highlight">120 tis.</div>
+                        <div class="detail-stat-label">Benefit/rok</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">4 měsíce</div>
+                        <div class="detail-stat-label">Návratnost</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">5</div>
+                        <div class="detail-stat-label">Makléřů v terénu</div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Pain Point – co říkají kolegové</h3>
+                    <div class="pain-quote">
+                        „Denně najezdím 3 hodiny autem. Mám v hlavě spoustu úkolů z prohlídek, ale než dojedu do kanceláře, polovinu zapomenu. Psát si za jízdy nemůžu."
+                        <span class="source">— Petřek (Reality Morava)</span>
+                    </div>
+                    <div class="pain-quotes-grid">
+                        <div class="pain-quote-mini">
+                            „Potřebuju hlasový asistent, který by mi do uší předčítal shrnutí nových e-mailů, zatímco bych mohl hlasem diktovat zápisy z prohlídek."
+                            <span class="source">— UC-032 (Reality Morava)</span>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „Nevyužitý čas v autě u makléřů a projektových manažerů, kteří potřebují hlasově zadávat úkoly a zápisy z prohlídek."
+                            <span class="source">— Pyramida Pain Pointů (L3)</span>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „Implementace pokročilého hlasového asistenta, který by umožnil diktovat denní reporty nebo zadávat úkoly přímo během jízdy."
+                            <span class="source">— Vondráček (Reality Čechy), UC-041</span>
+                        </div>
+                    </div>
+                    <div class="system-tags">
+                        <span class="system-tag primary">Copilot Voice</span>
+                        <span class="system-tag teams">Teams</span>
+                        <span class="system-tag freelo" style="background: linear-gradient(135deg, #2dd4bf, #14b8a6); color: white;">Freelo</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Koho se to týká</h3>
+                    <div class="stakeholder-list">
+                        <span class="stakeholder-badge">Petřek <span class="dept">Reality Morava</span></span>
+                        <span class="stakeholder-badge">Vondráček <span class="dept">Reality Čechy</span></span>
+                        <span class="stakeholder-badge">Smyčka <span class="dept">Reality</span></span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Procesní náčrt: Jak to funguje dnes → Jak to bude</h3>
+                    <div class="process-flow">
+                        <div class="process-label">DNES – ztracený čas</div>
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+Prohlídka
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box manual">
+3h v autě
+                                    <span class="time-badge">mrtvý čas</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Kancelář
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+„Co jsem měl zapsat?"
+                                    <span class="time-badge">zapomenuté úkoly</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="process-divider">
+                            <span>S AI ŘEŠENÍM</span>
+                        </div>
+
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+Prohlídka
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box ai">
+Diktuji
+                                    <span class="ai-badge">za jízdy</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box ai">
+AI přepisuje
+                                    <span class="ai-badge">realtime</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+Úkoly ve Freelu
+                                    <span class="ai-badge">automaticky</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-highlight">
+                            <div class="value">+30 min produktivní práce denně</div>
+                            <div class="label">Využití času v autě = 120 tis. Kč ročně (realisticky)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Business Case</h3>
+                    <table class="modal-table">
+                        <tr><td><strong>Investice</strong></td><td><strong>40 tis. Kč</strong></td></tr>
+                        <tr><td><strong>Licence</strong></td><td>Copilot Voice – v rámci M365</td></tr>
+                        <tr><td><strong>Čas ušetřený</strong></td><td>30 min/den × 4 makléři × 30% adopce</td></tr>
+                        <tr><td><strong>Roční benefit</strong></td><td>0,6h × 220 dní × 500 Kč × 1,8 = <strong>120 tis. Kč</strong></td></tr>
+                        <tr><td><strong>Návratnost</strong></td><td><strong>~4 měsíce</strong></td></tr>
+                    </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: var(--gray-100); border-radius: 8px;">
+                        <strong>Co je v investici 40 tis.:</strong>
+                        <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--gray-600);">
+                            <li>Power Automate workflow (hlas → přepis → úkol do TNS): ~25 tis.</li>
+                            <li>Nastavení propojení s TNS: ~15 tis.</li>
+                            <li>Školení řešíme interně (0 Kč)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Zápisy z porad -->
+    <div class="modal" id="modal-project-zapisy">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%);">
+                <div class="detail-header">
+                    <div>
+                        <h2>Z porady rovnou úkoly</h2>
+                        <p>Copilot Meeting Notes – automatické zápisy a action items</p>
+                    </div>
+                    <span class="detail-level l3">Osobní úroveň</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-project-zapisy')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-stats">
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">0 Kč</div>
+                        <div class="detail-stat-label">Investice</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value highlight">90 tis.</div>
+                        <div class="detail-stat-label">Benefit/rok</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">okamžitá</div>
+                        <div class="detail-stat-label">Návratnost</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">5+</div>
+                        <div class="detail-stat-label">Týmů s poradami</div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Pain Point</h3>
+                    <div class="pain-quote">
+                        „Po každé poradě 30 minut píšu zápis. A stejně se pak lidi hádají, co kdo řekl. Úkoly se ztrácejí."
+                        <span class="source">— Z rozhovorů: Petřek, Smyčka, Němeček (P-083, P-082)</span>
+                    </div>
+                    <div class="system-tags">
+                        <span class="system-tag primary">Microsoft Teams</span>
+                        <span class="system-tag primary">Copilot</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Procesní náčrt</h3>
+                    <div class="process-flow">
+                        <div class="process-label">DNES</div>
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+Porada
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Ruční zápis
+                                    <span class="time-badge">30 min</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+„Kdo má co udělat?"
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="process-divider">
+                            <span>S AI ŘEŠENÍM</span>
+                        </div>
+
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+Porada
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box ai">
+Copilot nahrává
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+Zápis + úkoly
+                                    <span class="ai-badge">30 vteřin</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-highlight">
+                            <div class="value">−20 min po každé poradě</div>
+                            <div class="label">2h/týden × 50 týdnů × 500 Kč × 35% adopce = 90 tis. Kč (realisticky)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Business Case</h3>
+                    <table class="modal-table">
+                        <tr><td><strong>Investice</strong></td><td><strong>0 Kč</strong></td></tr>
+                        <tr><td><strong>Licence</strong></td><td>Copilot Meeting Notes – v rámci M365</td></tr>
+                        <tr><td><strong>Čas ušetřený</strong></td><td>20 min/porada × 5 týmů × 2 porady/týden</td></tr>
+                        <tr><td><strong>Roční benefit</strong></td><td>2h × 50 týdnů × 500 Kč × 35% = <strong>90 tis. Kč</strong></td></tr>
+                        <tr><td><strong>Návratnost</strong></td><td><strong>okamžitá</strong></td></tr>
+                    </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: var(--gray-100); border-radius: 8px;">
+                        <strong>Proč 0 Kč investice:</strong>
+                        <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--gray-600);">
+                            <li>Copilot Meeting Notes je součástí M365 licence</li>
+                            <li>Stačí zapnout v nastavení Teams meetingu</li>
+                            <li>Školení a dokumentace interně (AI tým)</li>
+                            <li>Žádný external, žádný vývoj</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: NotebookLM -->
+    <div class="modal" id="modal-project-notebook">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%);">
+                <div class="detail-header">
+                    <div>
+                        <h2>Rychlejší analýza smluv</h2>
+                        <p>NotebookLM – AI asistent pro analýzu právních dokumentů</p>
+                    </div>
+                    <span class="detail-level l3">Osobní úroveň</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-project-notebook')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-stats">
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">5 tis.</div>
+                        <div class="detail-stat-label">Investice</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value highlight">110 tis.</div>
+                        <div class="detail-stat-label">Benefit/rok</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">&lt;1 měsíc</div>
+                        <div class="detail-stat-label">Návratnost</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">3</div>
+                        <div class="detail-stat-label">Právníci + vedení</div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Pain Point – co říkají kolegové</h3>
+                    <div class="pain-quote">
+                        „Úvěrová smlouva má 50 stran. Musím ji celou přečíst, než najdu, jaké jsou sankce za předčasné splacení. Trvá to hodiny."
+                        <span class="source">— Kopejtko (Právní)</span>
+                    </div>
+                    <div class="pain-quotes-grid">
+                        <div class="pain-quote-mini">
+                            „Do systému se nahraje smlouva a já se jí mohu přímo ptát na specifické klauzule, rizika nebo termíny."
+                            <span class="source">— UC-031 (Právní)</span>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „Manuální čtení 50stránkových úvěrových smluv a rozsudků bez možnosti rychlého dotazování nad textem."
+                            <span class="source">— Pyramida Pain Pointů (L3)</span>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „Mám hlavu na špalku. Potřebuju nástroj, který mi řekne, na co si dát pozor."
+                            <span class="source">— Svatošová (Právní)</span>
+                        </div>
+                    </div>
+                    <div class="system-tags">
+                        <span class="system-tag primary">NotebookLM</span>
+                        <span class="system-tag primary">PDF dokumenty</span>
+                        <span class="system-tag outlook">Word</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Procesní náčrt</h3>
+                    <div class="process-flow">
+                        <div class="process-label">DNES</div>
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+50stránková smlouva
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Čtení celé
+                                    <span class="time-badge">2–3 hodiny</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Výpisky ručně
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="process-divider">
+                            <span>S AI ŘEŠENÍM</span>
+                        </div>
+
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+50stránková smlouva
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box ai">
+Upload do NotebookLM
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+„Jaká je sankce?"
+                                    <span class="ai-badge">odpověď za 5s</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-highlight">
+                            <div class="value">40% úspora času při studiu dokumentů</div>
+                            <div class="label">5h/týden × 50 týdnů × 500 Kč × 3 lidé × 30% adopce = 110 tis. Kč (realisticky)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Business Case</h3>
+                    <table class="modal-table">
+                        <tr><td><strong>Investice</strong></td><td><strong>5 tis. Kč</strong></td></tr>
+                        <tr><td><strong>Licence</strong></td><td>NotebookLM (Google) – zdarma / basic tier</td></tr>
+                        <tr><td><strong>Čas ušetřený</strong></td><td>~40% času na analýzu smluv</td></tr>
+                        <tr><td><strong>Roční benefit</strong></td><td>5h × 50 × 500 × 3 × 30% = <strong>110 tis. Kč</strong></td></tr>
+                        <tr><td><strong>Návratnost</strong></td><td><strong>&lt;1 měsíc</strong></td></tr>
+                    </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: var(--gray-100); border-radius: 8px;">
+                        <strong>Co je v investici 5 tis.:</strong>
+                        <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--gray-600);">
+                            <li>Případná premium verze NotebookLM (pokud bude potřeba)</li>
+                            <li>Nahrání a strukturování smluv do knowledge base</li>
+                            <li>Školení řešíme interně (0 Kč)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Chytřejší práce s tabulkami -->
+    <div class="modal" id="modal-project-tabulky">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, var(--orange-dark) 0%, var(--orange) 100%);">
+                <div class="detail-header">
+                    <div>
+                        <h2>Chytřejší práce s tabulkami</h2>
+                        <p>Měsíční uzávěrky, reporty, kategorizace – AI místo manuální práce</p>
+                    </div>
+                    <span class="detail-level l3">Osobní úroveň</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-project-tabulky')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-stats">
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">25 tis.</div>
+                        <div class="detail-stat-label">Investice</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value highlight">280 tis.</div>
+                        <div class="detail-stat-label">Roční benefit</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">1 měsíc</div>
+                        <div class="detail-stat-label">Návratnost</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">5+</div>
+                        <div class="detail-stat-label">Dotčených lidí</div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Pain Point</h3>
+                    <div class="pain-quote">
+                        „Interní uzávěrka – manuální práce. Export 120 souborů z Pohody, 15 000 řádků v Excelu, ruční přiřazování charakteristik. 12 hodin týdně."
+                        <div class="pain-quote-author">— Jan Dvořák, Analytik</div>
+                    </div>
+                    <div class="pain-quotes-grid">
+                        <div class="pain-quote-mini">
+                            „Kvartální bankovní reporting – hledám řádek po řádku nesrovnalosti mezi pohledávkami a reportem."
+                            <div class="pain-quote-author">— Kosová, Finance</div>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „Výkonnostní reporting – každý pátek vkládáme čísla za sebe do tabulky na SharePointu."
+                            <div class="pain-quote-author">— S-018</div>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „Inventura každý pátek – čerpám ze sdílené tabulky, z Raynetu, od marketingu."
+                            <div class="pain-quote-author">— S-017</div>
+                        </div>
+                    </div>
+                    <div class="system-tags">
+                        <span class="system-tag primary">Excel</span>
+                        <span class="system-tag pohoda">Pohoda</span>
+                        <span class="system-tag sharepoint">SharePoint</span>
+                        <span class="system-tag raynet">Raynet</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Kdo trpí nejvíc</h3>
+                    <div class="impact-grid">
+                        <div class="impact-card">
+                            <div class="impact-card-icon"></div>
+                            <div class="impact-card-value">12h/týden</div>
+                            <div class="impact-card-label">Dvořák – měsíční uzávěrky</div>
+                        </div>
+                        <div class="impact-card">
+                            <div class="impact-card-icon"></div>
+                            <div class="impact-card-value">8h/týden</div>
+                            <div class="impact-card-label">Kosová – bankovní reporting</div>
+                        </div>
+                        <div class="impact-card">
+                            <div class="impact-card-icon"></div>
+                            <div class="impact-card-value">3h/týden</div>
+                            <div class="impact-card-label">Ostatní – výkonnostní reporty</div>
+                        </div>
+                    </div>
+                    <div class="stakeholder-list">
+                        <span class="stakeholder-badge">Dvořák <span class="dept">Finance</span></span>
+                        <span class="stakeholder-badge">Kosová <span class="dept">Finance</span></span>
+                        <span class="stakeholder-badge">S-017 <span class="dept">Obchod</span></span>
+                        <span class="stakeholder-badge">S-018 <span class="dept">Marketing</span></span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Procesní náčrt: Jak to funguje dnes → Jak to bude</h3>
+                    <div class="process-flow">
+                        <div class="process-label">DNES – manuální práce</div>
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+                                    Export z Pohody
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+                                    120 souborů spojit
+                                    <span class="time-badge">2h</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+                                    15 000 řádků kategorizovat
+                                    <span class="time-badge">8h</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+                                    Kontrola a validace
+                                    <span class="time-badge">2h</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="process-divider">
+                            <span>S AI ŘEŠENÍM</span>
+                        </div>
+
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+                                    Export z Pohody
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box ai">
+                                    Skript spojí soubory
+                                    <span class="ai-badge">automaticky</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box ai">
+                                    Copilot kategorizuje
+                                    <span class="ai-badge">AI VLOOKUP</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+                                    Kontrola hotová
+                                    <span class="ai-badge">2h místo 12h</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-highlight">
+                            <div class="value">50% úspora času na reportingu</div>
+                            <div class="label">12h/týden × 50 týdnů × 500 Kč × 2 lidé × 50% adopce = 280 tis. Kč (realisticky)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Business Case</h3>
+                    <table class="modal-table">
+                        <tr><td><strong>Investice</strong></td><td><strong>25 tis. Kč</strong></td></tr>
+                        <tr><td><strong>Licence</strong></td><td>Copilot v Excelu – v rámci M365</td></tr>
+                        <tr><td><strong>Čas ušetřený</strong></td><td>~6h/týden Dvořák + ~4h Kosová × 50% úspora</td></tr>
+                        <tr><td><strong>Roční benefit</strong></td><td>10h/týden × 50 × 500 Kč × 50% = <strong>280 tis. Kč</strong></td></tr>
+                        <tr><td><strong>Návratnost</strong></td><td><strong>~1 měsíc</strong></td></tr>
+                    </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: var(--gray-100); border-radius: 8px;">
+                        <strong>Co je v investici 25 tis.:</strong>
+                        <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--gray-600);">
+                            <li>VBA/Power Query skripty pro automatický import z Pohody: ~15 tis.</li>
+                            <li>Šablony reportů pro Copilot: ~10 tis.</li>
+                            <li>Školení řešíme interně (0 Kč)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Méně manuálního přepisování -->
+    <div class="modal" id="modal-project-chobotnice">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, #1E4A9A 0%, #3B82F6 100%);">
+                <div class="detail-header">
+                    <div>
+                        <h2>Méně manuálního přepisování</h2>
+                        <p>Automatizace datových toků Raynet ↔ Excel ↔ TNS</p>
+                    </div>
+                    <span class="detail-level l2">Týmová úroveň</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-project-chobotnice')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-stats">
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">200 tis.</div>
+                        <div class="detail-stat-label">Investice</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value highlight">175 tis.</div>
+                        <div class="detail-stat-label">Benefit/rok</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">~14 měsíců</div>
+                        <div class="detail-stat-label">Návratnost</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">10+</div>
+                        <div class="detail-stat-label">Obchodníků</div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Pain Point – co říkají kolegové</h3>
+                    <div class="pain-quote">
+                        „Každý obchod zapisuju 3×. Do Raynetu, do Excelu pro vedení, do TNS pro právní. Stává se mi, že někde zapomenu něco změnit a pak se to neshoduje."
+                        <span class="source">— Jurča (Obchod)</span>
+                    </div>
+                    <div class="pain-quotes-grid">
+                        <div class="pain-quote-mini">
+                            „Potřebujeme automatizovaný most, který z průběžných poznámek a stavů v Raynetu automaticky aktualizuje příslušná pole v Excelu."
+                            <span class="source">— Šiška (Obchod), UC-054</span>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „Potřebuju pipeline, která automaticky spáruje data z účetního exportu s ID klientů v hlavní tabulce."
+                            <span class="source">— Varga (Obchod), UC-047</span>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „Ruční přepisování dat z OP a LV do vzorových smluv pálí desítky hodin týdně a vede k chybám."
+                            <span class="source">— Pyramida Pain Pointů</span>
+                        </div>
+                    </div>
+                    <div class="system-tags">
+                        <span class="system-tag raynet">Raynet CRM</span>
+                        <span class="system-tag excel">Excel</span>
+                        <span class="system-tag tns">TNS</span>
+                        <span class="system-tag primary">Power Automate</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Koho se to týká</h3>
+                    <div class="impact-grid">
+                        <div class="impact-card">
+                            <div class="impact-card-icon"></div>
+                            <div class="impact-card-value">10+ lidí</div>
+                            <div class="impact-card-label">obchodní tým</div>
+                        </div>
+                        <div class="impact-card">
+                            <div class="impact-card-icon">⏱️</div>
+                            <div class="impact-card-value">80 h</div>
+                            <div class="impact-card-label">týdně celkem</div>
+                        </div>
+                        <div class="impact-card">
+                            <div class="impact-card-icon"></div>
+                            <div class="impact-card-value">MUST-WIN</div>
+                            <div class="impact-card-label">„Srdce byznysu"</div>
+                        </div>
+                    </div>
+                    <div class="stakeholder-list">
+                        <span class="stakeholder-badge">Jurča <span class="dept">Obchod</span></span>
+                        <span class="stakeholder-badge">Šiška <span class="dept">Obchod</span></span>
+                        <span class="stakeholder-badge">Varga <span class="dept">Obchod</span></span>
+                        <span class="stakeholder-badge">Sekanina <span class="dept">Obchod</span></span>
+                    </div>
+                </div>
+
+                <div class="approach-section">
+                    <h3>Náš přístup: Proč nestavíme další mosty</h3>
+                    <p>Klasické řešení by bylo: propojit Raynet s Excelem, Excel s TNS, přidat Power Automate. Ale to je jen další „most" – a mostů už máme dost.</p>
+                    
+                    <div class="approach-highlight">
+                        <strong>Náš přístup je jiný:</strong> Nebudeme synchronizovat staré systémy. Postavíme jeden nový systém, kde se vše děje na jednom místě. Nové obchody půjdou do nového systému. Staré zůstanou ve starém, dokud přirozeně neskončí.
+                    </div>
+
+                    <div class="approach-compare">
+                        <div class="approach-box old">
+                            <h4>Co NEBUDEME dělat</h4>
+                            <ul>
+                                <li>Propojovat Raynet ↔ Excel</li>
+                                <li>Stavět další integraci</li>
+                                <li>Přidávat další systém do chaosu</li>
+                                <li>„Vylepšovat" to, co nefunguje</li>
+                            </ul>
+                        </div>
+                        <div class="approach-box new">
+                            <h4>Co BUDEME dělat</h4>
+                            <ul>
+                                <li>Jeden systém pro celý obchod</li>
+                                <li>Nové akvizice = nový proces</li>
+                                <li>AI-native od začátku</li>
+                                <li>Starý svět necháme dožít</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Procesní náčrt: Starý svět → Nový svět</h3>
+                    <div class="process-flow">
+                        <div class="process-label">STARÝ SVĚT – ruční přepisování</div>
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+Nový obchod
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Raynet
+                                    <span class="time-badge">ruční zápis</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Excel
+                                    <span class="time-badge">copy-paste</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+TNS
+                                    <span class="time-badge">znovu psát</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: center; color: var(--error); font-weight: 600; margin: 1rem 0;">
+3 systémy, 3× stejná data, nesrovnalosti, chaos
+                        </div>
+
+                        <div class="process-divider">
+                            <span>NOVÝ SVĚT</span>
+                        </div>
+
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+Nový obchod
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box ai" style="min-width: 180px;">
+Jeden systém
+                                    <span class="ai-badge">vše na jednom místě</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+Hotovo
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-highlight">
+                            <div class="value">Žádné přepisování, žádné mosty</div>
+                            <div class="label">Realisticky: 175 tis. Kč/rok (2h/týden × 5 lidí × 50 týdnů × 500 Kč × 35%)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Jak to uděláme</h3>
+                    <table class="modal-table">
+                        <tr><td><strong>Fáze 1</strong></td><td>Prototyp na 20 historických zakázkách – jak by to vypadalo?</td></tr>
+                        <tr><td><strong>Fáze 2</strong></td><td>Jedna reálná nová akvizice v novém systému</td></tr>
+                        <tr><td><strong>Fáze 3</strong></td><td>Všechny nové akvizice jdou do nového systému</td></tr>
+                        <tr><td><strong>Fáze 4</strong></td><td>Starý svět postupně dožívá, nový přebírá</td></tr>
+                    </table>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Business Case</h3>
+                    <table class="modal-table">
+                        <tr><td><strong>Investice</strong></td><td><strong>200 tis. Kč</strong></td></tr>
+                        <tr><td><strong>Čas ušetřený</strong></td><td>2h/týden × 5 lidí × 35% adopce v prvním roce</td></tr>
+                        <tr><td><strong>Roční benefit</strong></td><td>10h × 50 × 500 Kč × 0,35 = <strong>175 tis. Kč</strong></td></tr>
+                        <tr><td><strong>Návratnost</strong></td><td><strong>~14 měsíců</strong></td></tr>
+                        <tr><td><strong>Proč MUST-WIN</strong></td><td>„Srdce byznysu" – škálování bez chaosu</td></tr>
+                    </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: var(--gray-100); border-radius: 8px;">
+                        <strong>Co je v investici 200 tis.:</strong>
+                        <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--gray-600);">
+                            <li>Návrh datového modelu a prototyp: ~50 tis.</li>
+                            <li>Power Automate workflows (Raynet ↔ centrální databáze): ~80 tis.</li>
+                            <li>Dashboard v Power BI: ~50 tis.</li>
+                            <li>Dokumentace + pilotní provoz: ~20 tis.</li>
+                            <li>Školení řešíme interně (0 Kč)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="approach-section">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Akviziční Kick-off -->
+    <div class="modal" id="modal-project-kickoff">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, #1E4A9A 0%, #3B82F6 100%);">
+                <div class="detail-header">
+                    <div>
+                        <h2>Z nákupu do prodeje rychleji</h2>
+                        <p>Akviziční Kick-off – automatizace předání nemovitosti z nákupu do obchodu</p>
+                    </div>
+                    <span class="detail-level l2">Týmová úroveň</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-project-kickoff')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-stats">
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">100 tis.</div>
+                        <div class="detail-stat-label">Investice</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value highlight">60 tis.+</div>
+                        <div class="detail-stat-label">Benefit/rok</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">~20 měsíců</div>
+                        <div class="detail-stat-label">Návratnost</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">8-10</div>
+                        <div class="detail-stat-label">Lidí v procesu</div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Pain Point</h3>
+                    <div class="pain-quote">
+                        „Koupíme nemovitost a pak trvá týdny, než se dostane do Raynetu k prodeji. Manuálně přejmenovávám složky, přepisuji data. Mezitím mohla být na trhu."
+                        <span class="source">— Z rozhovorů: Reality Čechy + Morava (P-051, UC-036)</span>
+                    </div>
+                    <div class="system-tags">
+                        <span class="system-tag sharepoint">SharePoint</span>
+                        <span class="system-tag raynet">Raynet</span>
+                        <span class="system-tag excel">Excel</span>
+                        <span class="system-tag primary">Power Automate</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Procesní náčrt</h3>
+                    <div class="process-flow">
+                        <div class="process-label">DNES – týdny čekání</div>
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+Koupená nemovitost
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Ruční přejmenování složek
+                                    <span class="time-badge">hodiny</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Ruční zápis do Raynetu
+                                    <span class="time-badge">hodiny</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Prodej
+                                    <span class="time-badge">týdny zpoždění</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="process-divider">
+                            <span>S AUTOMATIZACÍ</span>
+                        </div>
+
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+Koupená nemovitost
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box ai">
+Jedno tlačítko
+                                    <span class="ai-badge">kick-off</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+Vše automaticky
+                                    <span class="ai-badge">minuty</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+Prodej hned
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-highlight">
+                            <div class="value">Go-to-Market o týdny rychleji</div>
+                            <div class="label">Nová akvizice = první zakázka v novém systému</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Business Case</h3>
+                    <table class="modal-table">
+                        <tr><td><strong>Investice</strong></td><td><strong>100 tis. Kč</strong></td></tr>
+                        <tr><td><strong>Time-to-Market</strong></td><td>Snížení o ~2 týdny na akvizici</td></tr>
+                        <tr><td><strong>Roční benefit</strong></td><td>Těžko kvantifikovatelné, ale rychlejší prodej = rychlejší cashflow</td></tr>
+                        <tr><td><strong>Návratnost</strong></td><td><strong>~20 měsíců</strong> (konzervativně 60 tis.+ měřitelných)</td></tr>
+                    </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: var(--gray-100); border-radius: 8px;">
+                        <strong>Co je v investici 100 tis.:</strong>
+                        <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--gray-600);">
+                            <li>Power Automate workflow (nákup → Raynet → SharePoint): ~60 tis.</li>
+                            <li>Šablony a automatická generace prodejních materiálů: ~30 tis.</li>
+                            <li>Testování a ladění: ~10 tis.</li>
+                            <li>Školení řešíme interně (0 Kč)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="approach-section">
+                    <h3>Náš přístup: Vstupní bod do nového světa</h3>
+                    <p>Akviziční Kick-off není jen automatizace předání. Je to <strong>vstupní bod</strong> do nového systému. Každá nová akvizice je první zakázka, která jde kompletně novým procesem.</p>
+                    
+                    <div class="approach-highlight">
+                        <strong>Proč zrovna tohle:</strong> Akvizice je přirozený začátek životního cyklu nemovitosti. Když novou akvizici od začátku vedeme v novém systému, celý její životní cyklus (prodej, katastr, cink) už běží čistě.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Katastrální agent -->
+    <div class="modal" id="modal-project-katastr">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);">
+                <div class="detail-header">
+                    <div>
+                        <h2>Upozornění na změny v katastru</h2>
+                        <p>Katastrální agent – AI monitoring vkladů 24/7 pro rychlejší „cink"</p>
+                    </div>
+                    <span class="detail-level l1">Strategická úroveň</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-project-katastr')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-stats">
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">700 tis.</div>
+                        <div class="detail-stat-label">Investice</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value highlight">500 tis.</div>
+                        <div class="detail-stat-label">Benefit/rok (FTE)</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">~17</div>
+                        <div class="detail-stat-label">Měsíce návratnost</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">2M+</div>
+                        <div class="detail-stat-label">Risk avoidance</div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Pain Point – co říkají kolegové</h3>
+                    <div class="pain-quote">
+                        „Každý den ručně kontroluji katastr na 50+ nemovitostech. Hledám plomby, čekám na vklady. Když to zmeškám, můžeme přijít o předkupní právo nebo zdržíme uvolnění peněz z úschovy."
+                        <span class="source">— Holečková (Back Office)</span>
+                    </div>
+                    <div class="pain-quotes-grid">
+                        <div class="pain-quote-mini">
+                            „Extrémní závislost uvolňování peněz z úschov na manuálním hlídání plomb a vkladů v katastru nemovitostí."
+                            <span class="source">— Pyramida Pain Pointů (L1 Strategic)</span>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „Dashboard napojený přímo na nahlížení do KN. AI by v reálném čase sledovala plomby a v momentě provedení vkladu by okamžitě stáhla LV."
+                            <span class="source">— Hlaváček (Back Office), UC-027</span>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „Když máme rychlejší cink, máme rychlejší likviditu. To je přímý dopad na cash flow."
+                            <span class="source">— Kosová (Finance)</span>
+                        </div>
+                    </div>
+                    <div class="system-tags">
+                        <span class="system-tag primary">Katastr ČÚZK</span>
+                        <span class="system-tag katastr">API/Scraping</span>
+                        <span class="system-tag tns">TNS</span>
+                        <span class="system-tag sharepoint">SharePoint</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Koho se to týká</h3>
+                    <div class="stakeholder-list">
+                        <span class="stakeholder-badge">Holečková <span class="dept">Back Office</span></span>
+                        <span class="stakeholder-badge">Hlaváček <span class="dept">Back Office</span></span>
+                        <span class="stakeholder-badge">Kosová <span class="dept">Finance</span></span>
+                        <span class="stakeholder-badge">Obchodníci <span class="dept">čekají na cink</span></span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Procesní náčrt</h3>
+                    <div class="process-flow">
+                        <div class="process-label">DNES – ruční hlídání</div>
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+50+ nemovitostí
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Ruční kontrola KN
+                                    <span class="time-badge">10h/týden</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Zpoždění vkladu
+                                    <span class="time-badge">2-5 dní</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Pozdější cink
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="process-divider">
+                            <span>S AI AGENTEM</span>
+                        </div>
+
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+50+ nemovitostí
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box ai">
+AI hlídá 24/7
+                                    <span class="ai-badge">non-stop</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+Notifikace ihned
+                                    <span class="ai-badge">&lt;24h</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+Rychlejší cink
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-highlight">
+                            <div class="value">Dřívější uvolnění úschov o 2–5 dní</div>
+                            <div class="label">FTE úspora 500 tis. + risk avoidance (zmeškaná předkupní práva)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Business Case</h3>
+                    <table class="modal-table">
+                        <tr><td><strong>Investice</strong></td><td><strong>700 tis. Kč</strong></td></tr>
+                        <tr><td><strong>FTE úspora</strong></td><td>~0,5 člověka (kontrola katastru) = 500 tis./rok</td></tr>
+                        <tr><td><strong>Risk avoidance</strong></td><td>Potenciálně 2+ mio (zmeškaná předkupní práva)</td></tr>
+                        <tr><td><strong>Rychlejší cashflow</strong></td><td>Cink o 2–5 dní dříve na ~100 obchodech ročně</td></tr>
+                        <tr><td><strong>Návratnost</strong></td><td><strong>~17 měsíců</strong> (bez započítání risk avoidance)</td></tr>
+                    </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: var(--gray-100); border-radius: 8px;">
+                        <strong>Co je v investici 700 tis.:</strong>
+                        <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--gray-600);">
+                            <li>Scraping engine + API vrstva pro katastr: ~400 tis. (externí vendor)</li>
+                            <li>Integrace do workflow (notifikace, triggery): ~150 tis.</li>
+                            <li>Testování, ladění, edge cases: ~100 tis.</li>
+                            <li>Provozní infrastruktura (první rok): ~50 tis.</li>
+                            <li>Školení řešíme interně (0 Kč)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="approach-section">
+                    <h3>Náš přístup: Součást nového obchodního systému</h3>
+                    <p>Katastrální monitoring není samostatný projekt. Je to klíčová součást nového obchodního systému – od akvizice po cink na jednom místě.</p>
+                    
+                    <div class="approach-highlight">
+                        <strong>V novém systému:</strong> Jakmile zadáte novou akvizici, systém automaticky začne hlídat katastr. Jakmile proběhne vklad, spustí se další kroky – notifikace, uvolnění úschovy, aktualizace stavu. Bez ručního zásahu, bez čekání.
+                    </div>
+
+                    <div class="approach-compare">
+                        <div class="approach-box old">
+                            <h4>Co NEBUDEME dělat</h4>
+                            <ul>
+                                <li>Napojovat se na stávající chaos</li>
+                                <li>Scraping jako standalone řešení</li>
+                                <li>Notifikace do prázdna</li>
+                            </ul>
+                        </div>
+                        <div class="approach-box new">
+                            <h4>Co BUDEME dělat</h4>
+                            <ul>
+                                <li>Katastr jako součást workflow</li>
+                                <li>Vklad = automatický trigger</li>
+                                <li>End-to-end od akvizice po cink</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- starý business case nahrazen novým výše -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Predikce Cash Flow -->
+    <div class="modal" id="modal-project-cashflow">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);">
+                <div class="detail-header">
+                    <div>
+                        <h2>Predikce Cash Flow</h2>
+                        <p>AI propojení bank + CRM pro přehled o likviditě a simulaci scénářů</p>
+                    </div>
+                    <span class="detail-level l1">Strategická úroveň</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-project-cashflow')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-stats">
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">500 tis.</div>
+                        <div class="detail-stat-label">Investice</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value highlight">350 tis.</div>
+                        <div class="detail-stat-label">Benefit/rok</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">~17</div>
+                        <div class="detail-stat-label">Měsíce návratnost</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">~100</div>
+                        <div class="detail-stat-label">Obchodů ročně</div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Pain Point – co říkají kolegové</h3>
+                    <div class="pain-quote">
+                        „Řízení likvidity je Excel a intuice. Nemám přehled, kdy přijdou peníze z obchodů – obchodníci mi hlásí termíny, ale ty se mění. Simulovat různé scénáře je noční můra."
+                        <span class="source">— Kosová (Finance)</span>
+                    </div>
+                    <div class="pain-quotes-grid">
+                        <div class="pain-quote-mini">
+                            „Implementace prediktivního modelu likvidity, který by automaticky propojil data z bank a CRM. AI by mohla simulovat různé scénáře a upozorňovat na kritické propady."
+                            <span class="source">— UC-058 (Finance)</span>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „Extrémní závislost uvolňování peněz z úschov na manuálním hlídání. Nevíme dopředu, kdy peníze přijdou."
+                            <span class="source">— Pyramida Pain Pointů (L1)</span>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „Obchodníci posunují termíny inkasa a já se to dozvím pozdě. Potřebuju vidět změny v reálném čase."
+                            <span class="source">— UC-010 (Finance)</span>
+                        </div>
+                    </div>
+                    <div class="system-tags">
+                        <span class="system-tag primary">Bankovní API</span>
+                        <span class="system-tag raynet">Raynet CRM</span>
+                        <span class="system-tag tns">TNS</span>
+                        <span class="system-tag primary">Power BI</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Procesní náčrt</h3>
+                    <div class="process-flow">
+                        <div class="process-label">DNES – ruční odhady</div>
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+Obchodník
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Hlásí termín
+                                    <span class="time-badge">mění se</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Excel
+                                    <span class="time-badge">ruční</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+„Kolik máme?"
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="process-divider">
+                            <span>S AI ŘEŠENÍM</span>
+                        </div>
+
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box ai">
+Banka API
+                                    <span class="ai-badge">realtime</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box ai">
+CRM data
+                                    <span class="ai-badge">termíny</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box ai">
+AI predikce
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+Dashboard
+                                    <span class="ai-badge">scénáře</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-highlight">
+                            <div class="value">Přehled o likviditě v reálném čase</div>
+                            <div class="label">Méně překvapení, lepší plánování, méně manuální práce</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Business Case</h3>
+                    <table class="modal-table">
+                        <tr><td><strong>Investice</strong></td><td><strong>500 tis. Kč</strong></td></tr>
+                        <tr><td><strong>FTE úspora</strong></td><td>5h/týden × 50 týdnů × 500 Kč + méně ad-hoc = 150 tis./rok</td></tr>
+                        <tr><td><strong>Lepší rozhodování</strong></td><td>Včasné upozornění na propady = ~200 tis./rok (odhad)</td></tr>
+                        <tr><td><strong>Návratnost</strong></td><td><strong>~17 měsíců</strong></td></tr>
+                    </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: var(--gray-100); border-radius: 8px;">
+                        <strong>Co je v investici 500 tis.:</strong>
+                        <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--gray-600);">
+                            <li>Napojení na bankovní API: ~150 tis.</li>
+                            <li>Integrace CRM dat (termíny obchodů): ~100 tis.</li>
+                            <li>Prediktivní model + dashboard v Power BI: ~150 tis.</li>
+                            <li>Testování, kalibrace, edge cases: ~100 tis.</li>
+                            <li>Školení řešíme interně (0 Kč)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="approach-section">
+                    <h3>Náš přístup: Cash Flow jako součást nového systému</h3>
+                    <p>Predikce likvidity není standalone dashboard. V novém systému jsou termíny obchodů, stavy úschov a bankovní pohyby propojené od začátku – Finance vidí všechno na jednom místě.</p>
+                    
+                    <div class="approach-highlight">
+                        <strong>V novém systému:</strong> Jakmile obchodník změní termín v CRM, predikce se automaticky přepočítá. Jakmile proběhne „cink" (návaznost na katastr), systém to vidí okamžitě. Žádné ruční přepisování, žádné překvapení.
+                    </div>
+
+                    <div class="approach-compare">
+                        <div class="approach-old">
+                            <h4>Starý svět</h4>
+                            <ul>
+                                <li>Excel s ručními odhady</li>
+                                <li>Termíny od obchodníků mailem</li>
+                                <li>„Kolik máme?" = hodina práce</li>
+                                <li>Scénáře = další hodina</li>
+                            </ul>
+                        </div>
+                        <div class="approach-new">
+                            <h4>Nový systém</h4>
+                            <ul>
+                                <li>Realtime data z bank</li>
+                                <li>Termíny přímo z CRM</li>
+                                <li>Dashboard s predikcí</li>
+                                <li>Simulace scénářů 1 klikem</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Sjednocení dat (SharePoint) -->
+    <div class="modal" id="modal-project-sharepoint">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, var(--gray-600) 0%, var(--gray-500) 100%);">
+                <div class="detail-header">
+                    <div>
+                        <h2>Jeden zdroj pravdy dat</h2>
+                        <p>TNS pro strukturovaná data, SharePoint pro dokumenty – dotažení toho, co už máme</p>
+                    </div>
+                    <span class="detail-level l0">Datová základna</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-project-sharepoint')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-stats">
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">200 tis.</div>
+                        <div class="detail-stat-label">Investice</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value highlight">150 tis.</div>
+                        <div class="detail-stat-label">Benefit/rok</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">~16 měsíců</div>
+                        <div class="detail-stat-label">Návratnost</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">15+</div>
+                        <div class="detail-stat-label">Lidí trpí</div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Pain Point – co říkají kolegové</h3>
+                    <div class="pain-quote">
+                        „Máme starý SharePoint, nový SharePoint, OneDrive. Nikdo neví, kde je aktuální verze dokumentu. Hledám 30 minut, než najdu smlouvu. Data jsou v TNS, ale dokumenty jsou všude."
+                        <span class="source">— Langer (IT)</span>
+                    </div>
+                    <div class="pain-quotes-grid">
+                        <div class="pain-quote-mini">
+                            „Strukturovaná data máme v TNS, ale dokumenty jsou roztříštěné mezi 3 SharePointy a OneDrive."
+                            <span class="source">— Pyramida Pain Pointů (L0 Foundation)</span>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „Existence starých a nových úložišť, kde různé týmy ukládají stejné dokumenty (např. LV) izolovaně."
+                            <span class="source">— Pyramida Pain Pointů</span>
+                        </div>
+                        <div class="pain-quote-mini">
+                            „Všichni trpíme duplicitou – než něco najdu, koukám na 3 místa."
+                            <span class="source">— Kleban (Vedení)</span>
+                        </div>
+                    </div>
+                    <div class="system-tags">
+                        <span class="system-tag primary">SharePoint (starý)</span>
+                        <span class="system-tag primary">SharePoint (nový)</span>
+                        <span class="system-tag sharepoint">OneDrive</span>
+                        <span class="system-tag tns">TNS</span>
+                        <span class="system-tag raynet">Raynet</span>
+                    </div>
+                </div>
+
+                <div class="approach-section">
+                    <h3>Náš přístup: Stavíme na TNS, které už máme</h3>
+                    <p>Do TNS jsme už investovali a funguje jako zdroj pravdy pro strukturovaná data (obchody, klienti, projekty). Teď jde o to dotáhnout napojení na ostatní systémy a sjednotit dokumenty na SharePointu.</p>
+                    
+                    <div class="approach-highlight">
+                        <strong>Co už máme:</strong> TNS od Xeelo je náš základ pro strukturovaná data. Není potřeba budovat nový systém – potřebujeme dotáhnout napojení (Raynet, Excel exporty) a uklidit dokumenty na jednom SharePointu.
+                    </div>
+
+                    <div class="approach-compare">
+                        <div class="approach-box old">
+                            <h4>Kam patří co</h4>
+                            <ul>
+                                <li><strong>TNS</strong> = strukturovaná data (obchody, termíny, stavy)</li>
+                                <li><strong>SharePoint</strong> = dokumenty (smlouvy, LV, podklady)</li>
+                                <li><strong>Raynet</strong> = CRM napojené na TNS</li>
+                                <li><strong>Power BI</strong> = reporting nad TNS</li>
+                            </ul>
+                        </div>
+                        <div class="approach-box new">
+                            <h4>Co dotahujeme</h4>
+                            <ul>
+                                <li>Napojení Raynet ↔ TNS (méně přepisování)</li>
+                                <li>Jeden SharePoint místo tří úložišť</li>
+                                <li>Jasná pravidla: kam co patří</li>
+                                <li>Staré dokumenty: necháme dožít</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Procesní náčrt: Dva paralelní světy</h3>
+                    <div class="process-flow">
+                        <div class="process-label">STARÝ SVĚT – necháme dožít</div>
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box pain">SP starý</div>
+                            </div>
+                            <div class="process-step">
+                                <div class="process-box pain">SP nový</div>
+                            </div>
+                            <div class="process-step">
+                                <div class="process-box pain">OneDrive</div>
+                            </div>
+                            <div class="process-step">
+                                <div class="process-box pain">TNS</div>
+                            </div>
+                        </div>
+                        <div style="text-align: center; color: var(--gray-500); margin: 1rem 0;">
+                            Stávající zakázky doběhnou ve starém systému
+                        </div>
+
+                        <div class="process-divider">
+                            <span>NOVÝ SVĚT</span>
+                        </div>
+
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box ai" style="min-width: 200px;">
+Nový systém
+                                    <span class="ai-badge">čistá data od začátku</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+                                    Nové zakázky
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-highlight">
+                            <div class="value">Žádná migrace, žádné uklízení</div>
+                            <div class="label">Realisticky: 150 tis. Kč/rok (20 min/den × 10 lidí × 220 dní × 500 Kč × 25% adopce)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Business Case</h3>
+                    <table class="modal-table">
+                        <tr><td><strong>Investice</strong></td><td><strong>200 tis. Kč</strong></td></tr>
+                        <tr><td><strong>Čas ušetřený</strong></td><td>~20 min/den hledání × 10 lidí × 25% úspora v 1. roce</td></tr>
+                        <tr><td><strong>Roční benefit</strong></td><td>3,3h × 220 × 500 Kč × 0,25 = <strong>150 tis. Kč</strong></td></tr>
+                        <tr><td><strong>Návratnost</strong></td><td><strong>~16 měsíců</strong></td></tr>
+                    </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: var(--gray-100); border-radius: 8px;">
+                        <strong>Co je v investici 200 tis.:</strong>
+                        <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--gray-600);">
+                            <li>Návrh nové struktury SharePoint (konzultace + architekt): ~50 tis.</li>
+                            <li>Implementace nové struktury + migrace šablon: ~80 tis.</li>
+                            <li>Power Automate pro automatické třídění dokumentů: ~50 tis.</li>
+                            <li>Dokumentace pravidel + governance: ~20 tis.</li>
+                            <li>Školení řešíme interně (0 Kč)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Sjednocení reportingu -->
+    <div class="modal" id="modal-project-kvalita">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, var(--gray-600) 0%, var(--gray-500) 100%);">
+                <div class="detail-header">
+                    <div>
+                        <h2>Jeden report místo čtyř</h2>
+                        <p>Sjednocení reportingu – jeden datový zdroj místo duplicitních reportů</p>
+                    </div>
+                    <span class="detail-level l0">Datová základna</span>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-project-kvalita')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-stats">
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">50 tis.</div>
+                        <div class="detail-stat-label">Investice</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value highlight">100 tis.</div>
+                        <div class="detail-stat-label">Benefit/rok</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">6 měsíců</div>
+                        <div class="detail-stat-label">Návratnost</div>
+                    </div>
+                    <div class="detail-stat">
+                        <div class="detail-stat-value">4 oddělení</div>
+                        <div class="detail-stat-label">Duplicitní práce</div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Pain Point</h3>
+                    <div class="pain-quote">
+                        „Každé oddělení si dělá vlastní report. Asset management jeden, obchod druhý, finance třetí. A pak zjistíme, že čísla nesedí, protože každý bere data odjinud."
+                        <span class="source">— Z rozhovorů: P. Dvořák (Finance), Kopáčková (Asset management), P-036</span>
+                    </div>
+                    <div class="system-tags">
+                        <span class="system-tag excel">Excel</span>
+                        <span class="system-tag sharepoint">SharePoint</span>
+                        <span class="system-tag primary">Power BI</span>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Procesní náčrt</h3>
+                    <div class="process-flow">
+                        <div class="process-label">DNES</div>
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box">
+Asset mng. report
+                                </div>
+                            </div>
+                            <span class="process-arrow">+</span>
+                            <div class="process-step">
+                                <div class="process-box">
+Obchodní report
+                                </div>
+                            </div>
+                            <span class="process-arrow">+</span>
+                            <div class="process-step">
+                                <div class="process-box">
+Finanční report
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box pain">
+Čísla nesedí
+                                    <span class="time-badge">chaos</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="process-divider">
+                            <span>SE SJEDNOCENÍM</span>
+                        </div>
+
+                        <div class="process-row">
+                            <div class="process-step">
+                                <div class="process-box ai">
+Jeden datový zdroj
+                                    <span class="ai-badge">Power BI</span>
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+Sdílené šablony
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+Konzistentní čísla
+                                </div>
+                            </div>
+                            <span class="process-arrow">→</span>
+                            <div class="process-step">
+                                <div class="process-box solution">
+Méně práce
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-highlight">
+                            <div class="value">−4h/týden duplicitního reportování</div>
+                            <div class="label">Jeden report = konzistentní data = méně práce</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Business Case</h3>
+                    <table class="modal-table">
+                        <tr><td><strong>Investice</strong></td><td><strong>50 tis. Kč</strong></td></tr>
+                        <tr><td><strong>Čas ušetřený</strong></td><td>~4h/týden duplicitní práce na reportech (4 oddělení)</td></tr>
+                        <tr><td><strong>Roční benefit</strong></td><td>4h × 50 × 500 Kč × 25% = <strong>100 tis. Kč</strong></td></tr>
+                        <tr><td><strong>Návratnost</strong></td><td><strong>~6 měsíců</strong></td></tr>
+                    </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: var(--gray-100); border-radius: 8px;">
+                        <strong>Co je v investici 50 tis.:</strong>
+                        <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--gray-600);">
+                            <li>Nastavení Power BI dashboardu: ~25 tis.</li>
+                            <li>Sjednocení datových zdrojů: ~15 tis.</li>
+                            <li>Dokumentace a šablony: ~10 tis.</li>
+                            <li>Školení řešíme interně (0 Kč)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Mobile navigation
         const navEl = document.querySelector('.nav');
@@ -1796,6 +4522,26 @@
             document.querySelector(`.pyramid-${level}`).classList.add('active');
             document.getElementById(`detail-${level}`).classList.add('active');
         }
+        // Modaly use-casu
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        document.querySelectorAll('.modal').forEach(function(modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) { closeModal(this.id); }
+            });
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.active').forEach(function(m){ m.classList.remove('active'); });
+                document.body.style.overflow = 'auto';
+            }
+        });
     </script>
 </body>
 </html>
