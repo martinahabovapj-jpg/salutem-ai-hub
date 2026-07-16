@@ -3047,6 +3047,10 @@
         .rm-acc--edu { border-color: #378ADD; background: rgba(55,138,221,0.06); }
         .rm-acc--edu > summary { color: #2c6db0; }
         .rm-acc--edu > summary::after { color: #378ADD; }
+        /* Compliance dlaždice — vazba na compliance větev (tmavě oranžová) */
+        .rm-acc--comp { border-color: #BA7517; background: rgba(186,117,23,0.06); }
+        .rm-acc--comp > summary { color: #8f5a12; }
+        .rm-acc--comp > summary::after { color: #BA7517; }
         .rm-item ul { margin: 0.35rem 0 0; padding-left: 1.2rem; color: var(--gray-600); font-size: 0.95rem; }
         .rm-item ul li { margin-bottom: 0.3rem; }
         .rm-acc-body { padding: 0 1.5rem 1.5rem; }
@@ -3141,6 +3145,67 @@
         </div>
     </section>
 
+    <!-- Sekce: AI Adopce @ Salutem (mapa tří větví) -->
+    <section class="section service-section" id="service">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">AI Adopce @ Salutem</h2>
+                <p class="section-subtitle">Interní služba, která má firmě pomoci používat AI opravdu v praxi. Cílem je provést lidi změnou tak, aby AI začala přirozeně patřit do jejich každodenní práce.</p>
+            </div>
+
+            <p class="section-intro">Služba má tři větve. Produkce přináší hodnotu, vzdělávání zajišťuje, že ji lidé využijí, compliance ji drží bezpečnou a legální. Není to seznam jednotlivých nástrojů — je to mapa toho, co služba pokrývá a kde se o každé části dozvíte víc.</p>
+
+            <div class="service-cards">
+                <div class="service-card branch-prod" onclick="location.href='/produkcni-vetev'">
+                    <h3>Produkce</h3>
+                    <p class="service-card-sub">nasazujeme AI</p>
+                    <p class="service-card-desc">Vyrábíme a provozujeme AI automatizace a agenty, aby lidé zvládli víc práce na stávající kapacitě.</p>
+                    <div class="service-whatfits">
+                        <span class="service-whatfits-label">Co sem patří</span>
+                        <ul>
+                            <li>konkrétní automatizace a AI agenti</li>
+                            <li>portfolio nasazených use-casů</li>
+                            <li>provoz, podpora a zlepšování</li>
+                        </ul>
+                    </div>
+                    <a class="service-link" href="/produkcni-vetev">Více o produkci →</a>
+                </div>
+                <div class="service-card branch-edu" onclick="location.href='/vzdelavaci-vetev'">
+                    <h3>Vzdělávání</h3>
+                    <p class="service-card-sub">rozvíjíme lidi</p>
+                    <p class="service-card-desc">Měníme návyky a budujeme AI gramotnost, aby lidé uměli AI bezpečně a prakticky používat. Zákonná povinnost podle AI Actu, čl. 4.</p>
+                    <div class="service-whatfits">
+                        <span class="service-whatfits-label">Co sem patří</span>
+                        <ul>
+                            <li>základ AI gramotnosti a školení podle role</li>
+                            <li>mapa schopností a koučink s champions</li>
+                            <li>plnění povinnosti podle AI Actu</li>
+                        </ul>
+                    </div>
+                    <a class="service-link" href="/vzdelavaci-vetev">Více o vzdělávání →</a>
+                </div>
+                <div class="service-card branch-comp" onclick="location.href='/compliance-vetev'">
+                    <h3>Compliance</h3>
+                    <p class="service-card-sub">bezpečně a legálně</p>
+                    <p class="service-card-desc">Držíme AI v bezpečných mantinelech — aby firma věděla, jakou AI používá, jaká nese rizika a uměla to doložit.</p>
+                    <div class="service-whatfits">
+                        <span class="service-whatfits-label">Co sem patří</span>
+                        <ul>
+                            <li>inventář AI systémů a klasifikace rizik</li>
+                            <li>interní pravidla a schvalovací brána</li>
+                            <li>soulad s AI Actem a GDPR</li>
+                        </ul>
+                    </div>
+                    <a class="service-link" href="/compliance-vetev">Více o compliance →</a>
+                </div>
+            </div>
+
+            <div class="service-note">
+                Tyto tři části se navzájem doplňují. Nestačí mít nástroje bez lidí. Nestačí školit bez reálných use-casů. A nestačí inovovat bez pravidel.
+            </div>
+        </div>
+    </section>
+
     <!-- ============================================================
          NOVÁ sekce: Roadmapa / První milník (progresivní odkrývání)
          Přidáno NAD stávající obsah. Nic z větví se nemění.
@@ -3155,113 +3220,7 @@
                 <p class="section-subtitle">Firma je na začátku digitalizace. Cílem teď není celá vize, ale první realistický krok. Zaměřujeme se na JEDEN pilotní tým — obchod — a měříme dopad.</p>
             </div>
 
-            <div class="rm-milestones">
-                <div class="rm-tile rm-tile--now">
-                    <span class="rm-tile-tag">Kde jsme · M0 · 16. 7. (Evolution)</span>
-                    <h3>Mandát a start</h3>
-                    <p>Schválit směr, ukázat hotové piloty a spustit měření.</p>
-                </div>
-                <div class="rm-tile rm-tile--build">
-                    <span class="rm-tile-tag">Co spouštíme</span>
-                    <h3>Kam jde nová kapacita</h3>
-                    <p>Nová kapacita jde na 2 věci:</p>
-                    <p><strong>Personalizovaný e-mail z hovoru</strong> (vlajka) a <strong>Chytřejší práce s tabulkami</strong> (technický quick-win).</p>
-                </div>
-                <div class="rm-tile rm-tile--next">
-                    <span class="rm-tile-tag">Co uvidíme · M1 · Q3 2026</span>
-                    <h3>Pilot žije</h3>
-                    <p>Pilotní tým obchod reálně používá AI, s prvním měřením.</p>
-                </div>
-            </div>
-
-            <div class="rm-headline">
-                <div class="rm-headline-item">
-                    <span class="rm-headline-value">3 hotové piloty</span>
-                    <span class="rm-headline-label">jeden šetří ~1,2 mil. Kč/rok</span>
-                </div>
-                <div class="rm-headline-item">
-                    <span class="rm-headline-value">Pilotní tým: obchod</span>
-                    <span class="rm-headline-label">jeden tým, měřený dopad</span>
-                </div>
-            </div>
-
-            <!-- 2) VIZUÁLNÍ ROADMAPA (M0–M3 s úrovní maturity) -->
-            <h3 class="rm-block-title">Roadmapa ve čtyřech krocích</h3>
-            <div class="rm-timeline">
-                <div class="rm-step rm-step--current">
-                    <div class="rm-step-dot"></div>
-                    <div class="rm-step-card">
-                        <div class="rm-step-code">M0</div>
-                        <div class="rm-step-name">Mandát + start</div>
-                        <div class="rm-step-when">16. 7. 2026 · Evolution</div>
-                        <span class="rm-maturity">Maturita: Level 1</span>
-                    </div>
-                </div>
-                <div class="rm-step">
-                    <div class="rm-step-dot"></div>
-                    <div class="rm-step-card">
-                        <div class="rm-step-code">M1</div>
-                        <div class="rm-step-name">Pilot žije</div>
-                        <div class="rm-step-when">Q3 2026 · ~konec září</div>
-                        <span class="rm-maturity">obchod → Level 2</span>
-                    </div>
-                </div>
-                <div class="rm-step">
-                    <div class="rm-step-dot"></div>
-                    <div class="rm-step-card">
-                        <div class="rm-step-code">M2</div>
-                        <div class="rm-step-name">Opakovatelnost</div>
-                        <div class="rm-step-when">Q4 2026 – Q1 2027</div>
-                        <span class="rm-maturity">Level 2 → 3</span>
-                    </div>
-                </div>
-                <div class="rm-step">
-                    <div class="rm-step-dot"></div>
-                    <div class="rm-step-card">
-                        <div class="rm-step-code">M3</div>
-                        <div class="rm-step-name">Rytmus firmy</div>
-                        <div class="rm-step-when">2027</div>
-                        <span class="rm-maturity">Level 3 → 4 (plná vize)</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3) TŘI VĚTVE V PRVNÍM MILNÍKU (kondenzované, odkaz na plnou záložku) -->
-            <h3 class="rm-block-title">Tři větve v prvním milníku</h3>
-            <div class="rm-branch-cards">
-                <div class="rm-branch branch-prod">
-                    <h3>Produkční</h3>
-                    <ul>
-                        <li>Ukázat hotové (T9, T11)</li>
-                        <li>Nová kapacita: T16 + P6</li>
-                        <li>Odložit mega-build</li>
-                    </ul>
-                    <a class="service-link" href="/produkcni-vetev">Detail v záložce Produkční →</a>
-                </div>
-                <div class="rm-branch branch-edu">
-                    <h3>Vzdělávací</h3>
-                    <ul>
-                        <li>1 pilotní tým (obchod)</li>
-                        <li>Sebehodnotící dotazník → první heatmapa</li>
-                        <li>Povinný základ AI gramotnosti (AI Act čl. 4)</li>
-                        <li>2–3 návyky přes Copilot</li>
-                        <li>1 vychovaný champion</li>
-                    </ul>
-                    <a class="service-link" href="/vzdelavaci-vetev">Detail v záložce Vzdělávací →</a>
-                </div>
-                <div class="rm-branch branch-comp">
-                    <h3>Compliance</h3>
-                    <ul>
-                        <li>Inventář AI systémů + klasifikace rizik</li>
-                        <li>Prověřit 2 červené vlajky (bonita: Raynet/TNS/Domsys/Rancetta; nábor: Sloneek)</li>
-                        <li>Brána pro nové use-casy</li>
-                        <li>Zpětné compliance záznamy pro běžící piloty</li>
-                    </ul>
-                    <a class="service-link" href="/compliance-vetev">Detail v záložce Compliance →</a>
-                </div>
-            </div>
-
-            <!-- 4) NAVRSTVENÉ DETAILY (nepovinná hloubka v rozbalovacích sekcích) -->
+            <!-- NAVRSTVENÉ DETAILY (rozbalovací sekce) -->
             <h3 class="rm-block-title">Detaily prvního milníku</h3>
 
             <details class="rm-acc rm-acc--prod">
@@ -3438,53 +3397,18 @@
                 </div>
             </details>
 
-            <details class="rm-acc">
-                <summary>Vědomě odkládáme</summary>
+            <details class="rm-acc rm-acc--comp">
+                <summary>Compliance</summary>
                 <div class="rm-acc-body">
                     <div class="rm-item">
                         <div class="rm-item-head">
-                            <span class="rm-item-name">Mega-build „nový obchodní systém"</span>
+                            <span class="rm-item-name">Základ compliance</span>
                         </div>
-                        <p>Akvizice → Raynet → katastr → cash flow → jeden zdroj dat, ~1,7 mil. Kč. Teď max připravit společný business case.</p>
-                    </div>
-                </div>
-            </details>
-
-            <details class="rm-acc">
-                <summary>Compliance stop-list</summary>
-                <div class="rm-acc-body">
-                    <div class="rm-item">
-                        <div class="rm-item-head">
-                            <span class="rm-item-code">T13 → T9</span>
-                            <span class="rm-item-name">Profilování dle pohlaví/věku + financování</span>
-                            <span class="rm-badge rm-badge--warn">Právní posouzení</span>
-                        </div>
-                        <p>Sloučeno do T9: blízko bonitě → povinně právní posouzení.</p>
-                    </div>
-                    <div class="rm-item">
-                        <div class="rm-item-head">
-                            <span class="rm-item-code">T9</span>
-                            <span class="rm-item-name">Zpracování RČ, běží bez záznamu</span>
-                            <span class="rm-badge rm-badge--warn">Doplnit záznam</span>
-                        </div>
-                        <p>Doplnit compliance záznam zpětně.</p>
-                    </div>
-                    <div class="rm-item">
-                        <div class="rm-item-head">
-                            <span class="rm-item-name">Termíny AI Actu</span>
-                        </div>
-                        <p>Gramotnost (čl. 4) platí od 2/2025 · transparentnost 8/2026 · vysoce rizikové oblasti 12/2027.</p>
-                    </div>
-                </div>
-            </details>
-
-            <details class="rm-acc">
-                <summary>Metodika</summary>
-                <div class="rm-acc-body">
-                    <div class="rm-method">
-                        <strong>Skóre</strong> = benefit/rok (v tis. Kč) ÷ složitost (1–5).<br>
-                        <strong>Dráha:</strong> rychlá = investice ≤ 50 tis. a složitost ≤ 2; jinak standardní (přes Evolution).<br>
-                        Benefity jsou odhady stejnou metodou (500 Kč/h, 50 týdnů, realistická adopce).
+                        <ul>
+                            <li>Data governance a DPIA</li>
+                            <li>Inventář AI systémů + klasifikace rizik</li>
+                            <li>Interní směrnice a AI policy</li>
+                        </ul>
                     </div>
                 </div>
             </details>
@@ -3513,67 +3437,6 @@
 
             <div class="howitworks-text">
                 <p>Každý use-case prochází všemi fázemi. Fáze Udržuj odlišuje službu od jednorázového projektu — nasazená věc se dál provozuje, měří a zlepšuje.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sekce: AI Adopce @ Salutem (mapa tří větví) -->
-    <section class="section service-section" id="service">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">AI Adopce @ Salutem</h2>
-                <p class="section-subtitle">Interní služba, která má firmě pomoci používat AI opravdu v praxi. Cílem je provést lidi změnou tak, aby AI začala přirozeně patřit do jejich každodenní práce.</p>
-            </div>
-
-            <p class="section-intro">Služba má tři větve. Produkce přináší hodnotu, vzdělávání zajišťuje, že ji lidé využijí, compliance ji drží bezpečnou a legální. Není to seznam jednotlivých nástrojů — je to mapa toho, co služba pokrývá a kde se o každé části dozvíte víc.</p>
-
-            <div class="service-cards">
-                <div class="service-card branch-prod" onclick="location.href='/produkcni-vetev'">
-                    <h3>Produkce</h3>
-                    <p class="service-card-sub">nasazujeme AI</p>
-                    <p class="service-card-desc">Vyrábíme a provozujeme AI automatizace a agenty, aby lidé zvládli víc práce na stávající kapacitě.</p>
-                    <div class="service-whatfits">
-                        <span class="service-whatfits-label">Co sem patří</span>
-                        <ul>
-                            <li>konkrétní automatizace a AI agenti</li>
-                            <li>portfolio nasazených use-casů</li>
-                            <li>provoz, podpora a zlepšování</li>
-                        </ul>
-                    </div>
-                    <a class="service-link" href="/produkcni-vetev">Více o produkci →</a>
-                </div>
-                <div class="service-card branch-edu" onclick="location.href='/vzdelavaci-vetev'">
-                    <h3>Vzdělávání</h3>
-                    <p class="service-card-sub">rozvíjíme lidi</p>
-                    <p class="service-card-desc">Měníme návyky a budujeme AI gramotnost, aby lidé uměli AI bezpečně a prakticky používat. Zákonná povinnost podle AI Actu, čl. 4.</p>
-                    <div class="service-whatfits">
-                        <span class="service-whatfits-label">Co sem patří</span>
-                        <ul>
-                            <li>základ AI gramotnosti a školení podle role</li>
-                            <li>mapa schopností a koučink s champions</li>
-                            <li>plnění povinnosti podle AI Actu</li>
-                        </ul>
-                    </div>
-                    <a class="service-link" href="/vzdelavaci-vetev">Více o vzdělávání →</a>
-                </div>
-                <div class="service-card branch-comp" onclick="location.href='/compliance-vetev'">
-                    <h3>Compliance</h3>
-                    <p class="service-card-sub">bezpečně a legálně</p>
-                    <p class="service-card-desc">Držíme AI v bezpečných mantinelech — aby firma věděla, jakou AI používá, jaká nese rizika a uměla to doložit.</p>
-                    <div class="service-whatfits">
-                        <span class="service-whatfits-label">Co sem patří</span>
-                        <ul>
-                            <li>inventář AI systémů a klasifikace rizik</li>
-                            <li>interní pravidla a schvalovací brána</li>
-                            <li>soulad s AI Actem a GDPR</li>
-                        </ul>
-                    </div>
-                    <a class="service-link" href="/compliance-vetev">Více o compliance →</a>
-                </div>
-            </div>
-
-            <div class="service-note">
-                Tyto tři části se navzájem doplňují. Nestačí mít nástroje bez lidí. Nestačí školit bez reálných use-casů. A nestačí inovovat bez pravidel.
             </div>
         </div>
     </section>
