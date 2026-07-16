@@ -3039,6 +3039,10 @@
         }
         .rm-acc[open] > summary::after { content: "–"; }
         .rm-acc > summary .rm-acc-hint { font-weight: 500; font-size: 0.88rem; color: var(--gray-500); margin-left: auto; }
+        /* Produkční dlaždice — vazba na produkční větev (zelená) */
+        .rm-acc--prod { border-color: var(--success); background: rgba(16,185,129,0.06); }
+        .rm-acc--prod > summary { color: #0a7a56; }
+        .rm-acc--prod > summary::after { color: var(--success); }
         .rm-acc-body { padding: 0 1.5rem 1.5rem; }
         .rm-item {
             background: var(--white);
@@ -3254,8 +3258,8 @@
             <!-- 4) NAVRSTVENÉ DETAILY (nepovinná hloubka v rozbalovacích sekcích) -->
             <h3 class="rm-block-title">Detaily prvního milníku</h3>
 
-            <details class="rm-acc">
-                <summary>Hotové <span class="rm-acc-hint">důkaz, že smyčka funguje</span></summary>
+            <details class="rm-acc rm-acc--prod">
+                <summary>Hotové</summary>
                 <div class="rm-acc-body">
                     <div class="rm-item">
                         <div class="rm-item-head">
@@ -3282,8 +3286,46 @@
                 </div>
             </details>
 
-            <details class="rm-acc">
-                <summary>Nová kapacita od 16. 7. <span class="rm-acc-hint">sem jdou 2 lidé</span></summary>
+            <details class="rm-acc rm-acc--prod">
+                <summary>Aktuálně řešíme</summary>
+                <div class="rm-acc-body">
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-name">Ceny dle konkurence (nájemné / pokoje)</span>
+                        </div>
+                        <p>Analýza trhu z veřejných inzerátů · ~145 tis. Kč benefit/rok (dohromady). Naplánovaný prompt pro dlouhodobé pronájmy v Ústí a Hodoníně funguje, feedback pozitivní. Krátkodobé pronájmy — první testovací řešení, čekáme na feedback.</p>
+                    </div>
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-name">Upozornění na změny v Katastru</span>
+                        </div>
+                        <p>Manuální kontrola katastru u 50+ nemovitostí je pomalá (zpoždění 2–5 dní), což brzdí uvolnění peněz z úschov. AI agent monitoruje KN 24/7 přes API; při zápisu vkladu okamžitě notifikuje finance a stahuje LV. Nyní testujeme na prvních vkladech.</p>
+                        <img class="rm-media" src="katastr.png" alt="Upozornění na změny v Katastru" loading="lazy">
+                    </div>
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-name">Agent — skriptující PDF pro celou firmu</span>
+                        </div>
+                        <p>Agent (spíš AI na webu) skriptuje na základě slovního zadání a upravuje přiložené PDF. Máme připravené řešení k testování.</p>
+                        <img class="rm-media" src="agent-pdf.png" alt="Agent — skriptující PDF pro celou firmu" loading="lazy">
+                    </div>
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-name">Automatizované CF reporty koordinátorů</span>
+                        </div>
+                        <p>Připravené, otestované, kontrolujeme nyní každý týden správnost čísel s ručními reporty koordinátorů. Čísla nám sedí. Blížíme se reálnému využití.</p>
+                    </div>
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-name">Systém/Excel pro přepočet na jednotlivá střediska pro účtárnu</span>
+                        </div>
+                        <p>Jeden doklad s jedním součtem, který se má rozpustit na víc firem/středisek podle nějakého klíče a přefakturovat po položkách. Připraveno řešení, testujeme s Helenou Hroudovou.</p>
+                    </div>
+                </div>
+            </details>
+
+            <details class="rm-acc rm-acc--prod">
+                <summary>Nová kapacita od 16. 7.</summary>
                 <div class="rm-acc-body">
                     <div class="rm-item">
                         <div class="rm-item-head">
@@ -3318,8 +3360,8 @@
                 </div>
             </details>
 
-            <details class="rm-acc">
-                <summary>Další vlna <span class="rm-acc-hint">připravit, ne stavět teď</span></summary>
+            <details class="rm-acc rm-acc--prod">
+                <summary>Backlog</summary>
                 <div class="rm-acc-body">
                     <div class="rm-item">
                         <div class="rm-item-head">
@@ -3367,46 +3409,9 @@
                 </div>
             </details>
 
-            <details class="rm-acc">
-                <summary>Aktuálně řešíme <span class="rm-acc-hint">běží nebo testujeme</span></summary>
-                <div class="rm-acc-body">
-                    <div class="rm-item">
-                        <div class="rm-item-head">
-                            <span class="rm-item-name">Ceny dle konkurence (nájemné / pokoje)</span>
-                        </div>
-                        <p>Analýza trhu z veřejných inzerátů · ~145 tis. Kč benefit/rok (dohromady). Naplánovaný prompt pro dlouhodobé pronájmy v Ústí a Hodoníně funguje, feedback pozitivní. Krátkodobé pronájmy — první testovací řešení, čekáme na feedback.</p>
-                    </div>
-                    <div class="rm-item">
-                        <div class="rm-item-head">
-                            <span class="rm-item-name">Upozornění na změny v Katastru</span>
-                        </div>
-                        <p>Manuální kontrola katastru u 50+ nemovitostí je pomalá (zpoždění 2–5 dní), což brzdí uvolnění peněz z úschov. AI agent monitoruje KN 24/7 přes API; při zápisu vkladu okamžitě notifikuje finance a stahuje LV. Nyní testujeme na prvních vkladech.</p>
-                        <img class="rm-media" src="katastr.png" alt="Upozornění na změny v Katastru" loading="lazy">
-                    </div>
-                    <div class="rm-item">
-                        <div class="rm-item-head">
-                            <span class="rm-item-name">Agent — skriptující PDF pro celou firmu</span>
-                        </div>
-                        <p>Agent (spíš AI na webu) skriptuje na základě slovního zadání a upravuje přiložené PDF. Máme připravené řešení k testování.</p>
-                        <img class="rm-media" src="agent-pdf.png" alt="Agent — skriptující PDF pro celou firmu" loading="lazy">
-                    </div>
-                    <div class="rm-item">
-                        <div class="rm-item-head">
-                            <span class="rm-item-name">Automatizované CF reporty koordinátorů</span>
-                        </div>
-                        <p>Připravené, otestované, kontrolujeme nyní každý týden správnost čísel s ručními reporty koordinátorů. Čísla nám sedí. Blížíme se reálnému využití.</p>
-                    </div>
-                    <div class="rm-item">
-                        <div class="rm-item-head">
-                            <span class="rm-item-name">Systém/Excel pro přepočet na jednotlivá střediska pro účtárnu</span>
-                        </div>
-                        <p>Jeden doklad s jedním součtem, který se má rozpustit na víc firem/středisek podle nějakého klíče a přefakturovat po položkách. Připraveno řešení, testujeme s Helenou Hroudovou.</p>
-                    </div>
-                </div>
-            </details>
 
             <details class="rm-acc">
-                <summary>Enablement <span class="rm-acc-hint">patří do Vzdělávací větve, ne do produkční kapacity</span></summary>
+                <summary>Enablement</summary>
                 <div class="rm-acc-body">
                     <div class="rm-item">
                         <p>Rychlejší e-maily (400 tis.), Přehled z Teams (175 tis.), Z porady rovnou úkoly (90 tis.) = zapnout Copilot + zaškolit pilotní tým.</p>
@@ -3416,7 +3421,7 @@
             </details>
 
             <details class="rm-acc">
-                <summary>Vědomě odkládáme <span class="rm-acc-hint">na 2–3 roky, M3</span></summary>
+                <summary>Vědomě odkládáme</summary>
                 <div class="rm-acc-body">
                     <div class="rm-item">
                         <div class="rm-item-head">
@@ -3428,7 +3433,7 @@
             </details>
 
             <details class="rm-acc">
-                <summary>Compliance stop-list <span class="rm-acc-hint">souběžně, nutné</span></summary>
+                <summary>Compliance stop-list</summary>
                 <div class="rm-acc-body">
                     <div class="rm-item">
                         <div class="rm-item-head">
@@ -3456,7 +3461,7 @@
             </details>
 
             <details class="rm-acc">
-                <summary>Metodika <span class="rm-acc-hint">jak počítáme skóre a dráhu</span></summary>
+                <summary>Metodika</summary>
                 <div class="rm-acc-body">
                     <div class="rm-method">
                         <strong>Skóre</strong> = benefit/rok (v tis. Kč) ÷ složitost (1–5).<br>
