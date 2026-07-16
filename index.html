@@ -3043,6 +3043,12 @@
         .rm-acc--prod { border-color: var(--success); background: rgba(16,185,129,0.06); }
         .rm-acc--prod > summary { color: #0a7a56; }
         .rm-acc--prod > summary::after { color: var(--success); }
+        /* Vzdělávací dlaždice — vazba na vzdělávací větev (modrá) */
+        .rm-acc--edu { border-color: #378ADD; background: rgba(55,138,221,0.06); }
+        .rm-acc--edu > summary { color: #2c6db0; }
+        .rm-acc--edu > summary::after { color: #378ADD; }
+        .rm-item ul { margin: 0.35rem 0 0; padding-left: 1.2rem; color: var(--gray-600); font-size: 0.95rem; }
+        .rm-item ul li { margin-bottom: 0.3rem; }
         .rm-acc-body { padding: 0 1.5rem 1.5rem; }
         .rm-item {
             background: var(--white);
@@ -3410,9 +3416,21 @@
             </details>
 
 
-            <details class="rm-acc">
-                <summary>Enablement</summary>
+            <details class="rm-acc rm-acc--edu">
+                <summary>Vzdělávání</summary>
                 <div class="rm-acc-body">
+                    <div class="rm-item">
+                        <div class="rm-item-head">
+                            <span class="rm-item-name">První vzdělávací pilot</span>
+                        </div>
+                        <ul>
+                            <li>1 pilotní tým (obchod)</li>
+                            <li>Sebehodnotící dotazník → první heatmapa</li>
+                            <li>Povinný základ AI gramotnosti (AI Act čl. 4)</li>
+                            <li>2–3 návyky přes Copilot</li>
+                            <li>1 vychovaný champion</li>
+                        </ul>
+                    </div>
                     <div class="rm-item">
                         <p>Rychlejší e-maily (400 tis.), Přehled z Teams (175 tis.), Z porady rovnou úkoly (90 tis.) = zapnout Copilot + zaškolit pilotní tým.</p>
                         <p>Není to stavba, je to změna návyků.</p>
