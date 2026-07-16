@@ -3066,6 +3066,9 @@
         .rm-item p { color: var(--gray-600); font-size: 0.95rem; margin-bottom: 0.4rem; }
         .rm-item p:last-child { margin-bottom: 0; }
         .rm-item .rm-warn { color: #9a6a05; font-weight: 500; }
+        .rm-item .rm-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; margin-top: 0.6rem; }
+        .rm-item .rm-links a { color: var(--blue); font-weight: 600; font-size: 0.92rem; text-decoration: none; border-bottom: 1px solid rgba(13,53,121,0.35); }
+        .rm-item .rm-links a:hover { border-bottom-color: var(--blue); }
         .rm-method {
             max-width: 820px;
             margin: 1rem auto 0;
@@ -3218,7 +3221,7 @@
                 <div class="rm-branch branch-prod">
                     <h3>Produkční</h3>
                     <ul>
-                        <li>Ukázat hotové (T9, T11, T4)</li>
+                        <li>Ukázat hotové (T9, T11)</li>
                         <li>Nová kapacita: T16 + P6</li>
                         <li>Odložit mega-build</li>
                     </ul>
@@ -3255,29 +3258,25 @@
                 <div class="rm-acc-body">
                     <div class="rm-item">
                         <div class="rm-item-head">
-                            <span class="rm-item-code">T9</span>
                             <span class="rm-item-name">Vytěžení historických smluv → Raynet</span>
                             <span class="rm-badge rm-badge--done">Hotovo</span>
                         </div>
                         <p>Roční výnos ~1,2 mil. Kč (3 byty ročně navíc × marže ~800 tis. × 50 % pravděpodobnost) + JEDNORÁZOVĚ ušetřený placený externí člověk z Raynetu. Investice 0. Skóre 600. Sloučeno s dřívějším T13.</p>
-                        <p class="rm-warn">⚠ Compliance: pracuje s RČ a osobními údaji → doplnit compliance záznam (GDPR + AI Act).</p>
+                        <p class="rm-links">
+                            <a href="https://teams.microsoft.com/l/message/19:meeting_ZWExZGNlZmUtNzI5Zi00YWE2LWE5YmUtZjQ2MTNjODUzN2Yx@thread.v2/1784113911052?context=%7B%22contextType%22%3A%22chat%22%7D" target="_blank" rel="noopener">Diskuze v Teams →</a>
+                            <a href="https://pjcapital-my.sharepoint.com/:u:/g/personal/jakub_hovorka_pj-capital_cz/IQDkjNJhrLNERJKXdLGQqiqyAbk2ZbK7CvUOBzUjamviflM?e=elC3Ql&isSPOFile=1&xsdata=MDV8MDJ8fDVlYWM5ZmRkNDU1MDQ0ZjU3YmNlMDhkZWM4NTQ1ZWYxfGFlYzFiNGI4YTY2YjRmZTM5NDNkNjk4NzdkM2NkMjgwfDB8MHw2MzkxNjg0NjE4Mjg4ODEzNTh8VW5rbm93bnxWR1ZoYlhOVFpXTjFjbWwwZVZObGNuWnBZMlY4ZXlKRFFTSTZJbFJsWVcxelgwRlVVRk5sY25acFkyVmZVMUJQVEU5R0lpd2lWaUk2SWpBdU1DNHdNREF3SWl3aVVDSTZJbGRwYmpNeUlpd2lRVTRpT2lKUGRHaGxjaUlzSWxkVUlqb3hNWDA9fDF8TDJOb1lYUnpMekU1T2pVeVpEQmtNemxqTVRCa09UUXlaRGRpTkRnM09EaGlNMkppT0dRNU56TTJRSFJvY21WaFpDNTJNaTl0WlhOellXZGxjeTh4TnpneE1qUTVNemd3T0RnM3w4NjJlZDJkMTZmYTE0ZDFkN2JjZTA4ZGVjODU0NWVmMXwzOWZiNzI2NDYwYTg0MjYzOTY0YWE3YWRkYWMxZTZiOA%3D%3D&sdata=NXZKZVdLK2cvNExVcExKQ0hpS3VDaVdGTVpxYkd6aGs3VVBFcFhGZHYxOD0%3D&ovuser=aec1b4b8-a66b-4fe3-943d-69877d3cd280%2Cmartina.habova%40pj-capital.cz" target="_blank" rel="noopener">Výstup na SharePointu →</a>
+                        </p>
                     </div>
                     <div class="rm-item">
                         <div class="rm-item-head">
-                            <span class="rm-item-code">T11</span>
                             <span class="rm-item-name">Aplikace pro onboarding</span>
                             <span class="rm-badge rm-badge--done">Hotovo</span>
                         </div>
-                        <p>Power Apps. ~40 tis. Kč/rok (~80 h).</p>
-                    </div>
-                    <div class="rm-item">
-                        <div class="rm-item-head">
-                            <span class="rm-item-code">T4</span>
-                            <span class="rm-item-name">CuCa – vytěžit faktury → Raynet</span>
-                            <span class="rm-badge rm-badge--win">Do 16. 7.</span>
-                        </div>
-                        <p>Dokončí se do 16. 7. (~600 faktur).</p>
-                        <p class="rm-warn">⚠ Pracuje s RČ.</p>
+                        <p>Interní onboarding aplikace automatizuje předávání požadavků mezi HR a IT při nástupu zaměstnance, snižuje chybovost a zajišťuje jednotný, dohledatelný onboarding proces.</p>
+                        <p>Benefit ~40 tis. Kč/rok (~80 h). Investice 0 Kč (Power Apps). Vzor hotového pilotu — automatizace onboardingu v Power Apps. Šetří ~80 h/rok napříč HR/IT.</p>
+                        <p class="rm-links">
+                            <a href="https://pjcapital-my.sharepoint.com/:v:/g/personal/jakub_hovorka_pj-capital_cz/IQCjDzdVfthESolW1asKqN02AVPhNTPBKWtSymhCEnPTOXY?e=QbLhcg" target="_blank" rel="noopener">Video ukázka →</a>
+                        </p>
                     </div>
                 </div>
             </details>
@@ -3366,7 +3365,7 @@
                     </div>
                     <div class="rm-item">
                         <div class="rm-item-head">
-                            <span class="rm-item-code">T9, T4</span>
+                            <span class="rm-item-code">T9</span>
                             <span class="rm-item-name">Zpracování RČ, běží bez záznamu</span>
                             <span class="rm-badge rm-badge--warn">Doplnit záznam</span>
                         </div>
