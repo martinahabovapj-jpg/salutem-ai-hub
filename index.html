@@ -309,6 +309,120 @@
         .dashboard-section {
             background: var(--gray-50);
         }
+
+        /* ===== Dashboard AI agendy (v2 — živá data z Freela) ===== */
+        .aia-section { background: var(--gray-50); }
+        .aia-head {
+            display: flex; align-items: baseline; justify-content: space-between;
+            flex-wrap: wrap; gap: 8px; margin-bottom: 28px;
+        }
+        .aia-title { font-size: 1.9rem; font-weight: 800; color: var(--blue); margin: 0; }
+        .aia-live {
+            font-size: 0.8rem; font-weight: 600; color: #0A7C5C;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .aia-live::before {
+            content: ''; width: 8px; height: 8px; border-radius: 50%;
+            background: #0A7C5C; display: inline-block;
+        }
+
+        /* finanční dlaždice */
+        .aia-fin-row {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 16px; margin-bottom: 32px;
+        }
+        .aia-fin {
+            background: var(--white); border: 1px solid var(--gray-200);
+            border-radius: 14px; padding: 22px 24px; text-align: center;
+        }
+        .aia-fin-value { font-size: 2rem; font-weight: 800; color: var(--blue); line-height: 1.1; }
+        .aia-fin-label { font-size: 0.82rem; color: var(--gray-500); font-weight: 600; margin-top: 6px; }
+        .aia-fin-chip {
+            display: inline-block; margin-top: 10px; font-size: 0.72rem; font-weight: 600;
+            padding: 2px 10px; border-radius: 999px; background: var(--gray-100); color: var(--gray-500);
+        }
+
+        /* stavové dlaždice */
+        .aia-tiles {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 14px; margin-bottom: 40px;
+        }
+        .aia-tile {
+            background: var(--white); border: 1px solid var(--gray-200); border-radius: 14px;
+            padding: 20px 18px; text-align: center; text-decoration: none;
+            display: flex; flex-direction: column; gap: 4px;
+            transition: transform .12s ease, box-shadow .12s ease;
+        }
+        .aia-tile:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(13,53,121,.08); }
+        .aia-tile-num { font-size: 2.2rem; font-weight: 800; color: var(--gray-700); line-height: 1; }
+        .aia-tile-label { font-size: 0.82rem; font-weight: 600; color: var(--gray-500); }
+        .aia-tile--done .aia-tile-num, .aia-tile--done .aia-tile-label { color: #0A7C5C; }
+        .aia-tile--backlog .aia-tile-num, .aia-tile--backlog .aia-tile-label { color: #B42318; }
+
+        /* sekce + karty */
+        .aia-sekce { margin-bottom: 40px; scroll-margin-top: 90px; }
+        .aia-sekce-title {
+            font-size: 1.15rem; font-weight: 700; color: var(--gray-700);
+            margin: 0 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--gray-200);
+        }
+        .aia-sekce-title--done { color: #0A7C5C; border-bottom-color: #CDEBDF; }
+        .aia-sekce-title--backlog { color: #B42318; border-bottom-color: #F3C9C4; }
+        .aia-count { color: var(--gray-400); font-weight: 600; }
+        .aia-cards {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px;
+        }
+        .aia-loading, .aia-empty { color: var(--gray-400); font-size: 0.9rem; padding: 8px 0; }
+
+        .aia-card {
+            position: relative; border-radius: 14px; padding: 20px 22px 20px 24px;
+            border: 1px solid var(--gray-200); background: var(--white);
+            border-left: 4px solid var(--gray-300);
+        }
+        /* barvy dle větve */
+        .aia-card--produkcni  { background: #F0FAF6; border-left-color: #0A7C5C; }
+        .aia-card--vzdelavaci { background: #FDF1E8; border-left-color: #E0561F; }
+        .aia-card--compliance { background: #EEF2FA; border-left-color: #0D3579; }
+        /* backlog: podklad větve + červený proužek + červená patička */
+        .aia-card--backlog { border-left-color: #B42318; }
+
+        .aia-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
+        .aia-card-title { font-size: 1.02rem; font-weight: 700; color: var(--gray-800); line-height: 1.3; }
+        .aia-badge {
+            flex: none; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .02em;
+            padding: 3px 9px; border-radius: 999px; color: var(--white); white-space: nowrap;
+        }
+        .aia-badge--produkcni  { background: #0A7C5C; }
+        .aia-badge--vzdelavaci { background: #E0561F; }
+        .aia-badge--compliance { background: #0D3579; }
+        .aia-zadal { font-size: 0.78rem; color: var(--gray-500); margin-bottom: 10px; }
+        .aia-row { font-size: 0.86rem; color: var(--gray-700); margin-top: 8px; line-height: 1.45; }
+        .aia-row-l { font-weight: 700; color: var(--gray-600); }
+        .aia-bc {
+            display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 12px;
+            padding-top: 10px; border-top: 1px dashed var(--gray-200); font-size: 0.84rem;
+        }
+        .aia-bc-item { color: var(--gray-700); }
+        .aia-bc-item strong { color: var(--gray-800); }
+        .aia-foot {
+            margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--gray-200); font-size: 0.85rem;
+        }
+        .aia-foot-result { color: var(--gray-700); }
+        .aia-foot-quote { color: var(--gray-500); font-style: italic; margin-top: 6px; }
+        .aia-foot--backlog { border-top-color: #F3C9C4; }
+        .aia-foot--backlog .aia-foot-h { color: #B42318; font-weight: 700; }
+        .aia-foot--backlog .aia-foot-txt { color: var(--gray-600); margin-top: 4px; }
+        .aia-placeholder { color: var(--gray-400); font-style: italic; }
+
+        .aia-note { font-size: 0.82rem; margin-top: 8px; }
+        .aia-note--error { color: #B42318; }
+        .aia-updated { font-size: 0.78rem; color: var(--gray-400); margin-top: 20px; }
+
+        @media (max-width: 720px) {
+            .aia-fin-row { grid-template-columns: 1fr; }
+            .aia-tiles { grid-template-columns: repeat(2, 1fr); }
+            .aia-cards { grid-template-columns: 1fr; }
+            .aia-title { font-size: 1.5rem; }
+        }
         .dash-kpi-row {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -3441,65 +3555,74 @@
         </div>
     </section>
 
-    <!-- Dashboard Section -->
-    <section class="section dashboard-section" id="dashboard">
+    <!-- Dashboard AI agendy (živá data z Freela) -->
+    <section class="section aia-section" id="dashboard">
         <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">Stav služby</h2>
-                <p class="section-subtitle">Živý přehled AI use-casů — co právě běží, co se povedlo a co to přináší.</p>
+
+            <!-- 1. Hlavička -->
+            <div class="aia-head">
+                <h2 class="aia-title">AI agenda — stav k <span id="aiaDate">…</span></h2>
+                <span class="aia-live">živá data z Freela</span>
             </div>
 
-            <p class="section-intro">Skutečný úspěch není v tom, že se něco technicky spustí. Úspěch nastává až tehdy, když to lidé začnou používat.</p>
-
-            <!-- Blok C: Kumulativní výsledky -->
-            <div class="dash-kpi-row" id="dashKpiRow">
-                <div class="dash-kpi">
-                    <div class="dash-kpi-value" id="kpiActive">—</div>
-                    <div class="dash-kpi-label">use-casů v běhu</div>
+            <!-- 2. Finanční dlaždice (jediné místo se štítkem odhad/ověřeno) -->
+            <div class="aia-fin-row">
+                <div class="aia-fin">
+                    <div class="aia-fin-value" id="finVynos">—</div>
+                    <div class="aia-fin-label">Nové výnosy / rok</div>
+                    <div class="aia-fin-chip" id="finVynosChip">odhad</div>
                 </div>
-                <div class="dash-kpi dash-kpi--highlight">
-                    <div class="dash-kpi-value" id="kpiHodin">—</div>
-                    <div class="dash-kpi-label">h ušetřeno / rok</div>
+                <div class="aia-fin">
+                    <div class="aia-fin-value" id="finUspory">—</div>
+                    <div class="aia-fin-label">Uspořené náklady / rok</div>
+                    <div class="aia-fin-chip" id="finUsporyChip">odhad</div>
                 </div>
-                <div class="dash-kpi dash-kpi--highlight">
-                    <div class="dash-kpi-value" id="kpiKc">—</div>
-                    <div class="dash-kpi-label">Kč úspora / rok</div>
-                </div>
-                <div class="dash-kpi">
-                    <div class="dash-kpi-value" id="kpiLide">—</div>
-                    <div class="dash-kpi-label">zapojených kolegů</div>
-                </div>
-            </div>
-
-            <!-- Blok B: Aktuální sprint -->
-            <div class="dash-block" id="dashBlockInprocess">
-                <div class="dash-block-header">
-                    <span class="dash-block-dot dash-block-dot--orange"></span>
-                    <h3 class="dash-block-title">Právě v běhu</h3>
-                </div>
-                <div class="dash-grid" id="dashGridInprocess">
-                    <div class="dash-loading"><div class="dash-spinner"></div><p>Načítám…</p></div>
+                <div class="aia-fin">
+                    <div class="aia-fin-value" id="finInvest">—</div>
+                    <div class="aia-fin-label">Investováno celkem</div>
                 </div>
             </div>
 
-            <!-- Blok A: Zpětný pohled -->
-            <div class="dash-block" id="dashBlockDone">
-                <div class="dash-block-header">
-                    <span class="dash-block-dot dash-block-dot--green"></span>
-                    <h3 class="dash-block-title">Povedlo se — poslední 2 měsíce</h3>
-                </div>
-                <div class="dash-grid" id="dashGridDoneRecent">
-                    <div class="dash-loading"><div class="dash-spinner"></div><p>Načítám…</p></div>
-                </div>
-                <div id="dashOlderWrap" style="display:none; margin-top:12px;">
-                    <button class="dash-subtasks-toggle" id="dashOlderToggle" onclick="toggleOlder()">
-                        ▼ Zobrazit starší výsledky
-                    </button>
-                    <div class="dash-grid" id="dashGridDoneOlder" style="display:none; margin-top:16px;"></div>
-                </div>
+            <!-- 3. Stavové dlaždice (klik = scroll na sekci) -->
+            <div class="aia-tiles">
+                <a class="aia-tile aia-tile--done" href="#aia-hotovo">
+                    <span class="aia-tile-num" id="tileHotovo">0</span>
+                    <span class="aia-tile-label">hotovo</span>
+                </a>
+                <a class="aia-tile" href="#aia-aktualne">
+                    <span class="aia-tile-num" id="tileAktualne">0</span>
+                    <span class="aia-tile-label">aktuálně řešíme</span>
+                </a>
+                <a class="aia-tile" href="#aia-pripraveno">
+                    <span class="aia-tile-num" id="tilePripraveno">0</span>
+                    <span class="aia-tile-label">připraveno k výběru dle priorit</span>
+                </a>
+                <a class="aia-tile aia-tile--backlog" href="#aia-backlog">
+                    <span class="aia-tile-num" id="tileBacklog">0</span>
+                    <span class="aia-tile-label">backlog — čeká na podklady</span>
+                </a>
             </div>
 
-            <p class="dash-updated" id="dashUpdated"></p>
+            <!-- 4. Sekce s kartami -->
+            <div class="aia-sekce" id="aia-hotovo">
+                <h3 class="aia-sekce-title aia-sekce-title--done">hotovo <span class="aia-count" id="cntHotovo"></span></h3>
+                <div class="aia-cards" id="cardsHotovo"><div class="aia-loading">Načítám…</div></div>
+            </div>
+            <div class="aia-sekce" id="aia-aktualne">
+                <h3 class="aia-sekce-title">aktuálně řešíme <span class="aia-count" id="cntAktualne"></span></h3>
+                <div class="aia-cards" id="cardsAktualne"></div>
+            </div>
+            <div class="aia-sekce" id="aia-pripraveno">
+                <h3 class="aia-sekce-title">připraveno k výběru dle priorit <span class="aia-count" id="cntPripraveno"></span></h3>
+                <div class="aia-cards" id="cardsPripraveno"></div>
+            </div>
+            <div class="aia-sekce" id="aia-backlog">
+                <h3 class="aia-sekce-title aia-sekce-title--backlog">backlog — čeká na podklady <span class="aia-count" id="cntBacklog"></span></h3>
+                <div class="aia-cards" id="cardsBacklog"></div>
+            </div>
+
+            <p class="aia-note aia-note--error" id="aiaError" style="display:none;">Data se nepodařilo obnovit — zobrazujeme poslední známý stav.</p>
+            <p class="aia-updated" id="aiaUpdated"></p>
         </div>
     </section>
 
@@ -6235,165 +6358,123 @@ Méně práce
     </script>
 
 
-    <!-- Dashboard JavaScript -->
+    <!-- Dashboard AI agendy JavaScript (v2 — čte /api/dashboard) -->
     <script>
     (function() {
         const API_URL = '/api/dashboard';
-        const LEVEL_LABELS = { l3: 'L3 · osobní', l2: 'L2 · týmová', l1: 'L1 · strategická', l0: 'L0 · data' };
-        const STATUS_LABELS = { inprocess: 'V běhu', done: 'Hotovo', planned: 'Plánováno', paused: 'Pozastaveno' };
-        let allData = [];
-        let olderData = [];
+        const VETEV_LABEL = { produkcni: 'Produkce', vzdelavaci: 'Vzdělávání', compliance: 'Compliance' };
 
-        function formatKc(n) {
-            if (!n) return null;
-            if (n >= 1000000) return (n / 1000000).toFixed(1).replace('.0','') + ' mil.';
-            if (n >= 1000) return Math.round(n / 1000) + ' tis.';
-            return n.toString();
+        function esc(s) {
+            return String(s == null ? '' : s).replace(/[&<>"]/g, c =>
+                ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
         }
 
-        function isSoon(dateStr) {
-            if (!dateStr) return false;
-            const due = new Date(dateStr);
-            const now = new Date();
-            const diff = (due - now) / (1000 * 60 * 60 * 24);
-            return diff >= 0 && diff <= 14;
+        // Řádek šablony — nevyplněné pole se vynechá (žádné prázdné labely)
+        function row(label, val) {
+            return val ? `<div class="aia-row"><span class="aia-row-l">${esc(label)}:</span> ${esc(val)}</div>` : '';
         }
 
-        function formatDate(dateStr) {
-            if (!dateStr) return '';
-            const d = new Date(dateStr);
-            return d.toLocaleDateString('cs-CZ', { day: 'numeric', month: 'short' });
-        }
-
-        function isRecentDone(uc) {
-            if (!uc.dateFinished) return false;
-            const finished = new Date(uc.dateFinished);
-            const twoMonthsAgo = new Date();
-            twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
-            return finished >= twoMonthsAgo;
-        }
-
-        function renderCard(uc) {
-            const statusLabel = STATUS_LABELS[uc.status] || uc.status;
-            const levelLabel = LEVEL_LABELS[uc.level] || uc.level;
-            const people = (uc.zapojeniKolegove || []).filter(Boolean);
-
-            const upcoming = (uc.subtasks || []).filter(s => isSoon(s.dueDate) && !s.finished);
-            const rest = (uc.subtasks || []).filter(s => !isSoon(s.dueDate) || s.finished);
-
-            const subtaskHtml = (list) => list.map(s => `
-                <div class="dash-subtask-item">
-                    <span>${s.name}</span>
-                    ${s.dueDate ? `<span class="dash-subtask-due${isSoon(s.dueDate) ? ' soon' : ''}">${formatDate(s.dueDate)}</span>` : ''}
-                </div>`).join('');
-
-            const subtasksSection = (uc.subtasks && uc.subtasks.length > 0) ? `
-                <div class="dash-subtasks">
-                    ${upcoming.length > 0 ? subtaskHtml(upcoming) : ''}
-                    ${rest.length > 0 ? `
-                        <button class="dash-subtasks-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'▲ Skrýt':'▼ Zobrazit vše (${rest.length})'">
-                            ▼ Zobrazit vše (${rest.length})
-                        </button>
-                        <div class="dash-subtask-list">${subtaskHtml(rest)}</div>
-                    ` : ''}
-                </div>` : '';
-
-            const resultHtml = (uc.usporaHodin || uc.usporaKc) ? `
-                <div class="dash-result">
-                    ${uc.usporaHodin ? `<div class="dash-result-number">${uc.usporaHodin} h / týden</div><div class="dash-result-label">ušetřeno celkem / rok</div>` : ''}
-                    ${uc.usporaKc ? `<div class="dash-result-number" style="margin-top:4px">${formatKc(uc.usporaKc)} Kč / rok</div><div class="dash-result-label">odhadovaná úspora</div>` : ''}
-                    ${uc.vysledekPopis ? `<div class="dash-result-label" style="margin-top:6px;font-style:italic">${uc.vysledekPopis}</div>` : ''}
-                </div>` : '';
-
-            const citatHtml = uc.citat ? `<div class="dash-quote">${uc.citat}</div>` : '';
-            const peopleHtml = people.length > 0 ? `
-                <div class="dash-people">${people.map(p => `<span class="dash-person">${p}</span>`).join('')}</div>` : '';
-
-            const finishedDate = uc.dateFinished ? `<div style="font-size:0.72rem;color:var(--gray-400);margin-top:4px;">Dokončeno ${formatDate(uc.dateFinished)}</div>` : '';
-
-            return `
-                <div class="dash-card dash-card--${uc.status} dash-card--${uc.level}" data-status="${uc.status}">
-                    <div class="dash-card-header">
-                        <span class="dash-badge dash-badge--${uc.status}">${statusLabel}</span>
-                        <span class="dash-level-badge dash-level-badge--${uc.level}">${levelLabel}</span>
-                    </div>
-                    <div class="dash-card-title">${uc.name}</div>
-                    ${finishedDate}
-                    ${uc.popis ? `<div class="dash-card-popis">${uc.popis}</div>` : ''}
-                    ${peopleHtml}
-                    ${resultHtml}
-                    ${citatHtml}
-                    ${subtasksSection}
-                </div>`;
-        }
-
-        function renderGrid(gridId, items) {
-            const grid = document.getElementById(gridId);
-            if (!grid) return;
-            if (!items || items.length === 0) {
-                grid.innerHTML = '<div class="dash-empty">Žádné use-casy v tomto stavu.</div>';
-                return;
+        // Byznys case: Přínos/rok + typ · Investice · Návratnost
+        function businessCase(c) {
+            const parts = [];
+            if (c.prinosText) {
+                const typ = c.typPrinosu ? ` <span style="color:var(--gray-500)">(${esc(c.typPrinosu)})</span>` : '';
+                parts.push(`<span class="aia-bc-item"><strong>${esc(c.prinosText)}</strong> / rok${typ}</span>`);
+            } else if (c.sekce === 'backlog') {
+                parts.push(`<span class="aia-bc-item aia-placeholder">přínos se doplní po dodání podkladů</span>`);
             }
-            grid.innerHTML = items.map(renderCard).join('');
+            if (c.investiceText) parts.push(`<span class="aia-bc-item">Investice ${esc(c.investiceText)}</span>`);
+            else if (c.sekce === 'backlog') parts.push(`<span class="aia-bc-item aia-placeholder">investice se doplní po dodání podkladů</span>`);
+            if (c.navratnost) parts.push(`<span class="aia-bc-item">Návratnost ${esc(c.navratnost)}</span>`);
+            return parts.length ? `<div class="aia-bc">${parts.join('')}</div>` : '';
         }
 
-        function updateKpis(summary) {
-            document.getElementById('kpiActive').textContent = summary.activeCount || 0;
-            document.getElementById('kpiHodin').textContent = summary.totalHodin ? summary.totalHodin + ' h' : '—';
-            document.getElementById('kpiKc').textContent = summary.totalKc ? formatKc(summary.totalKc) : '—';
-            document.getElementById('kpiLide').textContent = summary.kolegoveCount || '—';
+        function renderCard(c) {
+            const cls = 'aia-card aia-card--' + c.vetev + (c.sekce === 'backlog' ? ' aia-card--backlog' : '');
+            const zadal = c.zadavatel ? `<div class="aia-zadal">Zadal: ${esc(c.zadavatel)}</div>` : '';
+
+            let foot = '';
+            if (c.sekce === 'hotovo' && (c.vysledek || c.citat)) {
+                foot = `<div class="aia-foot">`
+                    + (c.vysledek ? `<div class="aia-foot-result">${esc(c.vysledek)}</div>` : '')
+                    + (c.citat ? `<div class="aia-foot-quote">„${esc(c.citat)}"</div>` : '')
+                    + `</div>`;
+            } else if (c.sekce === 'backlog') {
+                foot = `<div class="aia-foot aia-foot--backlog"><div class="aia-foot-h">Chybí podklady</div>`
+                    + (c.chybiPodklady ? `<div class="aia-foot-txt">${esc(c.chybiPodklady)}</div>` : '')
+                    + `</div>`;
+            }
+
+            return `<div class="${cls}">
+                <div class="aia-card-head">
+                    <span class="aia-card-title">${esc(c.nazev)}</span>
+                    <span class="aia-badge aia-badge--${c.vetev}">${VETEV_LABEL[c.vetev] || c.vetev}</span>
+                </div>
+                ${zadal}
+                ${row('Problém v číslech', c.problem)}
+                ${row('Řešení', c.reseni)}
+                ${businessCase(c)}
+                ${foot}
+            </div>`;
         }
 
-        window.toggleOlder = function() {
-            const wrap = document.getElementById('dashGridDoneOlder');
-            const btn = document.getElementById('dashOlderToggle');
-            const isOpen = wrap.style.display !== 'none';
-            wrap.style.display = isOpen ? 'none' : 'grid';
-            btn.textContent = isOpen ? '▼ Zobrazit starší výsledky' : '▲ Skrýt starší výsledky';
-        };
+        function fill(id, cards) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.innerHTML = (cards && cards.length)
+                ? cards.map(renderCard).join('')
+                : '<div class="aia-empty">Zatím žádné položky.</div>';
+        }
 
-        function initDashboard() {
+        function init() {
+            document.getElementById('aiaDate').textContent = new Date().toLocaleDateString('cs-CZ');
+
             fetch(API_URL)
-                .then(r => {
-                    if (!r.ok) throw new Error('API error ' + r.status);
-                    return r.json();
-                })
+                .then(r => { if (!r.ok) throw new Error('API ' + r.status); return r.json(); })
                 .then(data => {
-                    allData = data.useCases || [];
-                    updateKpis(data.summary || {});
+                    const h = data.hlavicka || {}, d = data.dlazdice || {}, s = data.sekce || {};
 
-                    // Blok B: V běhu
-                    const inprocess = allData.filter(uc => uc.status === 'inprocess');
-                    renderGrid('dashGridInprocess', inprocess);
+                    // finanční hlavička
+                    document.getElementById('finVynos').textContent = (h.noveVynosy && h.noveVynosy.text) || '—';
+                    document.getElementById('finUspory').textContent = (h.usporeneNaklady && h.usporeneNaklady.text) || '—';
+                    document.getElementById('finInvest').textContent = (h.investovano && h.investovano.text) || '—';
+                    document.getElementById('finVynosChip').textContent = (h.noveVynosy && h.noveVynosy.dovetek) || 'odhad';
+                    document.getElementById('finUsporyChip').textContent = (h.usporeneNaklady && h.usporeneNaklady.dovetek) || 'odhad';
 
-                    // Blok A: Hotovo — rozdělení na nedávné a starší
-                    const done = allData.filter(uc => uc.status === 'done');
-                    const recentDone = done.filter(isRecentDone);
-                    const olderDone = done.filter(uc => !isRecentDone(uc));
+                    // stavové dlaždice
+                    document.getElementById('tileHotovo').textContent = d.hotovo || 0;
+                    document.getElementById('tileAktualne').textContent = d.aktualne || 0;
+                    document.getElementById('tilePripraveno').textContent = d.pripraveno || 0;
+                    document.getElementById('tileBacklog').textContent = d.backlog || 0;
 
-                    renderGrid('dashGridDoneRecent', recentDone);
+                    // počty vedle nadpisů sekcí
+                    const cnt = (id, n) => { const e = document.getElementById(id); if (e) e.textContent = '· ' + (n || 0); };
+                    cnt('cntHotovo', d.hotovo); cnt('cntAktualne', d.aktualne);
+                    cnt('cntPripraveno', d.pripraveno); cnt('cntBacklog', d.backlog);
 
-                    if (olderDone.length > 0) {
-                        const olderWrap = document.getElementById('dashOlderWrap');
-                        olderWrap.style.display = 'block';
-                        renderGrid('dashGridDoneOlder', olderDone);
-                    }
+                    // sekce s kartami
+                    fill('cardsHotovo', s.hotovo); fill('cardsAktualne', s.aktualne);
+                    fill('cardsPripraveno', s.pripraveno); fill('cardsBacklog', s.backlog);
 
-                    // Timestamp
                     if (data.generatedAt) {
-                        const d = new Date(data.generatedAt);
-                        document.getElementById('dashUpdated').textContent =
-                            'Aktualizováno: ' + d.toLocaleString('cs-CZ', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+                        const dt = new Date(data.generatedAt);
+                        document.getElementById('aiaUpdated').textContent =
+                            'Aktualizováno ' + dt.toLocaleString('cs-CZ', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' })
+                            + ' · data se obnovují každých 15 min.';
                     }
                 })
                 .catch(err => {
+                    // Freelo nedostupné → nenápadná hláška, ne rozbitá sekce (poslední cache drží CDN)
                     console.error('Dashboard error:', err);
-                    document.getElementById('dashGridInprocess').innerHTML = '<div class="dash-error">Nepodařilo se načíst data. Zkuste obnovit stránku.</div>';
-                    document.getElementById('dashGridDoneRecent').innerHTML = '';
+                    document.getElementById('aiaError').style.display = 'block';
+                    ['cardsHotovo', 'cardsAktualne', 'cardsPripraveno', 'cardsBacklog'].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el && /Načítám/.test(el.textContent)) el.innerHTML = '';
+                    });
                 });
         }
 
-        document.addEventListener('DOMContentLoaded', initDashboard);
+        document.addEventListener('DOMContentLoaded', init);
     })();
     </script>
 

@@ -1,246 +1,309 @@
-// api/dashboard.js — Vercel serverless funkce
-// Tahá data z Freelo API a vrátí parsovaný dashboard JSON
-// Token je uložen v FREELO_API_TOKEN environment variable ve Vercelu
+// api/dashboard.js — Vercel serverless funkce (v2 — AI agenda dle migrovaného Freela)
+// Čte VÝHRADNĚ 4 to-do listy migrovaného projektu 561017 a vrací parsovaný dashboard.
+// Přihlášení: FREELO_EMAIL + FREELO_API_TOKEN (Basic auth) v env proměnných Vercelu.
+//
+// Odpověď: { hlavicka, dlazdice, sekce: { hotovo[], aktualne[], pripraveno[], backlog[] }, log[], generatedAt }
+// Karta obsahuje jen pole, která web zobrazuje (FÁZE, PŘEKÁŽKA, DALŠÍ KROK, skóre se NEposílají — A4).
 
 const FREELO_BASE = 'https://api.freelo.io/v1';
 const TOKEN = process.env.FREELO_API_TOKEN;
-const EMAIL = process.env.FREELO_EMAIL; // tvůj přihlašovací email do Freela
+const EMAIL = process.env.FREELO_EMAIL;
 
-// ID hlavních use casů (task ID → název)
-// To-do listy které se NEZOBRAZUJÍ na dashboardu
-const EXCLUDED_LIST_IDS = [1883045, 1717295]; // AI Hub & provoz týmu, Freelo formulář + ukolník PŠ
-
-const USE_CASES = [
-  { taskId: 29993565, listId: 1883031, name: 'Rychlejší práce s emaily',         level: 'l3', direction: 'dovnitř' },
-  { taskId: 29993922, listId: 1883032, name: 'Přehled z 20 Teams skupin',        level: 'l3', direction: 'dovnitř' },
-  { taskId: 29993681, listId: 1883033, name: 'Zadávej úkoly hlasem',             level: 'l3', direction: 'dovnitř' },
-  { taskId: 29993796, listId: 1883034, name: 'Z porady rovnou úkoly',            level: 'l3', direction: 'dovnitř' },
-  { taskId: 29993839, listId: 1883036, name: 'Rychlejší analýza smluv',          level: 'l3', direction: 'dovnitř' },
-  { taskId: 29993878, listId: 1883037, name: 'Chytřejší práce s tabulkami',      level: 'l3', direction: 'dovnitř' },
-  { taskId: 29993913, listId: 1883038, name: 'Méně manuálního přepisování',      level: 'l2', direction: 'obojí'   },
-  { taskId: 29993914, listId: 1883039, name: 'Z nákupu do prodeje rychleji',     level: 'l2', direction: 'obojí'   },
-  { taskId: null,     listId: 1883040, name: 'Týmové piloty na míru',            level: 'l2', direction: 'obojí', multiTask: true },
-  { taskId: 29993915, listId: 1883041, name: 'Upozornění na změny v katastru',   level: 'l1', direction: 'ven'     },
-  { taskId: 29993917, listId: 1883042, name: 'Predikce Cash Flow',               level: 'l1', direction: 'dovnitř' },
-  { taskId: 29993918, listId: 1883043, name: 'Jeden zdroj pravdy dat',           level: 'l0', direction: 'dovnitř' },
-  { taskId: 29993920, listId: 1883044, name: 'Jeden report místo čtyř',          level: 'l0', direction: 'dovnitř' },
+// 4 zdrojové listy (ID z migrace-report.md). `stem` = kmen názvu pro pojistku shody názvů.
+const LISTS = [
+  { key: 'prod', id: 1946848, vetev: 'produkcni',  stem: 'produkcni vetev' },
+  { key: 'edu',  id: 1946850, vetev: 'vzdelavaci', stem: 'vzdelavaci vetev' },
+  { key: 'comp', id: 1931437, vetev: 'compliance', stem: 'compliance' },
+  { key: 'udrz', id: 1943888, vetev: 'produkcni',  stem: 'udrzovani' }, // Udržování = vždy produkční větev (1b)
 ];
 
-// Parsuje HTML popis šablony na strukturovaný objekt
-// Formát: <p><strong>KLÍČ:</strong> hodnota</p>
-function parseDescription(html) {
+// ---------- pomocné funkce ----------
+
+// odstraní diakritiku, malá písmena, sjednotí mezery
+function norm(s) {
+  return String(s || '')
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .toLowerCase().replace(/\s+/g, ' ').trim();
+}
+
+// Parsuje pouze v2 šablonu = část popisu PŘED prvním <hr> (starý v1 obsah je pod <hr> — ignorujeme).
+// Formát pole: <p><strong>KLÍČ:</strong> hodnota</p>
+function parseTemplate(html) {
   if (!html) return {};
+  const v2 = String(html).split(/<hr\s*\/?>/i)[0];
   const fields = {};
-  // Přesný pattern pro formát Freela: <p><strong>KLÍČ:</strong> hodnota</p>
-  const pattern = /<p><strong>([^<]+):<\/strong>\s*(.*?)<\/p>/gi;
-  let match;
-  while ((match = pattern.exec(html)) !== null) {
-    const rawKey = match[1].trim();
-    const value = match[2].replace(/<[^>]+>/g, '').trim();
-    // Normalizuj klíč — odstraň diakritiku, nahraď mezery podtržítkem
-    const key = rawKey.toUpperCase()
-      .normalize('NFD').replace(/[̀-ͯ]/g, '')
-      .replace(/\s+/g, '_');
+  const pattern = /<p>\s*<strong>([^<]+?):<\/strong>\s*(.*?)<\/p>/gi;
+  let m;
+  while ((m = pattern.exec(v2)) !== null) {
+    const key = norm(m[1]).toUpperCase();               // "PŘÍNOS KČ/ROK" -> "PRINOS KC/ROK"
+    const value = m[2].replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
     fields[key] = value;
   }
   return fields;
 }
 
-// Freelo API GET helper
+// zvedne hodnotu pole podle normalizovaného klíče
+function field(fields, key) {
+  return (fields[key] || '').trim();
+}
+
+// "480 000 Kč" / "1,2 mil" / "640000" -> číslo (Kč). Prázdné -> null.
+function parseKc(raw) {
+  if (!raw) return null;
+  let s = norm(raw).replace(/kc|,-/g, '').trim();
+  if (!s) return null;
+  const mil = s.match(/([\d\s.,]+)\s*mil/);
+  if (mil) return Math.round(toNum(mil[1]) * 1e6);
+  const tis = s.match(/([\d\s.,]+)\s*tis/);
+  if (tis) return Math.round(toNum(tis[1]) * 1e3);
+  const n = toNum(s);
+  return isNaN(n) ? null : Math.round(n);
+}
+
+function toNum(x) {
+  let t = String(x).replace(/[^\d.,]/g, '');
+  if (t.indexOf(',') > -1 && t.indexOf('.') > -1) t = t.replace(/\./g, '').replace(',', '.');
+  else if (t.indexOf(',') > -1) t = t.replace(',', '.');
+  return parseFloat(t);
+}
+
+// české zkrácené formátování: 1,2 mil. Kč · 640 tis. Kč
+function formatKc(n) {
+  if (n == null || isNaN(n) || n === 0) return null;
+  if (n >= 1e6) {
+    let s = (n / 1e6).toFixed(1).replace('.', ',');
+    s = s.replace(',0', '');
+    return s + ' mil. Kč';
+  }
+  if (n >= 1000) return Math.round(n / 1000) + ' tis. Kč';
+  return Math.round(n) + ' Kč';
+}
+
+// OVĚŘENO: "ano…" -> true
+function isOvereno(raw) {
+  return /^ano/.test(norm(raw));
+}
+
+// TYP PŘÍNOSU -> kategorie: 'vynos' | 'naklady' | null
+function typKategorie(raw) {
+  const t = norm(raw);
+  if (!t) return null;
+  if (t.indexOf('vynos') > -1) return 'vynos';
+  if (t.indexOf('cas') > -1 || t.indexOf('uspora') > -1 ||
+      t.indexOf('vyhnuta') > -1 || t.indexOf('risk') > -1) return 'naklady';
+  return null;
+}
+
+// pipeline štítek z pole labels (ostatní štítky typu Obchod/Customer Care ignorujeme)
+function pipelineLabel(labels) {
+  const names = (labels || []).map(l => norm(l.name));
+  if (names.some(n => n.indexOf('nova poptavka') > -1)) return 'nova-poptavka';
+  if (names.some(n => n.indexOf('testovacim provozu') > -1)) return 'testovaci-provoz';
+  if (names.some(n => n === 'in process' || n.indexOf('in process') > -1)) return 'in-process';
+  if (names.some(n => n.indexOf('on hold') > -1 || n.indexOf('onhold') > -1)) return 'onhold';
+  if (names.some(n => n.indexOf('backlog') > -1)) return 'backlog';
+  return null;
+}
+
 async function freeloGet(path) {
   const res = await fetch(`${FREELO_BASE}${path}`, {
     headers: {
-      // Freelo používá HTTP Basic auth: email + API token jako heslo
       'Authorization': 'Basic ' + Buffer.from(`${EMAIL}:${TOKEN}`).toString('base64'),
       'Content-Type': 'application/json',
     },
   });
-  if (!res.ok) throw new Error(`Freelo API error ${res.status} for ${path}`);
+  if (!res.ok) throw new Error(`Freelo API ${res.status} @ ${path}`);
   return res.json();
 }
 
-// Zpracuje jeden hlavní use case task
-// Šablona (popis, citát atd.) se bere z hlavního úkolu
-// Podúkoly se berou z celého to-do listu (listId)
-async function processTask(taskId, listId) {
-  const data = await freeloGet(`/task/${taskId}`);
-
-  // Najdi description komentář (is_description: true)
-  const descComment = (data.comments || []).find(c => c.is_description);
-  const fields = descComment ? parseDescription(descComment.content) : {};
-
-  // Podúkoly — načti z celého to-do listu
-  let subtasks = [];
-  if (listId) {
-    const listData = await freeloGet(`/tasklist/${listId}`);
-    const rawTasks = Array.isArray(listData.tasks) ? listData.tasks : [];
-    subtasks = rawTasks
-      .filter(t => {
-        // Přeskoč samotný hlavní úkol
-        if (t.id === taskId) return false;
-        const name = t.name || '';
-        const isIntern = name.includes('[interní]') ||
-          /^(technická příprava|komunikační příprava|checklist pro start|interní příprava|pilotní obsah a šablony|interní pracovní systém|datová příprava)$/i.test(name.trim());
-        return !isIntern;
-      })
-      .map(t => ({
-        id: t.id,
-        name: t.name.replace('[dashboard]', '').trim(),
-        status: t.state?.id === 5 ? 'finished' : 'active',
-        dueDate: t.due_date || null,
-        finished: t.state?.id === 5,
-        worker: t.worker?.fullname || null,
-      }));
-  }
-
-  // Určí status z šablony nebo Freelo state
-  const statusMap = {
-    'v běhu': 'inprocess',
-    'hotovo': 'done',
-    'pozastaveno': 'paused',
-    'plánováno': 'planned',
-  };
-  // Zkus různé varianty klíče STATUS po normalizaci
-  const rawStatus = (
-    fields['STATUS'] ||
-    fields['STAV'] ||
-    fields['STATUS_'] ||
-    ''
-  ).toLowerCase().trim();
-
-  // Fallback logika: pokud STATUS není vyplněn, odvoď ze stavu úkolu a podúkolů
-  let status = statusMap[rawStatus];
-  if (!status) {
-    if (data.state?.id === 5) {
-      status = 'done';
-    } else {
-      // "v běhu" pokud má podúkol s řešitelem nebo termínem (načteme níže)
-      status = null; // doplníme po načtení subtasků
-    }
-  }
-
-  // Pokud status nebyl určen ze šablony, odvoď z podúkolů
-  if (!status) {
-    const hasActiveSubtaskWithDateOrWorker = subtasks.some(s =>
-      !s.finished && (s.dueDate || s.worker)
-    );
-    status = hasActiveSubtaskWithDateOrWorker ? 'inprocess' : 'planned';
-  }
-
-  return {
-    taskId,
-    name: fields['NAZEV'] || data.name,
-    popis: fields['POPIS'] || '',
-    uroven: fields['UROVEN'] || '',
-    status,
-    datumZahajeni: fields['DATUM_ZAHAJENI'] || '',
-    datumDokonceni: fields['DATUM_DOKONCENI'] || data.date_finished || '',
-    dateFinished: data.date_finished || null,
-    zapojeniKolegove: fields['ZAPOJENI_KOLEGOVE']
-      ? fields['ZAPOJENI_KOLEGOVE'].split(',').map(s => s.trim()).filter(Boolean)
-      : [],
-    usporaHodin: parseFloat(fields['USPORA_HODIN']) || null,  // celkem h/rok za celý tým
-    usporaKc: parseFloat(fields['USPORA_KC']) || null,
-    vysledekPopis: fields['VYSLEDEK_POPIS'] || '',
-    citat: fields['CITAT'] || '',
-    subtasks,
-  };
+// všechny úkoly listu (vč. podúkolů), s pagingem
+async function fetchAllTasks(listId) {
+  let page = 0, all = [], total = Infinity;
+  do {
+    const r = await freeloGet(`/all-tasks?tasklists_ids%5B%5D=${listId}&page=${page}`);
+    const tasks = (r.data && r.data.tasks) || [];
+    all = all.concat(tasks);
+    total = r.total || all.length;
+    page++;
+    if (tasks.length === 0) break;
+  } while (all.length < total);
+  return all;
 }
 
-// Zpracuje Týmové piloty na míru jako JEDNU kartu s podúkoly z celého to-do listu
-async function processListAsOneCard(uc) {
-  const data = await freeloGet(`/tasklist/${uc.listId}`);
-  const rawTasks = Array.isArray(data.tasks) ? data.tasks : [];
+// spustí promises po dávkách (concurrency cap)
+async function inChunks(items, size, fn) {
+  const out = [];
+  for (let i = 0; i < items.length; i += size) {
+    const chunk = items.slice(i, i + size);
+    out.push(...await Promise.all(chunk.map(fn)));
+  }
+  return out;
+}
 
-  // Všechny top-level úkoly v listu = piloty = zobrazíme jako subtasky
-  const topTasks = rawTasks.filter(t => !t.parent_task_id);
+// je šablona vyplněná? (F4 — Udržování bez šablony ignorovat)
+function hasTemplate(f) {
+  return !!(field(f, 'ZADAVATEL') || field(f, 'PROBLEM V CISLECH') ||
+            field(f, 'POPIS RESENI') || field(f, 'PRINOS KC/ROK') ||
+            field(f, 'VYSLEDEK POPIS'));
+}
 
-  // Filtruj jen aktivní (ne hotové) s termínem nebo bez
-  const subtasks = topTasks
-    .filter(t => {
-      const isIntern = /technická příprava|komunikační příprava|checklist|interní příprava/i.test(t.name || '');
-      return !isIntern;
-    })
-    .map(t => ({
-      id: t.id,
-      name: t.name,
-      status: t.state?.id === 5 ? 'finished' : 'active',
-      dueDate: t.due_date || null,
-      finished: t.state?.id === 5,
-    }));
-
-  // "v běhu" pokud má alespoň jeden pilot s termínem nebo řešitelem
-  const hasActiveWithDateOrWorker = subtasks.some(s => !s.finished && (s.dueDate || s.worker));
-  const listStatus = hasActiveWithDateOrWorker ? 'inprocess' : 'planned';
-
+// sestaví kartu use casu (jen zobrazovaná pole + datová příprava pro E1)
+function buildCard(task, list, sekce, f) {
+  const prinosRaw = parseKc(field(f, 'PRINOS KC/ROK'));
+  const investRaw = parseKc(field(f, 'INVESTICE KC'));
   return {
-    taskId: null,
-    name: uc.name,
-    popis: `Aktivní piloty na míru pro různá oddělení — Customer Care, Pronájmy, Marketing, HR/IT a další.`,
-    uroven: uc.level,
-    status: listStatus,
-    direction: uc.direction,
-    datumZahajeni: '',
-    datumDokonceni: '',
-    dateFinished: null,
-    zapojeniKolegove: [],
-    usporaHodin: null,
-    usporaKc: null,
-    vysledekPopis: '',
-    citat: '',
-    subtasks,
+    id: task.id,
+    vetev: list.vetev,
+    sekce,
+    nazev: (task.name || '').replace(/\[dashboard\]|\[interní\]/gi, '').trim(),
+    zadavatel: field(f, 'ZADAVATEL'),
+    problem: field(f, 'PROBLEM V CISLECH'),
+    reseni: field(f, 'POPIS RESENI'),
+    prinosKc: prinosRaw,
+    prinosText: formatKc(prinosRaw),
+    typPrinosu: field(f, 'TYP PRINOSU'),
+    investiceKc: investRaw,
+    investiceText: formatKc(investRaw),
+    navratnost: field(f, 'NAVRATNOST'),
+    overeno: isOvereno(field(f, 'OVERENO')),
+    // hotovo — patička:
+    vysledek: field(f, 'VYSLEDEK POPIS'),
+    citat: field(f, 'CITAT'),
+    vProvozuOd: field(f, 'V PROVOZU OD'),
+    dateFinished: task.date_finished || null,
+    // backlog — patička:
+    chybiPodklady: field(f, 'CHYBI PODKLADY'),
+    // E1 datová příprava (zatím se nezobrazuje):
+    cekaNa: field(f, 'CEKA NA'),
   };
 }
 
 export default async function handler(req, res) {
-  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate=1800'); // cache 15 minut
+  res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate=1800'); // cache 15 min
 
   if (!TOKEN || !EMAIL) {
     return res.status(500).json({ error: 'FREELO_API_TOKEN nebo FREELO_EMAIL není nastaven' });
   }
 
   try {
-    const results = [];
-    let totalHodin = 0;
-    let totalKc = 0;
-    let activeCount = 0;
-    const allKolegove = new Set();
+    const log = [];
 
-    for (const uc of USE_CASES) {
-      // Přeskoč vyloučené to-do listy
-      if (EXCLUDED_LIST_IDS.includes(uc.listId)) continue;
+    // 1) načti všechny listy + pojistka shody názvů (při neshodě chyba, ne prázdná data)
+    const lists = await Promise.all(LISTS.map(async (L) => {
+      const meta = await freeloGet(`/tasklist/${L.id}`);
+      if (norm(meta.name).indexOf(L.stem) === -1) {
+        throw new Error(`Neshoda názvu listu ${L.id}: očekáváno „${L.stem}", ve Freelu „${meta.name}"`);
+      }
+      const tasks = await fetchAllTasks(L.id);
+      return { ...L, tasks };
+    }));
 
-      if (uc.multiTask) {
-        // Týmové piloty na míru — jedna karta zastřešující celý to-do list
-        const card = await processListAsOneCard(uc);
-        results.push(card);
-        if (card.status === 'inprocess') activeCount++;
-      } else {
-        const task = await processTask(uc.taskId, uc.listId);
-        task.level = uc.level;
-        task.direction = uc.direction;
-        results.push(task);
-        if (task.status === 'inprocess') activeCount++;
-        if (task.usporaHodin) totalHodin += task.usporaHodin;
-        if (task.usporaKc) totalKc += task.usporaKc;
-        task.zapojeniKolegove.forEach(k => allKolegove.add(k));
+    // 2) roztřiď top-level úkoly do sekcí
+    const sekce = { hotovo: [], aktualne: [], pripraveno: [], backlog: [] };
+    const toLoad = []; // { task, list, sekce }
+
+    for (const L of lists) {
+      const top = L.tasks.filter(t => !t.parent_task_id);
+      const children = L.tasks.filter(t => t.parent_task_id);
+
+      for (const t of top) {
+        const pl = pipelineLabel(t.labels);
+        const isFinished = (t.state && t.state.id) === 5;
+        const kids = children.filter(c => c.parent_task_id === t.id);
+        const hasActiveSub = kids.some(c => (c.state && c.state.id) !== 5 && (c.worker || c.due_date));
+
+        let target = null;
+        if (L.key === 'udrz') {
+          target = 'hotovo'; // šablonu ověříme až po načtení popisu (F4)
+        } else if ((L.key === 'edu' || L.key === 'comp') && isFinished) {
+          target = 'hotovo';
+        } else if (pl === 'nova-poptavka') {
+          log.push(`skryto (nová poptávka): [${t.id}] ${t.name}`);
+        } else if (!pl) {
+          log.push(`skryto (bez pipeline štítku, mimo Udržování): [${t.id}] ${t.name}`);
+        } else if (pl === 'backlog') {
+          target = 'backlog';
+        } else if (pl === 'testovaci-provoz') {
+          target = 'aktualne';
+        } else if (pl === 'in-process') {
+          target = hasActiveSub ? 'aktualne' : 'pripraveno';
+        } else if (pl === 'onhold') {
+          target = 'pripraveno';
+        }
+
+        if (target) toLoad.push({ task: t, list: L, sekce: target });
       }
     }
 
-    const response = {
-      generatedAt: new Date().toISOString(),
-      summary: {
-        activeCount,
-        totalHodin: Math.round(totalHodin * 10) / 10,
-        totalKc,
-        kolegoveCount: allKolegove.size,
-      },
-      useCases: results,
+    // 3) načti popisy (v2 šablony) jen u zobrazovaných úkolů, po dávkách
+    const cards = await inChunks(toLoad, 6, async ({ task, list, sekce: target }) => {
+      let f = {};
+      try {
+        const detail = await freeloGet(`/task/${task.id}`);
+        const desc = (detail.comments || []).find(c => c.is_description);
+        f = desc ? parseTemplate(desc.content) : {};
+      } catch (e) {
+        log.push(`popis se nepodařilo načíst: [${task.id}] ${task.name}`);
+      }
+      return { task, list, target, f };
+    });
+
+    // 4) zařaď karty (Udržování bez šablony ignoruj — F4)
+    for (const { task, list, target, f } of cards) {
+      if (list.key === 'udrz' && !hasTemplate(f)) {
+        log.push(`skryto (Udržování bez vyplněné šablony — F4): [${task.id}] ${task.name}`);
+        continue;
+      }
+      sekce[target].push(buildCard(task, list, target, f));
+    }
+
+    // 5) řazení: hotovo dle V PROVOZU OD / date_finished sestupně; ostatní dle přínosu sestupně
+    const dateVal = (c) => {
+      const d = Date.parse(c.vProvozuOd) || Date.parse(c.dateFinished);
+      return isNaN(d) ? -Infinity : d;
+    };
+    sekce.hotovo.sort((a, b) => dateVal(b) - dateVal(a));
+    ['aktualne', 'pripraveno', 'backlog'].forEach(s => {
+      sekce[s].sort((a, b) => (b.prinosKc || -Infinity) - (a.prinosKc || -Infinity));
+    });
+
+    // 6) finanční hlavička (B3) — agregace přes všechny zobrazené karty
+    let vynos = 0, vynosOv = 0, naklady = 0, nakladyOv = 0, investovano = 0;
+    const all = [...sekce.hotovo, ...sekce.aktualne, ...sekce.pripraveno, ...sekce.backlog];
+    for (const c of all) {
+      if (c.prinosKc) {
+        const kat = typKategorie(c.typPrinosu);
+        if (kat === 'vynos') { vynos += c.prinosKc; if (c.overeno) vynosOv += c.prinosKc; }
+        else if (kat === 'naklady') { naklady += c.prinosKc; if (c.overeno) nakladyOv += c.prinosKc; }
+      }
+    }
+    for (const c of [...sekce.hotovo, ...sekce.aktualne]) {
+      if (c.investiceKc) investovano += c.investiceKc;
+    }
+
+    const overenoDovetek = (ov) => (ov > 0 ? 'z toho ověřeno ' + formatKc(ov) : 'odhad');
+
+    const hlavicka = {
+      noveVynosy:      { text: formatKc(vynos) || '—',   dovetek: overenoDovetek(vynosOv) },
+      usporeneNaklady: { text: formatKc(naklady) || '—', dovetek: overenoDovetek(nakladyOv) },
+      investovano:     { text: formatKc(investovano) || '—' },
     };
 
-    return res.status(200).json(response);
+    const dlazdice = {
+      hotovo: sekce.hotovo.length,
+      aktualne: sekce.aktualne.length,
+      pripraveno: sekce.pripraveno.length,
+      backlog: sekce.backlog.length,
+    };
+
+    return res.status(200).json({
+      generatedAt: new Date().toISOString(),
+      hlavicka,
+      dlazdice,
+      sekce,
+      log,
+    });
   } catch (err) {
     console.error('Dashboard API error:', err);
     return res.status(500).json({ error: err.message });
