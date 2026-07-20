@@ -1,0 +1,26 @@
+{
+  "29994015_onboarding": {
+    "task_id": 29994015,
+    "name": "Aplikace pro onboarding",
+    "file": "29994015_onboarding.html",
+    "len": 2394
+  },
+  "30138724_trzni_najemne": {
+    "task_id": 30138724,
+    "name": "Stanovení tržního nájemného podle aktuální konkurence",
+    "file": "30138724_trzni_najemne.html",
+    "len": 2273
+  },
+  "31266277_vyteni_smluv_raynet": {
+    "task_id": 31266277,
+    "name": "Vytěžení historických smluv → Raynet",
+    "file": "31266277_vyteni_smluv_raynet.html",
+    "len": 980
+  },
+  "29834225_skeleton_dotaznikotesty": {
+    "task_id": 29834225,
+    "name": "Vytvoření dotazníko-testů",
+    "file": "29834225_skeleton_dotaznikotesty.html",
+    "len": 581
+  }
+}

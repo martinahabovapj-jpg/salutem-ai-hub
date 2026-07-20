@@ -26,20 +26,63 @@ function norm(s) {
     .toLowerCase().replace(/\s+/g, ' ').trim();
 }
 
-// Parsuje pouze v2 šablonu = část popisu PŘED prvním <hr> (starý v1 obsah je pod <hr> — ignorujeme).
-// Formát pole: <p><strong>KLÍČ:</strong> hodnota</p>
-function parseTemplate(html) {
-  if (!html) return {};
-  const v2 = String(html).split(/<hr\s*\/?>/i)[0];
+// ---- Tolerantní parser šablony v2 (ručně editované HTML z Freela) ----
+// Freelo editor generuje spoustu variant (<b>/<strong>, dvojtečka uvnitř i vně tučnosti,
+// <div>/<br> místo <p>, &nbsp;, mezery kolem dvojtečky). Proto: HTML → řádky čistého textu
+// → na každém řádku hledej „KLÍČ : hodnota" proti seznamu známých klíčů. Robustnější než regex nad HTML.
+
+const ENTITIES = { '&nbsp;': ' ', '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#39;': "'", '&apos;': "'" };
+function decodeEntities(s) {
+  return String(s)
+    .replace(/&nbsp;|&amp;|&lt;|&gt;|&quot;|&#39;|&apos;/g, m => ENTITIES[m])
+    .replace(/&#(\d+);/g, (_, d) => String.fromCharCode(parseInt(d, 10)));
+}
+
+// <br>, konce bloků a <hr> → nový řádek; ostatní tagy pryč; entity dekódovat
+function htmlToLines(html) {
+  return decodeEntities(
+    String(html || '')
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<\/(p|div|li|h[1-6]|tr)>/gi, '\n')
+      .replace(/<hr\s*\/?>/gi, '\n')
+      .replace(/<[^>]+>/g, '')
+  ).split('\n');
+}
+
+// zjednodušený náhled popisu (pro log)
+function stripToText(html) {
+  return htmlToLines(html).join(' ').replace(/\s+/g, ' ').trim();
+}
+
+// známé klíče šablony v2 (normalizované: bez diakritiky, VELKÁ, sjednocené mezery)
+const KNOWN_KEYS = [
+  'ZADAVATEL', 'PROBLEM V CISLECH', 'POPIS RESENI', 'PRINOS KC/ROK', 'TYP PRINOSU',
+  'USPORA HODIN/ROK', 'INVESTICE KC', 'NAVRATNOST', 'OVERENO', 'FAZE',
+  'ZAPOJENI KOLEGOVE', 'PREKAZKA', 'DALSI KROK', 'CEKA NA', 'CHYBI PODKLADY',
+  'VYSLEDEK POPIS', 'CITAT', 'V PROVOZU OD',
+];
+
+// na každém řádku: text před první dvojtečkou = klíč (porovnat bez diakritiky/case), zbytek = hodnota
+function parseFields(html) {
   const fields = {};
-  const pattern = /<p>\s*<strong>([^<]+?):<\/strong>\s*(.*?)<\/p>/gi;
-  let m;
-  while ((m = pattern.exec(v2)) !== null) {
-    const key = norm(m[1]).toUpperCase();               // "PŘÍNOS KČ/ROK" -> "PRINOS KC/ROK"
-    const value = m[2].replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
-    fields[key] = value;
+  for (const line of htmlToLines(html)) {
+    const idx = line.indexOf(':');
+    if (idx === -1) continue;
+    const key = norm(line.slice(0, idx)).toUpperCase();     // "PŘÍNOS KČ/ROK :" -> "PRINOS KC/ROK"
+    if (KNOWN_KEYS.indexOf(key) === -1) continue;
+    if (fields[key] !== undefined) continue;                // první výskyt vyhrává (v2 je nad <hr>)
+    fields[key] = line.slice(idx + 1).replace(/\s+/g, ' ').trim();
   }
   return fields;
+}
+
+// v1 obsah pod <hr> ignoruj JEN když se nad ním našlo aspoň jedno pole;
+// jinak (ručně založený úkol bez <hr> / <hr> jinde) parsuj celý popis
+function parseTemplate(html) {
+  if (!html) return {};
+  const aboveHr = String(html).split(/<hr\s*\/?>/i)[0];
+  const fields = parseFields(aboveHr);
+  return Object.keys(fields).length > 0 ? fields : parseFields(html);
 }
 
 // zvedne hodnotu pole podle normalizovaného klíče
@@ -237,21 +280,31 @@ export default async function handler(req, res) {
 
     // 3) načti popisy (v2 šablony) jen u zobrazovaných úkolů, po dávkách
     const cards = await inChunks(toLoad, 6, async ({ task, list, sekce: target }) => {
-      let f = {};
+      let f = {}, preview = '', hadDesc = false;
       try {
         const detail = await freeloGet(`/task/${task.id}`);
         const desc = (detail.comments || []).find(c => c.is_description);
-        f = desc ? parseTemplate(desc.content) : {};
+        if (desc && desc.content) {
+          hadDesc = true;
+          f = parseTemplate(desc.content);
+          preview = stripToText(desc.content).slice(0, 150);
+        }
       } catch (e) {
         log.push(`popis se nepodařilo načíst: [${task.id}] ${task.name}`);
       }
-      return { task, list, target, f };
+      return { task, list, target, f, preview, hadDesc };
     });
 
     // 4) zařaď karty — filtr šablony platí pro VŠECHNY listy (F4 revize v4)
-    for (const { task, list, target, f } of cards) {
+    for (const { task, list, target, f, preview, hadDesc } of cards) {
       if (!hasTemplate(f)) {
-        log.push(`skryto (bez vyplněné šablony v2 — F4): [${task.id}] ${task.name}`);
+        if (!hadDesc) {
+          log.push(`skryto (popis prázdný): [${task.id}] ${task.name}`);
+        } else if (Object.keys(f).length === 0) {
+          log.push(`skryto (popis existuje, ale nerozpoznáno žádné pole): [${task.id}] ${task.name} — „${preview}"`);
+        } else {
+          log.push(`skryto (šablona bez POPIS ŘEŠENÍ/ZADAVATEL — F4): [${task.id}] ${task.name}`);
+        }
         continue;
       }
       sekce[target].push(buildCard(task, list, target, f));
@@ -308,3 +361,6 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: err.message });
   }
 }
+
+// Pojmenované exporty pro jednotkové testy parseru (default handler výše zůstává funkcí Vercelu).
+export { parseTemplate, parseFields, hasTemplate, htmlToLines, stripToText, field, norm, KNOWN_KEYS };
