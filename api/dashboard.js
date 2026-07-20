@@ -140,11 +140,10 @@ async function inChunks(items, size, fn) {
   return out;
 }
 
-// je šablona vyplněná? (F4 — Udržování bez šablony ignorovat)
+// je šablona v2 vyplněná? (F4 revize v4 — platí pro VŠECHNY listy)
+// „vyplněná" = pole POPIS ŘEŠENÍ nebo ZADAVATEL má neprázdnou hodnotu (field() ořezává bílé znaky)
 function hasTemplate(f) {
-  return !!(field(f, 'ZADAVATEL') || field(f, 'PROBLEM V CISLECH') ||
-            field(f, 'POPIS RESENI') || field(f, 'PRINOS KC/ROK') ||
-            field(f, 'VYSLEDEK POPIS'));
+  return !!(field(f, 'POPIS RESENI') || field(f, 'ZADAVATEL'));
 }
 
 // sestaví kartu use casu (jen zobrazovaná pole + datová příprava pro E1)
@@ -249,10 +248,10 @@ export default async function handler(req, res) {
       return { task, list, target, f };
     });
 
-    // 4) zařaď karty (Udržování bez šablony ignoruj — F4)
+    // 4) zařaď karty — filtr šablony platí pro VŠECHNY listy (F4 revize v4)
     for (const { task, list, target, f } of cards) {
-      if (list.key === 'udrz' && !hasTemplate(f)) {
-        log.push(`skryto (Udržování bez vyplněné šablony — F4): [${task.id}] ${task.name}`);
+      if (!hasTemplate(f)) {
+        log.push(`skryto (bez vyplněné šablony v2 — F4): [${task.id}] ${task.name}`);
         continue;
       }
       sekce[target].push(buildCard(task, list, target, f));
