@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { parseTemplate, hasTemplate, htmlToLines } from '../api/dashboard.js';
+import { parseTemplate, hasTemplate, htmlToLines, chooseResponse } from '../api/dashboard.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const fx = (name) => readFileSync(join(__dirname, '..', 'api', '__fixtures__', name), 'utf8');
@@ -118,6 +118,38 @@ test('fixture v1-only leftover (29834225) — NEprojde filtrem (chybí POPIS ŘE
 test('fixture strojový prázdný skeleton v2 — NEprojde filtrem', () => {
   const f = parseTemplate(fx('skeleton_empty_v2.html'));
   assert.equal(hasTemplate(f), false, 'prázdný skeleton se nesmí zobrazit');
+});
+
+// ---------- chooseResponse: nikdy necachovat degradovaný výsledek ----------
+
+const PAYLOAD = { generatedAt: '2026-07-20T10:00:00.000Z', dlazdice: { hotovo: 4 }, sekce: {}, hlavicka: {}, log: [] };
+const GOOD = { generatedAt: '2026-07-20T09:00:00.000Z', dlazdice: { hotovo: 4 }, sekce: {}, hlavicka: {}, log: ['x'] };
+
+test('chooseResponse: kompletní běh → cachovat + uložit jako dobrou verzi', () => {
+  const r = chooseResponse({ payload: PAYLOAD, incomplete: false, incompleteInfo: '', lastGood: null });
+  assert.equal(r.status, 200);
+  assert.equal(r.storeGood, true);
+  assert.match(r.cacheControl, /s-maxage=900/);
+  assert.equal(r.body, PAYLOAD);
+});
+
+test('chooseResponse: nekompletní + existuje dobrá verze → servíruj ji, no-store', () => {
+  const r = chooseResponse({ payload: PAYLOAD, incomplete: true, incompleteInfo: '3 popisů nenačteno (kód 429)', lastGood: GOOD });
+  assert.equal(r.status, 200);
+  assert.equal(r.storeGood, false);
+  assert.equal(r.cacheControl, 'no-store');
+  assert.equal(r.body.dlazdice.hotovo, 4);
+  assert.equal(r.body.servedStale, true);
+  assert.ok(r.body.log.some(l => l.includes('poslední dobrou verzi')), 'log má poznámku o stale verzi');
+  assert.ok(r.body.log.some(l => l.includes('429')), 'log obsahuje kód chyby');
+});
+
+test('chooseResponse: nekompletní + žádná dobrá verze (studený start) → částečná data, no-store', () => {
+  const r = chooseResponse({ payload: PAYLOAD, incomplete: true, incompleteInfo: '2 popisů nenačteno (kód NET)', lastGood: null });
+  assert.equal(r.cacheControl, 'no-store');
+  assert.equal(r.body.incomplete, true);
+  assert.equal(r.storeGood, false);
+  assert.ok(r.body.log.some(l => l.includes('částečná data')));
 });
 
 // ---------- pomocná htmlToLines ----------

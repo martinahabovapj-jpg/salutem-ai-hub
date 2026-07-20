@@ -148,15 +148,39 @@ function pipelineLabel(labels) {
   return null;
 }
 
-async function freeloGet(path) {
-  const res = await fetch(`${FREELO_BASE}${path}`, {
-    headers: {
-      'Authorization': 'Basic ' + Buffer.from(`${EMAIL}:${TOKEN}`).toString('base64'),
-      'Content-Type': 'application/json',
-    },
-  });
-  if (!res.ok) throw new Error(`Freelo API ${res.status} @ ${path}`);
-  return res.json();
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const BACKOFF_MS = [1000, 3000, 9000]; // 3 opakování navíc k prvnímu pokusu (1 s, 3 s, 9 s)
+
+// GET s retry na 429 / 5xx / síťovou chybu; respektuje hlavičku Retry-After.
+// Vyhozená chyba nese .status (číslo HTTP, 'NET' u síťové chyby) pro přesný log.
+async function freeloGet(path, attempt = 0) {
+  let res;
+  try {
+    res = await fetch(`${FREELO_BASE}${path}`, {
+      headers: {
+        'Authorization': 'Basic ' + Buffer.from(`${EMAIL}:${TOKEN}`).toString('base64'),
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (netErr) {
+    if (attempt < BACKOFF_MS.length) {
+      await sleep(BACKOFF_MS[attempt]);
+      return freeloGet(path, attempt + 1);
+    }
+    const e = new Error(`Freelo síť selhala @ ${path}: ${netErr.message}`);
+    e.status = 'NET';
+    throw e;
+  }
+  if (res.ok) return res.json();
+  // 429 / 5xx = přechodné → retry s odstupem (respektuj Retry-After, je-li poslán)
+  if ((res.status === 429 || res.status >= 500) && attempt < BACKOFF_MS.length) {
+    const ra = parseInt(res.headers.get('retry-after'), 10);
+    await sleep(!isNaN(ra) ? ra * 1000 : BACKOFF_MS[attempt]);
+    return freeloGet(path, attempt + 1);
+  }
+  const e = new Error(`Freelo API ${res.status} @ ${path}`);
+  e.status = res.status;
+  throw e;
 }
 
 // všechny úkoly listu (vč. podúkolů), s pagingem
@@ -173,12 +197,13 @@ async function fetchAllTasks(listId) {
   return all;
 }
 
-// spustí promises po dávkách (concurrency cap)
-async function inChunks(items, size, fn) {
+// spustí promises po dávkách (omezený souběh) s volitelnou pauzou mezi dávkami (šetří rate limit)
+async function inChunks(items, size, fn, pauseMs = 0) {
   const out = [];
   for (let i = 0; i < items.length; i += size) {
     const chunk = items.slice(i, i + size);
     out.push(...await Promise.all(chunk.map(fn)));
+    if (pauseMs && i + size < items.length) await sleep(pauseMs);
   }
   return out;
 }
@@ -220,11 +245,39 @@ function buildCard(task, list, sekce, f) {
   };
 }
 
+// „Poslední dobrá verze" v paměti (drží se v rámci teplé instance i po expiraci CDN cache).
+// Degradovaný (nekompletní) běh se NIKDY neuloží sem ani do CDN cache.
+let lastGood = null; // { generatedAt, hlavicka, dlazdice, sekce, log }
+
+// Rozhodne, co vrátit. Čistá funkce (bez side-efektů) kvůli testovatelnosti.
+// Vrací { status, cacheControl, body, storeGood }.
+function chooseResponse({ payload, incomplete, incompleteInfo, lastGood }) {
+  if (!incomplete) {
+    // kompletní běh → cachovat a uložit jako poslední dobrou verzi
+    return { status: 200, cacheControl: 's-maxage=900, stale-while-revalidate=86400', body: payload, storeGood: true };
+  }
+  if (lastGood) {
+    // nekompletní → servíruj poslední dobrou verzi, NEcachuj (ať se příště zkusí znovu)
+    let from = '';
+    try { from = new Date(lastGood.generatedAt).toLocaleString('cs-CZ', { hour: '2-digit', minute: '2-digit' }); } catch (e) { from = lastGood.generatedAt; }
+    return {
+      status: 200, cacheControl: 'no-store', storeGood: false,
+      body: { ...lastGood, servedStale: true, log: [...(lastGood.log || []), `⚠ ${incompleteInfo} — servíruji poslední dobrou verzi z ${from}`] },
+    };
+  }
+  // studený start bez dobré verze → částečná data s viditelnou poznámkou, ale NEcachovat
+  return {
+    status: 200, cacheControl: 'no-store', storeGood: false,
+    body: { ...(payload || { sekce: {}, dlazdice: {}, hlavicka: {}, log: [] }), incomplete: true,
+            log: [...((payload && payload.log) || []), `⚠ ${incompleteInfo} — zatím není k dispozici dobrá verze, zobrazuji částečná data`] },
+  };
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate=1800'); // cache 15 min
 
   if (!TOKEN || !EMAIL) {
+    res.setHeader('Cache-Control', 'no-store');
     return res.status(500).json({ error: 'FREELO_API_TOKEN nebo FREELO_EMAIL není nastaven' });
   }
 
@@ -278,9 +331,12 @@ export default async function handler(req, res) {
       }
     }
 
-    // 3) načti popisy (v2 šablony) jen u zobrazovaných úkolů, po dávkách
-    const cards = await inChunks(toLoad, 6, async ({ task, list, sekce: target }) => {
-      let f = {}, preview = '', hadDesc = false;
+    // 3) načti popisy (v2 šablony) jen u úkolů, které prošly listovým/štítkovým sítem (toLoad) —
+    //    tím je počet requestů co nejmenší. Omezený souběh (3) + pauza mezi dávkami šetří rate limit.
+    let failCount = 0;
+    const failCodes = {};
+    const cards = await inChunks(toLoad, 3, async ({ task, list, sekce: target }) => {
+      let f = {}, preview = '', hadDesc = false, loadError = null;
       try {
         const detail = await freeloGet(`/task/${task.id}`);
         const desc = (detail.comments || []).find(c => c.is_description);
@@ -290,13 +346,20 @@ export default async function handler(req, res) {
           preview = stripToText(desc.content).slice(0, 150);
         }
       } catch (e) {
-        log.push(`popis se nepodařilo načíst: [${task.id}] ${task.name}`);
+        loadError = (e && e.status != null) ? e.status : 'ERR';
+        failCount++;
+        failCodes[loadError] = (failCodes[loadError] || 0) + 1;
       }
-      return { task, list, target, f, preview, hadDesc };
-    });
+      return { task, list, target, f, preview, hadDesc, loadError };
+    }, 250);
 
     // 4) zařaď karty — filtr šablony platí pro VŠECHNY listy (F4 revize v4)
-    for (const { task, list, target, f, preview, hadDesc } of cards) {
+    for (const { task, list, target, f, preview, hadDesc, loadError } of cards) {
+      if (loadError != null) {
+        // nenačtený popis ≠ prázdný popis: jedna hláška s pravou příčinou, nezařazovat
+        log.push(`popis se nepodařilo načíst (kód ${loadError}): [${task.id}] ${task.name}`);
+        continue;
+      }
       if (!hasTemplate(f)) {
         if (!hadDesc) {
           log.push(`skryto (popis prázdný): [${task.id}] ${task.name}`);
@@ -349,18 +412,29 @@ export default async function handler(req, res) {
       backlog: sekce.backlog.length,
     };
 
-    return res.status(200).json({
-      generatedAt: new Date().toISOString(),
-      hlavicka,
-      dlazdice,
-      sekce,
-      log,
-    });
+    const incomplete = failCount > 0;
+    const incompleteInfo = incomplete
+      ? `${failCount} popisů nenačteno (kód ${Object.keys(failCodes).join('/')})`
+      : '';
+    if (incomplete) console.warn('Dashboard nekompletní:', incompleteInfo);
+
+    const payload = { generatedAt: new Date().toISOString(), hlavicka, dlazdice, sekce, log };
+    const r = chooseResponse({ payload, incomplete, incompleteInfo, lastGood });
+    if (r.storeGood) lastGood = payload; // ulož jen kompletní běh
+    res.setHeader('Cache-Control', r.cacheControl);
+    return res.status(r.status).json(r.body);
   } catch (err) {
+    // Tvrdá chyba (výpadek Freela, neshoda názvů…) → radši poslední dobrá verze než 500 / prázdno
     console.error('Dashboard API error:', err);
+    if (lastGood) {
+      const r = chooseResponse({ incomplete: true, incompleteInfo: `chyba: ${err.message}`, lastGood });
+      res.setHeader('Cache-Control', r.cacheControl);
+      return res.status(r.status).json(r.body);
+    }
+    res.setHeader('Cache-Control', 'no-store');
     return res.status(500).json({ error: err.message });
   }
 }
 
 // Pojmenované exporty pro jednotkové testy parseru (default handler výše zůstává funkcí Vercelu).
-export { parseTemplate, parseFields, hasTemplate, htmlToLines, stripToText, field, norm, KNOWN_KEYS };
+export { parseTemplate, parseFields, hasTemplate, htmlToLines, stripToText, field, norm, KNOWN_KEYS, chooseResponse };
